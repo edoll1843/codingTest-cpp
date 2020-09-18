@@ -218,45 +218,45 @@ int main() {
 
 ```C++
 ///////////////////////////프린터//////////////////////////
-#include <string>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <queue>
+//#include <string>
+//#include <vector>
+//#include <iostream>
+//#include <algorithm>
+//#include <queue>
 
-using namespace std;
+//using namespace std;
 
-int solution(vector<int> priorities, int location)
-{
-	priority_queue <int> q;
-	queue <pair<int, int>> qp;
-	int answer = 0;
+//int solution(vector<int> priorities, int location)
+//{
+//	priority_queue <int> q;
+//	queue <pair<int, int>> qp;
+//	int answer = 0;
 	
-	for (int a = 0; a < priorities.size(); a++)
-	{
-		q.push(priorities[a]);
-		qp.push(make_pair(priorities[a], a));
-	}
-	while (!qp.empty())
-	{
-		int num = qp.front().first;
-		int lo = qp.front().second;
-		qp.pop();
+//	for (int a = 0; a < priorities.size(); a++)
+//	{
+//		q.push(priorities[a]);
+//		qp.push(make_pair(priorities[a], a));
+//	}
+//	while (!qp.empty())
+//	{
+//		int num = qp.front().first;
+//		int lo = qp.front().second;
+//		qp.pop();
 		
-		if (num == q.top())
-		{
-			q.pop();
-			answer++;
-			if (lo == location)
-				break;
-		}
-		else
-		{
-			qp.push(make_pair(num, lo));
-		}
-	}
-	return answer;
-}
+//		if (num == q.top())
+//		{
+//			q.pop();
+//			answer++;
+//			if (lo == location)
+//				break;
+//		}
+//		else
+//		{
+//			qp.push(make_pair(num, lo));
+//		}
+//	}
+//	return answer;
+//}
 #include <string>
 #include <vector>
 #include <iostream>
