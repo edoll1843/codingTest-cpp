@@ -106,29 +106,7 @@ int main()
     cout << ff; 
 }
 
-```
 
-```C++
-////////////////////완주하지 못한 선수////////////////////////////
-#include <string>
-#include <vector>
-#include <algorithm>
-using namespace std;
-string solution(vector<string> participant, vector<string> completion) {
-    std::sort(participant.begin(), participant.end());
-    std::sort(completion.begin(), completion.end());
-    int cnt = 0;
-    string answer;
-    for (int a = 0; a < participant.size(); a++)
-    {
-        if (participant[a] != completion[a])
-        {
-            answer = participant[a];
-            return answer;
-        }
-    }
-}
-```
 
 ```C++
 //////////////////////모의고사////////////////////////////////////////////////
@@ -176,7 +154,7 @@ int main()
 
 ```C++
 ///////////////////다리를 지나는 트럭///////////////////////
-//https:/mungto.tistory.com/4
+//https:/mungto.tistory.com/4 출처
 #include <string>
 #include <vector>
 #include <queue>
@@ -236,18 +214,7 @@ int main() {
 }
 ```
 
-```C++
-////////////////////////체육복////////////////////////////////
-#include <string>
-#include <vector>
 
-using namespace std;
-
-int solution(int n, vector<int> lost, vector<int> reserve) {
-    int answer = 0;
-    return answer;
-}
-```
 
 ```C++
 ///////////////////////////프린터//////////////////////////
@@ -380,40 +347,6 @@ int main()
     cout << z;
 }
 
-#include <string>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
-int main()
-{
-	vector <int>  c;
-
-	for (int a = 0,b=5; a < 5; a++,b--)
-	{
-		c.push_back(b);
-	}
-	for (int a = 0; a < c.size(); a++)
-	{
-		cout << c[a] << " ";
-	}
-	for (int a = 0; a < c.size(); a++)
-	{
-		cout << &c[a] <<" ";
-	}
-	cout << endl;
-	reverse(c.begin(), c.end());
-	for (int a = 0; a < c.size(); a++)
-	{
-		cout << c[a] << " ";
-	}
-	for (int a = 0; a < c.size(); a++)
-	{
-		cout << &c[a] << " ";
-	}
-
-}
 ```
 ```C++
 //////////////////123 나라의 숫자/////////////////
