@@ -1560,8 +1560,125 @@ int solution(vector<int> cards) {
 }
 ```
 ```C++
+/////////////dfs////////////////////////
+#include <iostream>
+#include <vector>
 
+using namespace std;
+
+int number = 9;
+int visit[9];
+vector<int> a[10];
+
+void dfs(int start)
+{
+	if (visit[start])
+		return;
+	visit[start] = true;
+	cout  << start;
+
+	for (int i = 0; i < a[start].size(); i++)
+	{
+		int x = a[start][i];
+		dfs(x);
+	}
+}
+int main()
+{
+	a[1].push_back(2);
+	a[2].push_back(1);
+
+	a[1].push_back(3);
+	a[3].push_back(1);
+
+	a[2].push_back(3);
+	a[3].push_back(2);
+
+	a[2].push_back(4);
+	a[4].push_back(2);
+
+	a[2].push_back(5);
+	a[5].push_back(2);
+
+	a[4].push_back(8);
+	a[8].push_back(4);
+
+	a[5].push_back(9);
+	a[9].push_back(5);
+
+	a[3].push_back(6);
+	a[6].push_back(3);
+
+	a[3].push_back(7);
+	a[7].push_back(3);
+
+	dfs(1);
+}
 ```
 ```C++
+//////////////////////////bfs//////////////////
+#include <iostream>
+#include <vector>
+#include <queue>
 
+using namespace std;
+vector<int> a[10];
+int visit[9];
+
+
+void bfs(int start)
+{
+	queue <int> q;
+	q.push(start);
+	visit[start] = 1;
+
+	while (!q.empty())
+	{
+	
+		int x = q.front();
+		
+		for (int i = 0; i < a[x].size(); i++)
+		{
+			if (visit[a[x][i]] == 1)
+				continue;
+			q.push(a[x][i]);
+			visit[a[x][i]] = 1;
+		}
+		cout << q.front();
+		visit[x] = 1;
+		q.pop();
+		
+
+	}
+}
+int main()
+{
+	a[1].push_back(2);
+	a[2].push_back(1);
+
+	a[1].push_back(3);
+	a[3].push_back(1);
+
+	a[2].push_back(3);
+	a[3].push_back(2);
+
+	a[2].push_back(4);
+	a[4].push_back(2);
+
+	a[2].push_back(5);
+	a[5].push_back(2);
+
+	a[4].push_back(8);
+	a[8].push_back(4);
+
+	a[5].push_back(9);
+	a[9].push_back(5);
+
+	a[3].push_back(6);
+	a[6].push_back(3);
+
+	a[3].push_back(7);
+	a[7].push_back(3);
+
+	bfs(1);
 ```
