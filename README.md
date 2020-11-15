@@ -1682,3 +1682,49 @@ int main()
 
 	bfs(1);
 ```
+
+```C++
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve) {
+    int answer = 0;
+    int ss = 0;
+    
+    for (int a = 0; a < lost.size(); a++)
+    {
+        for (int b = 0; b < reserve.size(); b++)
+        {
+            if (lost[a] == reserve[b])
+            {
+                lost[a] = 0;
+                reserve[b] = 0;
+                ss++;
+                break;
+            }
+        }
+    }
+
+    for (int a = 0; a < lost.size(); a++)
+    {
+        if (lost[a] == 0)
+            continue;
+        for (int b = 0; b < reserve.size(); b++)
+        {
+            if (reserve[b] == 0)
+                continue;
+            if (lost[a] - 1 == reserve[b] || lost[a] + 1 == reserve[b])
+            {
+                lost[a] = 0;
+                reserve[b] = 0;
+                ss++;
+                break;
+            }
+        }
+    }
+    answer = n-lost.size() + ss;
+    return answer;
+}
+```
