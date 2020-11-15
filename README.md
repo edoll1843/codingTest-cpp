@@ -1687,6 +1687,7 @@ int main()
 
 /////////체육복////////////////
 /*
+2020/11/15 일
 탐욕 알고리즘
 n은 총 학생의 수
 lost는 체육복을 잃어버린 학생들
@@ -1743,3 +1744,9 @@ int solution(int n, vector<int> lost, vector<int> reserve) {
     return answer;
 }
 ```
+
+```C++
+/*
+
+
+*/
