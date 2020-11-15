@@ -1684,6 +1684,8 @@ int main()
 ```
 
 ```C++
+
+/////////체육복////////////////
 #include <string>
 #include <vector>
 #include <iostream>
