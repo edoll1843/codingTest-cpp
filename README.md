@@ -1,6 +1,139 @@
 # 프로그래머스
 
 ```C++
+/*
+
+
+*/
+```
+
+
+
+```C++
+/*
+2020/11/17
+큰 수 만들기(탐욕 알고리즘)
+number는 숫자들 k는 지우는 숫자의 개수
+만약 number에서 k개 만큼의 숫자를 지웠을 떄
+나오는 가장 큰 수를 뽑는 문제이다.
+예를 들어 number = "1924", k = 2
+2개를 지워서 만들 수 있는 수는
+19,12,14,92,94,24 이다. 이중에 가장 큰 수는 94이므로 94가 정답이 된다.
+
+min은 number의 개수에서 k개를 뺸 값으로 정답의 자리수가 된다.
+maxnum은 가장 큰값이다.
+첫 번쨰 포문은 min만큼 돌면서 answer에 한자리씩 값을 삽입하는 포문이다.
+안쪽 포문이 핵심이라 생각한다.
+정답의 첫번쨰 자리부터 가장 큰값을 뽑는 범위는 뒤쪽에 남아있는 자리수 만큼
+확보가 가능한 최대한 범위까지이다. 즉 맨 뒤에있는 숫자가 가장 크다고 해서
+첫번째 자리에 올수 없는것이다. 왜냐면 뒤에 오는 숫자가 없기 때문이다.
+이 문제를 해결하고자 maxnum에 초기값을 주었고 b는 최대값을 찾는 범위중 맨 처음 자리,
+k+a는 최대한의 범위가 되겠다. 오른쪽으로 탐색해가며 현제 저장되어있는 max값보다 값이
+클 경우 값을 바꿔준다. 그리고 maxidx는 그 다음 탐색을 즉, start가 가장 큰값 다음부터
+다시 포문을 시작하는데 그 위치를 저장해주는 역할을 한다.
+
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string number, int k) {
+    string answer = "";
+
+    int min = number.size() - k;
+    char Maxnum = number[0];
+    int start = 0;
+
+    for (int a = 0; a < min; a++)
+    {
+        int maxidx = start;
+        Maxnum = number[start];
+        for (int b = start; b <= k + a; b++)
+        {
+            if (Maxnum < number[b])
+            {
+                Maxnum = number[b];
+                maxidx = b;
+            }
+           
+        }
+        start = maxidx + 1;
+        answer += Maxnum;
+    }
+    return answer;
+}
+```
+
+
+```C++
+
+/////////체육복////////////////
+/*
+2020/11/15 일
+탐욕 알고리즘
+n은 총 학생의 수
+lost는 체육복을 잃어버린 학생들
+reserve는 여분의 체육복을 가지고 있는 학생들이다.
+여분의 학생들도 체육복을 잃어버릴수 있다. 이런 경우엔 다른 학생에게 체육복을 빌려주지 못한다.
+여분의 체육복을 가지고 있는 학생이 잃어버렸는지 먼저 찾아주고 0으로 초기화 시키고 값을 늘려준다.
+그리고 -1과 +1의 값을 비교하여 빌려 줄 수 있는 학생을 탐색하고 값을 정리 한 후 반환한다.
+이 문제는 break와 continue에 성패가 달렸었다.
+break를 하지 않으면 이어서 다른 값을 중복으로 비교 할 수 있기 때문에 연산이 수 차례 일어난다.
+또한 continue를 하지 않으면 0의 값에 -1과 +1을 더한 값을 탐색하기 때문에 예외 처리해주었다.
+
+*/
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve) {
+    int answer = 0;
+    int ss = 0;
+    
+    for (int a = 0; a < lost.size(); a++)
+    {
+        for (int b = 0; b < reserve.size(); b++)
+        {
+            if (lost[a] == reserve[b])
+            {
+                lost[a] = 0;
+                reserve[b] = 0;
+                ss++;
+                break;
+            }
+        }
+    }
+
+    for (int a = 0; a < lost.size(); a++)
+    {
+        if (lost[a] == 0)
+            continue;
+        for (int b = 0; b < reserve.size(); b++)
+        {
+            if (reserve[b] == 0)
+                continue;
+            if (lost[a] - 1 == reserve[b] || lost[a] + 1 == reserve[b])
+            {
+                lost[a] = 0;
+                reserve[b] = 0;
+                ss++;
+                break;
+            }
+        }
+    }
+    answer = n-lost.size() + ss;
+    return answer;
+}
+```
+
+
+
+
+
+
+```C++
 ///////////크레인인형뽑기게임////////////////////////////////////////////////////////
 
 #include <string>
@@ -1683,78 +1816,5 @@ int main()
 	bfs(1);
 ```
 
-```C++
-
-/////////체육복////////////////
-/*
-2020/11/15 일
-탐욕 알고리즘
-n은 총 학생의 수
-lost는 체육복을 잃어버린 학생들
-reserve는 여분의 체육복을 가지고 있는 학생들이다.
-여분의 학생들도 체육복을 잃어버릴수 있다. 이런 경우엔 다른 학생에게 체육복을 빌려주지 못한다.
-여분의 체육복을 가지고 있는 학생이 잃어버렸는지 먼저 찾아주고 0으로 초기화 시키고 값을 늘려준다.
-그리고 -1과 +1의 값을 비교하여 빌려 줄 수 있는 학생을 탐색하고 값을 정리 한 후 반환한다.
-이 문제는 break와 continue에 성패가 달렸었다.
-break를 하지 않으면 이어서 다른 값을 중복으로 비교 할 수 있기 때문에 연산이 수 차례 일어난다.
-또한 continue를 하지 않으면 0의 값에 -1과 +1을 더한 값을 탐색하기 때문에 예외 처리해주었다.
-
-*/
-#include <string>
-#include <vector>
-#include <iostream>
-using namespace std;
-
-int solution(int n, vector<int> lost, vector<int> reserve) {
-    int answer = 0;
-    int ss = 0;
-    
-    for (int a = 0; a < lost.size(); a++)
-    {
-        for (int b = 0; b < reserve.size(); b++)
-        {
-            if (lost[a] == reserve[b])
-            {
-                lost[a] = 0;
-                reserve[b] = 0;
-                ss++;
-                break;
-            }
-        }
-    }
-
-    for (int a = 0; a < lost.size(); a++)
-    {
-        if (lost[a] == 0)
-            continue;
-        for (int b = 0; b < reserve.size(); b++)
-        {
-            if (reserve[b] == 0)
-                continue;
-            if (lost[a] - 1 == reserve[b] || lost[a] + 1 == reserve[b])
-            {
-                lost[a] = 0;
-                reserve[b] = 0;
-                ss++;
-                break;
-            }
-        }
-    }
-    answer = n-lost.size() + ss;
-    return answer;
-}
-```
-
-```C++
-/*
 
 
-*/
-```
-
-```C++
-/*
-
-
-*/
-```
