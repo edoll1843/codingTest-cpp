@@ -1,10 +1,177 @@
 # 프로그래머스
+```C++
+
+/*
+
+*/
+```
+
 
 ```C++
 /*
+2020/11/18
+조이스틱(탐욕 알고리즘)
+이 문제는 조이스틱으로 원하는 문자열을 만드는 문제이다.
+조이스틱은 총 4가지의 방향으로 움직일수 있고 움직였을때 커맨드는 다음과 같다.
+위 - 다음 알파벳
+아래 - 이전 알파벳 (A에서 아래로 이동하면 Z)
+왼 - 커서를 왼쪽으로 이동(첫 번째 위치에서 왼쪽으로 이동하면 마지막 문자에 커서)
+오 - 커서를 오른쪽으로 이동
 
+문자는 "A" x name.size()로 초기화 되어있다.
+이름이 세 글자면 AAA, 네 글자면 AAAA이다.
+위 와 같은 조건으로 조이스틱의 최소 조작 횟수를 반환하는 문제이다.
+ex)
+name = JAZ
+- 첫 번쨰 위치에서 위로 9번 올려 J를 완성 --> +9
+- 왼쪽으로 1번 조작하여 마지막 위치로 이동 --> +1
+- 마지막 위치에서 아래로 1번 조작하여 Z를 완성 --> +1
+answer == 11
 
+생각보다 너무 어려웠던 문제이다.
+테스트 케이스 3, 5, 11번을 끝내 맞추지 못하였다.
+결국 다른 사람의 코드를 참고하였다.
+
+나는 위 아래와 왼쪽 오른쪽을 따로 계산하여 값을 더해주는 방식으로 구현하였다.
+위아래는 알파벳의 중간인 'N' 기준으로 작으면 아래로 움직이고 크면 올리는 방식이다.
+왼쪽 오른쪽은 각각 A를 제외한 알파벳의 순서를 카운팅하여 왼쪽과 오른쪽을 비교하여 어느쪽으로 가는 것이 빠른지 계산하여 진행하였다.
+하지만 생각보다 케이스가 자꾸 나왔고, 그때마다 코드를 추가해주니 코드가 더러워졌다.
 */
+
+//////나의 코드////////////
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int solution(string name) {
+	int answer = 0;
+	int a_count = 0, b_count = 0;
+	for (int a = 0; a < name.size()-1; a++)
+	{
+		if (name[a] != 'A')
+		{
+			a_count++;
+		}
+
+	}
+	for (int b = name.size() - 1; b > 0; b--)
+	{
+
+		if (name[b] != 'A')
+		{
+			b_count++;
+		}
+	}
+
+	for (int a = 0; a < name.size(); a++)
+	{
+		if (name[a] > 'N')
+		{
+			answer += 'Z' - name[a] + 1;
+		}
+		else
+		{
+			answer += name[a] - 'A';
+		}
+
+	}
+	if (a_count > b_count)
+	{
+		if (b_count != 0)
+			answer += name.size() - 1;
+	}
+	else
+	{
+		int flag = 0;
+		int A_count = 0;
+		for (int a = 1; a < name.size(); a++)
+		{
+			if (a == name.size() - 2)
+				break;
+			if (name[a] == 'A')
+				if (name[a + 1] != 'A')
+				{
+					flag = 1;
+					A_count = a;
+					break;
+				}
+			
+		}
+		if (flag == 1)
+		{
+			for (int a = name.size() - 1; a > A_count; a--)
+			{
+				answer++;
+			}
+		}
+		else
+		{
+			if (a_count > 1 && b_count > 1)
+			{
+				answer += name.size() - 1;
+			}
+			else
+				answer += b_count;
+		}
+			
+		
+	}
+
+	return answer;
+}
+
+
+
+//////////////////////////////다른 사람의 코드 참고(멍청한 토끼님 : https://mungto.tistory.com/44)////
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+int solution(string name) {
+	int answer = 0, i = 0;
+	//A로 구성된 화면
+	string temp(name.length(), 'A');
+	while (true)
+	{
+		//바꾸고 있는 화면에 반영하고
+		temp[i] = name[i];
+		//둘중에 적은걸로 결과에 추가하기
+		if (name[i] > 'N')
+			answer += 'Z' - name[i] + 1;
+		else
+			answer += name[i] - 'A';
+		//바꾼후 문자열이 동일하다면 계산 종료
+		if (temp == name)
+			break;
+		//왼쪽으로 갈지 오른쪽으로 갈지 계산하기 
+		for (int move = 1; move < name.length(); move++)
+		{
+			//오른쪽 이동이 빠르다면 오른쪽으로 이동하고 이동횟수 반영
+			if (name[(i + move) % name.length()] != temp[(i + move) % name.length()])
+			{
+				i = (i + move) % name.length();
+				answer += move;
+				break;
+			}
+			//왼쪽으로 이동이 빠르다면 왼쪽으로 이동하고 이동횟수 반영
+			else if (name[(i + name.length() - move) % name.length()] != temp[(i + name.length() - move) % name.length()])
+			{
+				i = (i + name.length() - move) % name.length();
+				answer += move;
+				break;
+			}
+		}
+	}
+	return answer;
+}
+
+int main()
+{
+	string a = "JAZ";
+	cout << solution(a) << endl;
+}
+
 ```
 
 
