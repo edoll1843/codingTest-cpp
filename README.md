@@ -5,6 +5,85 @@
 
 */
 ```
+```C++
+/*
+2020/11/21
+소수찾기(완전탐색)
+이 문제는 낱개의 숫자 조각들로 소수를 몇개 만들 수 있는지 알아내는 문제이다.
+numbers는 각각의 숫자들이 적혀있는 문자열이다.
+
+크게 가능한 모든 숫자 조합을 만드는 순열조합과 소수를 찾아 문제를 풀었다.
+소수를 찾는 함수는 따로 빼두었다.
+문자는 모든 조함으로 벡터에 삽입하여 중복된 숫자를 제거했다
+next_permutation()이라는 함수는 문제를 해결하다가 찾은 함수이다.
+순열을 찾아주는 함수다. 앞으로도 유용하게 쓰일것 같다.
+먼저 char의 각 숫자에 아스키 코드를 뺀 값을 벡터에 삽입하였다.
+그리고 2중 포문으로 모든 숫자 조합을 찾았다.
+밖의 포문은 자리수가 되고 안의 포문은 각자리수의 순열을 찾는 반복문이다.
+찾은 순열은 unique()함수로 중복된 숫자들을 제거했다. 제거하는 이유는 카운터가 중복되기 때문이다.
+또한, unique()함수도 이 문제를 풀면서 알게 되었다.
+메모를 하자면 v.erase(unique(v.begin(), v.end()), v.end());
+이런식으로 사용한다.
+마지막으로 중복을 제거한 숫자들을 미리 빼놓은 소수 찾는 함수를 거쳐 answer의 카운터를
+올려주는 것으로 마무리를 하였다.
+*/
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <cmath>
+using namespace std;
+bool Isprime(int p);
+int solution(string numbers)
+{
+    int answer = 0;
+    vector<int> num;
+    for (int a = 0; a < numbers.size(); a++)
+    {
+        num.push_back(numbers[a]-'0');
+    }
+    sort(num.begin(), num.end());
+    vector<int>r_num;
+    do{
+        for (int a = 0; a <= num.size(); a++)
+        {
+            int temp = 0;
+            for (int b = 0; b < a; b++)
+            {
+                temp = temp * 10 + num[b];
+                r_num.push_back(temp);
+            }
+
+        }
+  
+    }while (next_permutation(num.begin(), num.end()));
+    sort(r_num.begin(), r_num.end());
+    r_num.erase(unique(r_num.begin(), r_num.end()), r_num.end());
+
+    for (int a = 0; a < r_num.size(); a++)
+    {
+        if (Isprime(r_num[a]) == true)
+            answer++;
+    }
+
+    return answer;
+}
+bool Isprime(int p)
+{
+    if (p < 2)
+        return false;
+    for (int a = 2; a*a <= p; a++)
+    {
+        if ((p % a) == 0)
+            return false;
+    }
+    return true;
+}
+int main()
+{
+    cout <<solution("1234");
+}
+```
 
 
 ```C++
