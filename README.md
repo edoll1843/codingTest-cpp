@@ -5,7 +5,7 @@
 
 */
 ```
-![ㅇㄹㄴ](https://user-images.githubusercontent.com/45708825/99902787-b59c4000-2d03-11eb-84ce-f9e0c99d6d9f.jpg)
+![ㅇㄹㄴ](https://user-images.githubusercontent.com/45708825/99902850-16c41380-2d04-11eb-949b-a72675f16917.jpg)
 
 ```C++
 /*
