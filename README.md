@@ -18,11 +18,54 @@ dfs는 깊이 탐색으로 노드의 끝까지 탐색하는 방법이다.
 dfs를 이해하고자 디버깅을 해보고 손으로 값을 적어가면서 해봤지만 쉽지 않았다.
 결국 이해를 하고자 노드를 그려 표현하며 이해를 했다. 생각보다 정말 간단하지만
 코드로 이해하기엔 쉽지 않는 것 같다.
-내가 이해한 노드는 다음과 같다.
+내가 이해한 노드는 위과 같다.
 만약 [a,b,c,d,e]라는 숫자가 있다고 가정한다.
-
++a+b+c+d+e까지 와서 값을 비교하고 -e로 간다. 그 후 -d로 가서 같은 과정을 반복한다.
+이로써 dfs에 대한 이해가 한 층 깊어졌다.
+다른 문제와는 다르게 코드가 문제보다 쉬운 것 같다.
 */
 ```
+#include <string>
+#include <vector>
+#include <iostream>
+
+
+using namespace std;
+int answer = 0;
+void dfs(vector<int> numbers, int target, int sum, int count)
+{
+    if (count == numbers.size())
+    { 
+        if (sum == target)
+        {
+            answer++;
+           
+        }
+        return;
+    }
+    dfs(numbers, target, sum + numbers[count], count+1);
+    dfs(numbers, target, sum - numbers[count], count+1);
+}
+
+int solution(vector<int> numbers, int target) {
+
+    dfs(numbers, target, 0, 0);
+    return answer;
+}
+
+int main()
+{
+    vector <int> dfs;
+    dfs.push_back(1);
+    dfs.push_back(2);
+    dfs.push_back(3);
+    dfs.push_back(4);
+    dfs.push_back(5);
+
+    int a = solution(dfs, 5);
+    cout << a;
+
+}
 ```C++
 /*
 2020/11/21
