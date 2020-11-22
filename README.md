@@ -1,10 +1,12 @@
 # 프로그래머스
+
 ```C++
 
 /*
 
 */
 ```
+
 ![ㅇㄹㄴ](https://user-images.githubusercontent.com/45708825/99902850-16c41380-2d04-11eb-949b-a72675f16917.jpg)
 
 ```C++
@@ -24,7 +26,7 @@ dfs를 이해하고자 디버깅을 해보고 손으로 값을 적어가면서 �
 이로써 dfs에 대한 이해가 한 층 깊어졌다.
 다른 문제와는 다르게 코드가 문제보다 쉬운 것 같다.
 */
-```
+
 #include <string>
 #include <vector>
 #include <iostream>
@@ -66,6 +68,8 @@ int main()
     cout << a;
 
 }
+```
+
 ```C++
 /*
 2020/11/21
