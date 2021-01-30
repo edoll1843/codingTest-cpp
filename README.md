@@ -3,8 +3,154 @@
 ```C++
 
 /*
+2021/01/30
+구명보트(탑욕법)
+이 문제는 무인도에 갇힌 사람들을 보트를 이용해 구출하는 설정이다.
+보트는 두명이 최대로 탈 수 있고 무게 제한도 있다.
+사람들의 몸무게가 담긴 배열과 무게 제한을 줬을 때
+모두를 구하기 위한 보트 개수의 최솟값을 return 한다.
 
+
+처음에는 주어진 배열을 2차 for문으로 두명의 몸무게를 더하며 limit에 가장 가까운
+두 사람을 보트에 태워 보내는 방식으로 풀었다.
+하지만 효율성 테스트, 즉 시간 복잡도에서 모두 실패를 하였다.
+
+두번째로 배열을 정렬하여 무인도에 남아있는 사람이 없을 떄 까지
+반복문을 돌며 맨 처음과 끝을 더햐여 무게제한이 넘으면 가장 무거운 사람 혼자
+태워 보내고 넘지 않으면 두명을 태워 보내는 방식으로 풀었다.
+하지면 역시 효율성 테스트에서 실패를 했고 벡터의 erase()가 원인 인것을 알았다.
+
+세번째로 위와 같은 방식으로 진행하되 벡터를 지우지 않고 head와 tail를 한칸을 이동하여
+보트의 갯수를 세어주는 것으로 진행하였다.
+
+
+직관적으로 보트를 태워보내는 즉 배열의 원소를 지우는 것에 집착했던것 같다.
+문제는 보트의 개수를 구하는 것을 간과했다. 좀 더 효율적으로 문제를 푸는 방법을
+배웠던 문제이다. 문제 난이도는 쉬웠다.
 */
+/////////구명보트/////////1번 풀이
+//#include <vector>
+//#include <iostream>
+//using namespace std;
+//
+//int solution(vector<int> people, int limit) {
+//	int answer = 0;
+//	int sit = 0;
+//	for (int a = 0; a < people.size(); a++)
+//	{
+//		if (people[a] == 0)
+//			continue;
+//		int temp = limit;
+//		for (int b = a + 1; b < people.size(); b++)
+//		{
+//			if (people[b] == 0)
+//				continue;
+//			if (people[a] + people[b] <= limit)
+//			{
+//				if (temp > limit - (people[a] + people[b]))
+//				{
+//					temp = limit - (people[a] + people[b]);
+//					sit = b;
+//				}
+//			}
+//		}
+//		if (temp == limit)
+//		{
+//			people[a] = 0;
+//			answer++;
+//		}
+//		else
+//		{
+//			people[a] = 0;
+//			people[sit] = 0;
+//			answer++;
+//		}
+//	}
+//	return answer;
+//}
+//////////////구명보트///////2번 풀이
+//
+//#include <string>
+//#include <vector>
+//#include <iostream>
+//#include <algorithm>
+//using namespace std;
+//
+//int solution(vector<int> people, int limit) {
+//	int answer = 0;
+//	sort(people.begin(), people.end());
+//	reverse(people.begin(), people.end());
+//	while (people.size())
+//	{
+//		if (people.size() == 1)
+//		{
+//			answer++;
+//			return answer;
+//		}
+//		if (people.front() + people.back() <= limit)
+//		{
+//			people.erase(people.begin());
+//			people.erase(people.begin() + people.size()-1);
+//			answer++;
+//		}
+//		else
+//		{
+//			people.erase(people.begin());
+//			answer++;
+//		}
+//	}
+//	return answer;
+//}
+
+
+#include <string>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> people, int limit) {
+	int answer = 0;
+	int head = 0; 
+	int tail = people.size() - 1;
+	sort(people.begin(), people.end());
+	reverse(people.begin(), people.end());
+	while (head < tail)
+	{
+		if (people[head] + people[tail] > limit)
+		{
+			head++;
+			answer++;
+		}
+		else
+		{
+			head++;
+			tail--;
+			answer++;
+		}
+	}
+	if (head == tail)
+	{
+		answer++;
+	}
+	return answer++;
+
+}
+
+int main()
+{
+	vector <int> a;
+	a.push_back(70);
+	a.push_back(50);
+	a.push_back(80);
+	a.push_back(50);
+	//a.push_back(50);
+	//a.push_back(40);
+	cout << solution(a, 100) << endl;
+
+}
+
+
 ```
 
 ![ㅇㄹㄴ](https://user-images.githubusercontent.com/45708825/99902850-16c41380-2d04-11eb-949b-a72675f16917.jpg)
