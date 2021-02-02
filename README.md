@@ -1,5 +1,80 @@
 # 프로그래머스
+```C++
+/*
 
+
+*/
+////////////////위장///////////////
+
+#include <string>
+#include <vector>
+#include <iostream>
+#include <utility>
+using namespace std;
+
+int solution(vector<vector<string>> clothes) {
+    int answer = 1;
+    vector <pair<string, int>> count;//옷종류, 갯수 저장할 2차 벡터
+    
+    for (int a = 0; a < clothes.size(); a++)
+    {//pair에 옷 종류랑 갯수 벡터에 푸쉬백 같을 경우 예외 처리
+        string temp = clothes[a][1];
+        int flag = 0;
+        int num = 0;
+        for (int c = 0; c < count.size(); c++)
+        {//2차벡터에 중복되는 종류 체크
+            if (temp == count[c].first)
+                flag = 1;//flag로 분별
+        }
+        if (flag == 1)
+            continue;
+        for (int b = a; b < clothes.size(); b++)
+        {//옷 종류의 갯수 늘려주기
+            if (temp == clothes[b][1])
+                num++;
+        }
+        pair<string, int> p = make_pair(temp, num);//종류,갯수 페어
+        count.push_back(p);//푸쉬! 
+    }
+    for (int a = 0; a < count.size(); a++)
+    {//벡터를 돌면서 정답에 조랍의 갯수를 적어준다.
+        answer *= (count[a].second + 1);
+    }//+1 은안입는 경우를 더한 것이다. 이부분 어려웠음
+    /*
+        만약 A,B,C의 종류가 있다면
+        각각 입는 경우 + 1을 해주어 선택하지 않는
+        경우를 고려한다.
+    */
+    answer = answer - 1;
+    //아무 것도 안입는 경우는 없기에
+    // 모든 조합중 선택 하지 않는 경우가 있기에 -1로 뺴준다.
+    return answer;
+}
+
+int main()
+{
+
+    vector <string>a;
+    vector <string>b;
+    vector <string>c;
+    vector <vector<string>> d;
+    a.push_back("yellow_hat");
+    a.push_back("headgear");
+    b.push_back("blue_sunglass");
+    b.push_back("eyewear");
+    c.push_back("green_furban");
+    c.push_back("headgear");
+
+    d.push_back(a);
+    d.push_back(b);
+    d.push_back(c);
+
+    cout << solution(d);
+
+}
+
+
+```
 ```C++
 
 /*
