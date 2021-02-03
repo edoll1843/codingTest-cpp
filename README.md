@@ -1,4 +1,62 @@
 # 프로그래머스
+
+```C++
+/*
+2021/02/03
+K번쨰수(정렬)
+배열의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때 K번째에 있는 수를 구하는 문제이다.
+배열, [i,j,k]를 원소로 가진 2차원 배열을 주었을때
+연산 결과를 배열에 담아 return한다.
+
+문제는 한두번 읽어보면 쉽게 풀 수있을 만큼 난이도가 높지 않았다.
+간단해서 금방 풀었던 문제이다.
+처음에는 반복문 하나로 풀었다.
+벡터 temp를만들어 array를 복사하고 sort함수 j,k를 인자로 넣어
+정렬 시작과 끝을 지정해주고 풀었다.
+두번째는 직관적으로 풀었다. 이중 반복문을 이용하였는데,
+시작과 끝그리고 배열에 담을 포인트까지 변수로 받고
+temp에 잘라서 넣고 temp를 정렬 시킨후 point를 answer에 넣어문제를 해결했다.
+*/
+/////////////K번째수///////////////
+#include <string>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+    vector<int> answer;
+    for (int a =0; a < commands.size(); a++)
+    {
+        vector <int> temp;
+        int start = commands[a][0]-1;
+        int end = commands[a][1]-1;
+        int point = commands[a][2]-1;
+        for (int b = start; b <= end; b++)
+            temp.push_back(array[b]);
+        sort(temp.begin(), temp.end());
+        answer.push_back(temp[point]);
+    }
+    return answer;
+}
+
+int main()
+{
+    vector<int> arr = {1,5,2,6,3,7,4};
+    vector <int> a = {2,5,3};
+    vector <int> b = {4,4,1};
+    vector <int> c = {1,7,3};
+    vector<vector<int>> d = {a,b,c};
+ 
+    vector <int> sol = solution(arr, d);
+
+    for (auto it : sol)
+    {
+        cout << it << ' ';
+    }
+}
+```
+
 ```C++
 /*
 2021/02/02
