@@ -1,5 +1,65 @@
 # 프로그래머스
+```C++
+/*
+2021/02/05
+가장 큰 수(정렬)
+0또는 양의 정수가 주어졌을 떄 이어붙여 만들 수 있는 가장 큰수를 반환하는 문제이다.
+6,10,2가 주어지면
+6102,6210,1062,1026,2610,2106을 만들 수 있고, 이중 가장 큰 수는 6210이다.
 
+반복문을 돌면서 첫번째 자리수가 가장큰 수를 골라내면서 답을 완성하려고 했다.
+만약 가장 큰 첫번째 숫자가 중복된다면 두번쨰 자리수를 비교, 세번째 자리수를 비교하여 반환하려고 했다.
+하지만 구현이 쉽지 않았고 해야할 예외처리가 너무 많았다. 가령 1000과 0이라든지 세자리수와 한자리수의
+비교가 예로 들 수있다. 한참 고민하다 구글링해서 해법을 알아냈는데
+string 벡터를 만들고 값을 넣고 sort를 해주는 것까진 비슷했지만 cmp함수의 사용 여부였다.
+cmp는 a+b > b+a 일때 true를 반환하는 함수다. 이해가 가지않아 디버깅을 하며 노트에 과정을 적어가며 습득했다. 쉽게 말하면 a+b > b+a가 참일때 a와 b의 자리를 바꾼다. 만약 중간에 false인 조건을 만나게 되면
+앞쪽 정렬이 된 상태의 숫자중 제일 뒤 즉, false일때 a의 왼쪽 숫자가 b가 되며 왼쪽으로 b가 바뀌면서 비교를 한다. 중간에 알맞은 자리를 찾으면 그 숫자와 자리 교환을 하는 방식이다. 꽤나 어려운 문제였고 코딩테스트에 요긴하게 사용할 것 같다.
+
+*/
+//////////////가장 큰 수/////////////////
+#include <string>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+///string -> int  : stoi()
+// int -> string  : to_string()
+bool cmp(string a, string b)
+{
+    return a + b > b + a;
+    //a+b>b+a가 참일때만 swap
+}
+string solution(vector<int> numbers) {
+    string answer = "";
+
+    vector<string> s_num;
+    for (auto it : numbers)
+        s_num.push_back(to_string(it));
+    sort(s_num.begin(), s_num.end(),cmp);
+
+
+    if (s_num[0] == "0")
+        return "0";
+    for (auto num : s_num)
+        answer += num;
+
+
+    return answer;
+}
+
+
+int main()
+{
+
+    vector <int> a = { 3,30,34,5,33,9 };
+    string v = solution(a);
+    cout << v;
+
+
+}
+
+
+```
 ```C++
 /*
 2021/02/03
