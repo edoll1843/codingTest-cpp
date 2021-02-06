@@ -1,4 +1,40 @@
 # 프로그래머스
+
+```C++
+/*
+2021/02/06
+두 개 뽑아서 더하기
+정수 배열에서 서로 다른 인덱스에 있는 두개의 수를 뽑아
+더해서 만들 수 있는 모든 수를 배열에 오름차순으로 담는다.
+여기서 중복된 수는 없고
+오름차순이라는 것이 문제를 푸는데 가장 큰 힌트였다.
+set을 이용하여 풀었는데set은 중복된 수를 없애주고 오름차순으로 정렬을 해준다.
+*/
+#include <string>
+#include <vector>
+#include <set>
+using namespace std;
+//set의 특징은 중복이 없고 오름차순으로 정렬이 자동으로 된다.
+vector<int> solution(vector<int> numbers) {
+    vector<int> answer;
+    set<int> c;
+    for(int a =0; a< numbers.size(); a++)
+    {
+        for(int b = a+1; b< numbers.size(); b++)
+        {
+            c.insert(numbers[a]+numbers[b]);
+        }
+    }
+    for(auto a: c)
+    {
+        answer.push_back(a);
+    }
+    
+    return answer;
+}
+```
+
+
 ```C++
 /*
 2021/02/05
