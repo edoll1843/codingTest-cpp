@@ -2,6 +2,28 @@
 ```C++
 /*
 2021/02/06
+가운데 글자 가져오기
+단어 s의 가운데 글자를 반환하는 함수를 구현한다.
+단어의 길이가 짝수라면 두글자를 반환한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string s) {
+    string answer = "";
+    int len = s.size();
+    if(len%2 == 0)
+        answer += s.substr(len/2-1,2);
+    else
+        answer += s.substr(len/2,1);
+    return answer;
+}
+```
+```C++
+/*
+2021/02/06
 2016년
 2016년 1월1일은 금요일일때
 a월 b일은 무슨 요일인지 구하는 문제이다
