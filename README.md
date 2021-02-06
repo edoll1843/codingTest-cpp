@@ -1,5 +1,35 @@
 # 프로그래머스
+```C++
+/*
+2021/02/06
+2016년
+2016년 1월1일은 금요일일때
+a월 b일은 무슨 요일인지 구하는 문제이다
+벡터로 풀었다.
+각 개월의 요일수를 포함하는 벡터
+무슨 요일인지 구하는 벡터를 선언하여
+1주일은 7일 인것을 이용하여 나머지를 구하여 해당하는
+인덱스를 정답으로 리턴하였다.
+*/
+#include <string>
+#include <vector>
 
+using namespace std;
+
+string solution(int a, int b) {
+    string answer = "";
+    int mon=0;
+    int day =0;
+    vector <int> year = {31,29,31,30,31,30,31,31,30,31,30,31};
+    vector <string> an = {"THU","FRI","SAT","SUN","MON","TUE","WED"};
+    for(int i = 0; i<a-1; i++)
+        mon += year[i];
+    mon = mon + b;
+    day = mon % 7;
+    answer = an[day];
+    return answer;
+}
+```
 ```C++
 /*
 2021/02/06
