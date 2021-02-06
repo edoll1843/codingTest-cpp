@@ -2,6 +2,46 @@
 ```C++
 /*
 2021/02/06
+3진법 뒤집기
+자연수n이 있을때 n을 3진법으로 변환 후 뒤집은 후 이를 다시 10진법으로
+표현한 수를 return하는 문제이다.
+나는 이렇게 풀었지만
+다른사람의 코드를 보면
+마지막에 10진법을 구할때
+벡터의 pop_back()을 쓰는 것을 봤다.
+훨씬 간편해보였다.
+*/
+
+#include <string>
+#include <vector>
+#include <math.h>
+using namespace std;
+
+int solution(int n) {
+    int answer = 0;
+    vector <int> three;
+    while(1)
+    {
+        if(n < 3)
+        {
+            three.push_back(n);
+            break;
+        }
+        three.push_back(n%3);
+        n = n/3;
+    }
+    for (int a = 0, b = three.size() - 1; a < three.size(); a++, b--)
+    {
+        answer += three[a] * pow(3,b);
+    }
+        
+    return answer;
+}
+```
+
+```C++
+/*
+2021/02/06
 가운데 글자 가져오기
 단어 s의 가운데 글자를 반환하는 함수를 구현한다.
 단어의 길이가 짝수라면 두글자를 반환한다.
