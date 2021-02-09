@@ -1,4 +1,15 @@
 # 프로그래머스
+
+
+istringstream은 문자열 자를떄
+		ostringstream은 문자열 추가할떄
+		stringstream은 문자열 자르고 추가할떄
+#include <sstream>으로 헤더선언
+		stringstream str("sdadsada"); 으로 문자열 삽입(변수도 가능)
+		string str_cut;
+	str >> str_cut;으로 문자열 공백이나 tab 기준으로 자르기
+	while(str >> str_cut)으로 반복적으로 자를 수 있다.
+		str_cut은 값이 바뀐다.
 ```C++
 /*
 2021/02/09
