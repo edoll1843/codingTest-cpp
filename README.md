@@ -72,7 +72,26 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 48~57('0'~'9')65~90('A'~'Z')97~122('a'~'z') 	<--- 아스키 코드 
 알파벳 대문자 - 32 == 알파벳 소문자		     <--- 'A' + 32 = 'a'
 ```
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
+```C++
+/*2021/02/09
+서울에서 김서방 찾기
+문자열 배열에서 "Kim"을 찾으면 위치를 반환한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(vector<string> seoul) {
+    string answer = "김서방은 ";
+    for(int x = 0; seoul.size(); x++){
+        if(seoul[x] == "Kim")
+            return answer += to_string(x) + "에 있다";
+    }
+}
+```
 
 ```C++
 /*
