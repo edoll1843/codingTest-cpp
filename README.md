@@ -74,7 +74,58 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+```C++
+/*
+2021/02/09
+수박수박수박
+길이가 n일떄 길이만큼 수박수박수박...의 형태로 반환한다.
+*/
+#include <string>
+#include <vector>
 
+using namespace std;
+
+string solution(int n) {
+    string answer = "";
+    string su ={"수"};
+    string bak = {"박"};
+    for(int a =0; a< n; a++)
+        a %2 == 0 ?  answer += su: answer += bak;
+    return answer;
+}
+```
+```C++
+/*
+2021/02/09
+소수찾기Lv1
+1부터 입력받은 숫자 n 사이에 있는 소수의 개수를 반환한다.
+1은 소수가 아니다.
+에라토스테네스의 체를 이용하여 풀었다.
+다른 방법은 n^2의 시간 복잡도가 걸리는데 비해
+에라토스테네스의 체는 nlogn의 시간복잡도가 있다.
+즉 2부터 n까지의 하나씩 커지면서 배수들을 모조리 제외하는 방식이다.
+
+*/
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+int solution(int n) {
+	
+    int answer = 0;
+    //소수면 0, 소수가 아니면 1로 바꾸는 배열
+    int vec[1000000] = { 0 };
+    for (int i = 2; i <= n; i++)
+    {//소수인지 확인하는 구간
+        if (vec[i] == 0){
+            answer++;
+        for (int j = 1; i * j <= n; j++){//j를 곱하면서 늘려가면서 1로 바꾼다.
+            vec[i * j] = 1;
+        }
+    }
+}
+    return answer;
+}
 ```C++
 /*2021/02/09
 서울에서 김서방 찾기
