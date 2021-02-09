@@ -2,6 +2,64 @@
 ```C++
 /*
 2021/02/09
+문자열 내 마음대로 정렬하기
+문자열로 구성된 리스트 string과 정수 n이 있고
+각 문자열의 인덱스 n번쨰 글자를 기준으로 오름차순으로 정렬한다.
+만약 인데스n번째 글자가 같다면 사전순으로 정렬한다.
+이 문제는 이전에 공부했던 sort와 cmp를 이용하여 풀었다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+bool cmp(pair<string,char> a, pair<string,char> b)
+{
+    if(a.second == b.second)
+        return a.first<b.first;
+    else
+        return a.second <b.second; 
+}
+vector<string> solution(vector<string> strings, int n)
+{
+    vector<string> answer;
+    vector<pair<string,char>> temp;  
+    for(auto a: strings)
+        temp.push_back(make_pair(a,a[n]));
+    sort(temp.begin(),temp.end(),cmp);
+    for(auto a: temp)
+        answer.push_back(a.first);
+    return answer;
+}
+/* 코드를 정리하던 중 좀 더 나은 방식을 발견했다.
+n을 전역변수로 받으면 pair로 가지고 다닐 필요가 없다.
+아래가 정리한 코드인데 가독성도 늘어났을 뿐더러 훨씬 더 깔끔해졌다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+int j;
+bool cmp(string a, string b)
+{
+    if(a[j] == b[j])
+        return a<b;
+    else
+        return a[j] <b[j]; 
+}
+vector<string> solution(vector<string> strings, int n)
+{
+    j = n;
+    sort(strings.begin(),strings.end(),cmp);
+    return strings;
+}
+```
+
+```C++
+/*
+2021/02/09
 두 정수 사이의 합
 두 정수 a,b가 주어졌을때 a,b를 포함하여 사이에 속한 모든 정수의 합을 리턴한다.
 */
