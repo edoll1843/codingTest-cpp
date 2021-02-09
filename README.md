@@ -1,5 +1,35 @@
 # 프로그래머스
 
+```C++
+/*
+2021/02/09
+나누어 떨어지는 숫자 배열
+배열의 각 요소 중 인자 divisor로 나누어 떨어지는 값을 오름차순으로 정렬하는 함수를 구현한다.
+나누어떨어지는 요소가 없다면 -1을 반환한다.
+매우 쉬운문제로
+%과 sort함수를 이용하여 풀었다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<int> arr, int divisor) {
+    vector<int> answer;
+    for(auto a: arr)
+    {
+        if(a%divisor == 0)
+            answer.push_back(a);
+    }
+    if(answer.size()== 0)
+        answer.push_back(-1);
+    else
+        sort(answer.begin(), answer.end());
+    return answer;
+}
+```
+
+
 ![KakaoTalk_20210208_174634488](https://user-images.githubusercontent.com/45708825/107197274-08e67a80-6a37-11eb-9c70-5a2aebceb542.jpg)
 
 ```C++
