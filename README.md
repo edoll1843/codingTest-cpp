@@ -68,11 +68,76 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 변수.second
 ```
 ```C++
-조건 ? A : B					     <--- 삼항연산자 조건이 참이면 A, 거짓이면 B를 반환한다.
+조건 ? A : B				       <--- 삼항연산자 조건이 참이면 A, 거짓이면 B를 반환한다.
+48~57('0'~'9')65~90('A'~'Z')97~122('a'~'z') 	<--- 아스키 코드 
+알파벳 대문자 - 32 == 알파벳 소문자		     <--- 'A' + 32 = 'a'
 ```
 
 
+```C++
+/*
+2021/02/09
+문자열 다루기 기본
+문자열의 길이가 4 혹은 6이고 숫자로만 구성돼있으면 true를,
+아니면 false를 반환한다.
+*/
+#include <string>
+#include <vector>
 
+using namespace std;
+
+bool solution(string s) {
+    for(auto a: s)
+    {
+        if(a<'0' || a>'9')
+            return false;
+    }
+    return s.size() == 4|| s.size() == 6 ? true : false;
+}
+```
+
+```C++
+/*
+2021/02/09
+문자열 내림차순으로 배치하기
+문자열을 내림차순으로 정렬하는 문제
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+string solution(string s) {
+    string answer = "";
+    sort(s.begin(),s.end());
+    reverse(s.begin(),s.end());
+    return s;
+}
+```
+
+```C++
+/*
+2021/02/09
+문자열 내 p와 y의 개수
+대소문자 관계없이 문자열에서 p와 y의 개수가 같으면 true 다르면 false를 반환한다.
+*/
+#include <string>
+#include <iostream>
+using namespace std;
+
+bool solution(string s)
+{
+    int p_cnt =0,y_cnt =0;
+    for(auto a : s)
+    {
+        if(a == 'p' || a=='p'-32)
+            p_cnt++;
+        else if(a == 'y'||a=='y'-32)
+            y_cnt++;
+    }
+    return p_cnt == y_cnt ? true : false;
+}
+```
 
 
 
