@@ -48,6 +48,8 @@ bool cmp(string a, string b)
         return a<b;
     else
         return a[j] <b[j]; 
+//삼항연산자를 이용할 경우 -> 조건 ? A : B -> 조건이 참이면 A를, 거짓이면 B를 반환한다.
+// return a[j] == b[j] ?a<b: a[j] <b[j]; 
 }
 vector<string> solution(vector<string> strings, int n)
 {
