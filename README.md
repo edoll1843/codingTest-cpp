@@ -1,15 +1,51 @@
 # 프로그래머스
 ```C++
+#include<sstream>
 istringstream은 문자열 자를때
 ostringstream은 문자열 추가할떄
 stringstream은 문자열 자르고 추가할떄
-#include<sstream>으로 헤더선언
-stringstream str("sdadsada"); 으로 문자열 삽입(변수도 가능)
+stringstream str("sdadsada") 				<--- 변수 선언 및 문자열 삽입(변수도 가능)
 string str_cut;
-str >> str_cut;으로 문자열 공백이나 tab 기준으로 자르기
-while(str >> str_cut)으로 반복적으로 자를 수 있다.
-str_cut은 값이 바뀐다.
+str >> str_cut   					<--- 문자열 공백이나 tab 기준으로 자르기
+str << int형변수 << "직접적인 문자열" << string변수      <--- 문자열 추가
+while(str >> str_cut)					<--- 반복적으로 자를 수 있다 str_cut은 값이 바뀐다.
+
+#include <string>
+to_string
+string a = "0123456789abcdefghij"			<--- 문자열 선언
+string sub1 = a.substr(10)				<--- a[10]부터 끝까지 저장
+string sub2 = a.substr(5,3)				<--- a[5]부터 3개 저장
+string sub3 = a.substr(a.size()-3 , 50)			<--- 두번째 인자가 사이즈보다크면 끝까지 저장
 ```
+
+
+```C++
+#include <algorithm>
+pair<자료형1, 자료형2> 변수				<--- pair의 선언
+변수 = make_pair(자료형1,자료형2)			<--- make_pair로 값을 넣어줘도 된다.
+sort(a.begin, a.end())					<--- 벡터 처음부터 끝까지 정렬
+sort(a.begin, a.end(),cmp)				<--- cmp를 이용하여 정렬. cmp()괄호는 뺴야한다.
+unique(arr.begin(),arr.end())				<--- 배열의 연속된 값을 제거한다. 전체 중복 숫자 지우는거 아님. 
+arr.erase(unique(arr.begin(),arr.end()),arr.end()) 	<--- 뒤에 남기 떄문에 지워줘야한다.전체 중복을 지우고 싶으면 sort하고 이 코드 실행
+reversr(arr.begin(). arr.end())				<--- 벡터를 거꾸로 한다.
+next_permutation()					<--- 순열을 구하는 함수. 최소값부터 나온다 정렬 도됨
+do{
+}while(next_permutation(v.begin(),v.end()));
+```
+```C++
+조건 ? A : B					     <--- 삼항연산자 조건이 참이면 A, 거짓이면 B를 반환한다.
+#include <set>
+set <자료형> set변수				  <---set은 중복된 수를 없애주고 오름차순으로 정렬을 해준다.
+set변수.insert()				    <--- set의 삽입
+```
+
+
+
+
+
+
+
+
 
 ```C++
 /*
