@@ -1,5 +1,32 @@
 # 프로그래머스
+```C++
+/*
+2021/02/09
+두 정수 사이의 합
+두 정수 a,b가 주어졌을때 a,b를 포함하여 사이에 속한 모든 정수의 합을 리턴한다.
+*/
+#include <string>
+#include <vector>
 
+using namespace std;
+
+long long solution(int a, int b) {
+    long long answer = 0;
+    if(a==b)
+        return a;
+    if(a >b)
+    {
+           for(int c =b; c<=a; c++)
+        answer +=c; 
+    }
+    else if(a < b)
+    {
+           for(int c =a; c<=b; c++)
+        answer +=c; 
+    }
+    return answer;
+}
+```
 ```C++
 /*
 2021/02/09
