@@ -87,10 +87,8 @@ using namespace std;
 
 string solution(int n) {
     string answer = "";
-    string su ={"수"};
-    string bak = {"박"};
     for(int a =0; a< n; a++)
-        a %2 == 0 ?  answer += su: answer += bak;
+        a %2 == 0 ?  answer += "수": answer += "박";
     return answer;
 }
 ```
