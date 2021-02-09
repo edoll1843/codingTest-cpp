@@ -7,7 +7,7 @@ ostringstream은 문자열 추가할떄
 
 stringstream은 문자열 자르고 추가할떄
 
-#include <sstream>으로 헤더선언
+#include<sstream>으로 헤더선언
 	
 stringstream str("sdadsada"); 으로 문자열 삽입(변수도 가능)
 
