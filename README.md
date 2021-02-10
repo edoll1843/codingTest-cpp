@@ -80,6 +80,28 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/02/10
+약수의 합
+정수 n을 입력받아 n의 약수를 모두 더한 값을 반환한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int n) {
+    int answer = 0;
+    for (int a = 1; a <= n; a++)
+    {
+        if(n%a ==0)
+           answer += a;
+    }
+    return answer;
+}
+```
+
+```C++
+/*
+2021/02/10
 시저 암호
 어떤 문장의 각 알파벳을 n만큼 오른쪽으로 밀어서 다른 알파벳으로 암호화한다.
 Z를 넘어가면 돌아가서 A부터 민다.
