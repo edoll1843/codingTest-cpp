@@ -13,11 +13,14 @@ while(str >> str_cut)					<--- 반복적으로 자를 수 있다 str_cut은 값�
 ```C++
 #include <string>
 int num = stoi(str)					<--- string형을 int로 바꾸는 함수
+int num = stoi("-1234")					<--- stoi 쓰면 -부호도 인식한다.
 string str = to_string(num)				<--- int형을 string으로 바꾸는 함수
+
 string a = "0123456789abcdefghij"			<--- 문자열 선언
 string sub1 = a.substr(10)				<--- a[10]부터 끝까지 저장
 string sub2 = a.substr(5,3)				<--- a[5]부터 3개 저장
 string sub3 = a.substr(a.size()-3 , 50)			<--- 두번째 인자가 사이즈보다크면 끝까지 저장
+
 ```
 
 
