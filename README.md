@@ -77,6 +77,26 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+
+```C++
+/*
+2021/02/10
+문자열을 정수로 바꾸기
+문자열을 정수로 바꾼다. 부호 +나 -도 인식해서 바꿔준다.
+stoi를 사용하면 -나 +도 인식한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string s) {
+     int answer = stoi(s) ;
+    return answer;
+}
+```
+
+
 ```C++
 /*
 2021/02/09
@@ -95,6 +115,7 @@ string solution(int n) {
     return answer;
 }
 ```
+
 ```C++
 /*
 2021/02/09
