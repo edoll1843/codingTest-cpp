@@ -77,7 +77,46 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+```C++
+/*
+2021/02/10
+시저 암호
+어떤 문장의 각 알파벳을 n만큼 오른쪽으로 밀어서 다른 알파벳으로 암호화한다.
+Z를 넘어가면 돌아가서 A부터 민다.
+z를 넘어가면 돌아가서 a부터 민다.
+*/
+#include <string>
+#include <vector>
 
+using namespace std;
+
+string solution(string s, int n) {
+    string answer = "";
+    for (int a = 0; a < s.size(); a++)
+    {
+        if (s[a] == ' ')
+        {
+            answer += ' ';
+            continue;
+        }
+        if(s[a] >='A' && s[a] <= 'Z')
+        {
+            if (s[a] + n > 'Z')
+                answer += s[a] +n -'Z' +'A'-1;
+            else
+                answer += s[a] + n;
+        }
+        else if(s[a] >= 'a' && s[a] <= 'z')
+        {
+            if(s[a] + n > 'z')
+                answer += s[a] +n -'z' + 'a'-1;
+            else
+                answer += s[a] + n;
+        }
+    }
+    return answer;
+}
+```
 ```C++
 /*
 2021/02/10
