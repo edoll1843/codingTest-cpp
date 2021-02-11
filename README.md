@@ -106,6 +106,33 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+
+```C++
+/*
+2021/02/12
+콜라츠 추측
+어떤 숫자든 다음을 거치면 1이된다.
+짝수면 2로 나눈다. 홀수면 3을 곱하고 1을 더한다.
+작업한 횟수를 리턴한다. 500번이 넘어가면 -1을 반환한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int num) {
+    if (num ==1)
+        return 0;
+    long long a =(long long)num;
+    for(int answer =1; answer <=500; answer++){
+        a %2 ==0 ? a /= 2: a = (a*3) +1 ;
+        if(a == 1)
+            return answer;
+    }
+    return -1;
+
+}
+```
 ```C++
 /*
 2021/02/12
