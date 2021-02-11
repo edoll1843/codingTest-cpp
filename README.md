@@ -78,6 +78,59 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 # 프로그래머스
 ```C++
+2021/02/11
+/*
+
+*/
+#include <string>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+string solution(string s) {
+    
+    string answer = "";
+
+    stringstream str(s);
+    vector <string> temp;
+    string a;
+    while(str >> a)
+    {
+        temp.push_back(a);
+    }
+    for(int i= 0; i <temp.size(); i++)
+    {
+        for(int j =0; j < temp[i].size(); j ++)
+        {
+            if(j %2 ==0)
+            {
+                if(temp[i][j] > 96 && temp[i][j] < 123 )
+                {//소문자
+                    temp[i][j] -= 32;
+                }
+            }
+            else
+            {
+                if(temp[i][j] > 47 && temp[i][j] < 58 )
+                {
+                    temp[i][j] += 32;
+                }
+            }
+        }
+    }
+    for(int z = 0; z< temp.size(); z++)
+    {
+        
+        answer += temp[z];
+        if(z == temp.size()-1)
+           break; 
+        answer += " ";
+    }
+        
+    return answer;
+}
+```
+```C++
 /*
 2021/02/10
 약수의 합
