@@ -1,8 +1,9 @@
 # vector
 ```C+=
-v.erase(v.begin())			<--- 맨앞을 지운다.
-v.erase(v.begin()+a) 			<--- 특정 원소(인덱스)를 지운다.
-v.erase(v.begin()+a, v.begin()+b) 	<--- 특정 원소들 a~b까지 지운다.
+v.erase(v.begin())					<--- 맨앞을 지운다.
+v.erase(v.begin()+a) 					<--- 특정 원소(인덱스)를 지운다.
+v.erase(v.begin()+a, v.begin()+b) 			<--- 특정 원소들 a~b까지 지운다.
+vector<vector<int>> v(행크기,vector<int>(열크기));	 <--- 2차원벡터의 공간할당하는법
 ```
 # cmath
 ```C++
