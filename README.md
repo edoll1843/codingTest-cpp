@@ -82,6 +82,26 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+
+```C++
+/*
+2021/02/12
+자릿수 더하기
+자연수 N이 주어지면 각 자리수의 합을 구한다.
+*/
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespace std;
+int solution(int n)
+{
+    string a = to_string(n);
+    int answer = 0;
+    for (auto i : a)
+        answer += i - '0';
+    return answer;
+}
+```
 ```C++
 /*
 2021/02/12
