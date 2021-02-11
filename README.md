@@ -20,7 +20,8 @@ string a = "0123456789abcdefghij"			<--- 문자열 선언
 string sub1 = a.substr(10)				<--- a[10]부터 끝까지 저장
 string sub2 = a.substr(5,3)				<--- a[5]부터 3개 저장
 string sub3 = a.substr(a.size()-3 , 50)			<--- 두번째 인자가 사이즈보다크면 끝까지 저장
-
+int tolower('A');					<--- 문자를 대문자->소문자로 바꿔준다.
+int toupper('a');					<--- 문자를 소문자->대문자로 바꿔준다.
 ```
 
 
@@ -72,63 +73,50 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 조건 ? A : B				       <--- 삼항연산자 조건이 참이면 A, 거짓이면 B를 반환한다.
 48~57('0'~'9')65~90('A'~'Z')97~122('a'~'z') 	<--- 아스키 코드 
-알파벳 대문자 - 32 == 알파벳 소문자		     <--- 'A' + 32 = 'a'
+
 ```
 
 
 # 프로그래머스
 ```C++
-2021/02/11
 /*
-
+2021/02/12
+이상한 문자 만들기
+문자열 s는 한 개 이상의 단어로 구성되어있다. 각 단어는 하나 이상의 공백문자로 구분된다.
+각 던어의 짝수번째 알파벳은 대문자로, 홀수는 소문자로 바꾸어 문자열을 반환하다.
+이 문제는 toupper()과 tolower()를 이용하여 문제를 해결하였다.
+flag를 사용하여 각 인덱스의 단어 순번을 나타냈다.
 */
 #include <string>
 #include <vector>
-#include <sstream>
 using namespace std;
 
 string solution(string s) {
-    
-    string answer = "";
 
-    stringstream str(s);
-    vector <string> temp;
-    string a;
-    while(str >> a)
-    {
-        temp.push_back(a);
-    }
-    for(int i= 0; i <temp.size(); i++)
-    {
-        for(int j =0; j < temp[i].size(); j ++)
-        {
-            if(j %2 ==0)
-            {
-                if(temp[i][j] > 96 && temp[i][j] < 123 )
-                {//소문자
-                    temp[i][j] -= 32;
-                }
-            }
-            else
-            {
-                if(temp[i][j] > 47 && temp[i][j] < 58 )
-                {
-                    temp[i][j] += 32;
-                }
-            }
-        }
-    }
-    for(int z = 0; z< temp.size(); z++)
-    {
-        
-        answer += temp[z];
-        if(z == temp.size()-1)
-           break; 
-        answer += " ";
-    }
-        
-    return answer;
+	string answer = "";
+	int word = 0;
+	for(int siz =0; siz < s.size(); siz++)
+	{
+		if (s[siz] == ' ')
+		{
+			answer += " ";
+			word = 0;
+			continue;
+		}
+		if (word == 0)
+		{
+			answer += toupper(s[siz]);
+			word = 1;
+		}
+		else
+		{
+			answer += tolower(s[siz]);
+			word = 0;
+		}
+	}
+	return answer;
 }
+
 ```
 ```C++
 /*
