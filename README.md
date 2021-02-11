@@ -14,6 +14,15 @@ while(str >> str_cut)					<--- 반복적으로 자를 수 있다 str_cut은 값�
 ```C++
 #include <string>
 int num = stoi(str)					<--- string형을 int로 바꾸는 함수
+stoi = string to int
+stof = string to float
+stol = string to long int
+stod = string to double
+stoul = string to unsigned int
+stoll = string to long long
+stoull = string to unsigned long long
+stold = string to long double
+
 int num = stoi("-1234")					<--- stoi 쓰면 -부호도 인식한다.
 string str = to_string(num)				<--- int형을 string으로 바꾸는 함수
 char a; int b = a - '0';				<--- char형 문자 하나를 int로 바꾸는거 stoi는 string문자열 전체, atoi는 char문자열 전체
@@ -34,8 +43,10 @@ int toupper('a');					<--- 문자를 소문자->대문자로 바꿔준다.
 pair<자료형1, 자료형2> 변수				<--- pair의 선언
 변수 = make_pair(자료형1,자료형2)			<--- make_pair로 값을 넣어줘도 된다.
 
-sort(a.begin, a.end())					<--- 벡터 처음부터 끝까지 정렬
+sort(a.begin, a.end())					<--- 벡터 처음부터 끝까지 오름차순으로 정렬
+sort(a.begin,a.end(),greater<>())			<--- 내림차순으로 정렬
 sort(a.begin, a.end(),cmp)				<--- cmp를 이용하여 정렬. cmp()괄호는 뺴야한다.
+sort(a.begin,a.end(),greater<>())
 
 unique(arr.begin(),arr.end())				<--- 배열의 연속된 값을 제거한다. 전체 중복 숫자 지우는거 아님. 
 arr.erase(unique(arr.begin(),arr.end()),arr.end()) 	<--- 뒤에 남기 떄문에 지워줘야한다.전체 중복을 지우고 싶으면 sort하고 이 코드 실행
@@ -82,7 +93,45 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+```C++
+/*
+정수 내림차순으로 배치하기
+n의 각 자릿수를 큰 것부터 작은 순으로 정렬한 정수 반환
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
 
+using namespace std;
+
+long long solution(long long n) {
+    long long answer = 0;
+    string a = to_string(n);
+    sort(a.begin(), a.end(),greater<>());
+    answer += stoll(a);
+    return answer;
+}
+```
+```C++
+/*
+2021/02/12
+자연수 뒤집어 배열로 만들기
+자연수 n을 뒤집어 각 자리 숫자를 원소로 가지는 배열을 반환한다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(long long n) {
+    vector<int> answer;
+    string temp = to_string(n);
+    for(auto a : temp)
+        answer.push_back(a - '0');
+    reverse(answer.begin(), answer.end());
+    return answer;
+}
+```
 ```C++
 /*
 2021/02/12
