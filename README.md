@@ -1,3 +1,9 @@
+# vector
+```C+=
+v.erase(v.begin())			<--- 맨앞을 지운다.
+v.erase(v.begin()+a) 			<--- 특정 원소(인덱스)를 지운다.
+v.erase(v.begin()+a, v.begin()+b) 	<--- 특정 원소들 a~b까지 지운다.
+```
 # cmath
 ```C++
 sqrt(n)				<--- 루트n 구하는 함수
@@ -67,8 +73,9 @@ pair<int,int> a1 = minmax(10,200);			<--- 최소값 first, 최대값 second로 �
 auto a2 = minmax(10,200);				<--- auto로해도 pair형식으로 들어간다.
 pair<int,int> b1 = minmax({10,9,1,2,5,4,7,5,8})		<--- <1,10>이 반환된다.
 auto b2 = minmax({10,9,1,2,5,4,7,5,8})			<--- 똑같이 반환된다.
-auto max= *max_element(v.begin(),v.end())		<--- 그냥 이렇게 쓰는게 나을거같다.
-auto min= *min_element(v.bigin(),v.end())		<--- * 꼭 붙여줘야함!!!!!!!!!!!!!!
+auto max= max_element(v.begin(),v.end())-v.begin()	<--- 그냥 이렇게 쓰는게 나을거같다.
+auto min= min_element(v.begin(),v.end())-v.begin()	<--- opteratot를 쓰기 떄문에 변수에 *를 붙이면 에러남 begin()을 뺴는게 맞다. 
+auto f = find(v.begin(),v.end())-v.begin()		<--- 찾으면 위치 인덱스 반환 못찾으면 벡터size()만큼index반환 위와 같은 이유로 뺴는게 맞음
 ```
 # set
 ```C++
@@ -99,6 +106,52 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+```C++
+/*
+2021/02/12
+짝수와 홀수
+짝수면 Even, 홀수면 Odd반환
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(int num) {
+    string answer = "";
+   return num%2==0 ? answer = "Even" : answer = "Odd";
+}
+```
+```C++
+/*
+2021/02/12
+제일 작은 수 제거하기
+정수를 저장한 배열에서 가장 작은수를 제거하고 반환한다.
+빈 배열이거나 size가 1이면 -1를 반환한다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<int> arr) {
+    vector<int> answer;
+    if(arr.size() <=1 )
+    {
+        answer.push_back(-1);
+        return answer;
+    }
+    int min = *min_element(arr.begin(),arr.end());
+    //int a = find(arr.begin(),arr.end(),min)-arr.begin();//find함수써서 찾는법
+    for(int a =0; a< arr.size(); a++)
+    {
+        if(arr[a] == min)
+            arr.erase(arr.begin()+a);
+	    
+    }
+    return arr;
+}
+```
 ```C++
 /*
 정수 제곱근 판별
