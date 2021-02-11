@@ -109,6 +109,80 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 ```C++
 /*
+행렬의 덧셈
+2차원 벡터 2개를 더한 벡터를 리턴한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2) {
+    vector<vector<int>> answer(arr1.size(),vector<int>(arr2[0].size()));
+    for(int a=0; a<arr1.size(); a++)
+    {
+        for(int b=0; b<arr2[a].size(); b++)
+           answer[a][b]= arr1[a][b] + arr2[a][b];
+    }
+    return answer;
+}
+```C++
+/*
+2021/02/12
+핸드폰 번호 가리기
+뒷자리 4자리를 제외한 숫자를 전부 *로 바꾼다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string phone_number) {
+    for(int a =0; a< phone_number.size()-4; a++)
+        phone_number[a] = '*';
+    return phone_number;
+}
+```C++
+/*
+2021/02/12
+하샤드 수
+양의 정수 x의 자릿수의 합으로 x가 나누어지면 하샤드의 수.
+판별하는 함수를 구현한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+bool solution(int x) {
+    string a = to_string(x);
+    int temp =0;
+    for(auto i : a)
+        temp += i-'0';
+    return x%temp==0 ? true : false;
+}
+```
+```C++
+/*
+2021/02/12
+평균 구하기
+정수를 담고 있는 배열 arr의 평균 값을 리턴한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+double solution(vector<int> arr) {
+    double answer = 0;
+    for(auto a : arr)
+        answer += a;
+    answer = answer/arr.size();
+    return answer; 
+}
+```
+```C++
+/*
 2021/02/12
 콜라츠 추측
 어떤 숫자든 다음을 거치면 1이된다.
