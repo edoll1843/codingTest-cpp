@@ -1,3 +1,9 @@
+# cmath
+```C++
+sqrt(n)				<--- 루트n 구하는 함수
+pow(숫자, 제곱할 횟수)		 <--- 제곱근 구하는 함수
+sqrt(n)/1.00 == (int)sqrt(n)    <--- 루트n이 정수인지 판별하는 함수, 이건 같다는 가정
+```
 # sstream
 ```C++
 #include<sstream>
@@ -61,8 +67,8 @@ pair<int,int> a1 = minmax(10,200);			<--- 최소값 first, 최대값 second로 �
 auto a2 = minmax(10,200);				<--- auto로해도 pair형식으로 들어간다.
 pair<int,int> b1 = minmax({10,9,1,2,5,4,7,5,8})		<--- <1,10>이 반환된다.
 auto b2 = minmax({10,9,1,2,5,4,7,5,8})			<--- 똑같이 반환된다.
-auto max= max_element(v.begin(),v.end())		<--- 그냥 이렇게 쓰는게 나을거같다.
-auto min= min_element(v.bigin(),v_end())
+auto max= *max_element(v.begin(),v.end())		<--- 그냥 이렇게 쓰는게 나을거같다.
+auto min= *min_element(v.bigin(),v.end())		<--- * 꼭 붙여줘야함!!!!!!!!!!!!!!
 ```
 # set
 ```C++
@@ -93,6 +99,22 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+```C++
+/*
+정수 제곱근 판별
+임의의 양의 정수 n에 대해 n이 어떤 양의 정수x의 제곱인지 아닌지 판단하고
+맞으면 x+1의 제곱을 리턴, 아니면 -1을 리턴한다.
+*/
+#include <string>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+long long solution(long long n) {
+    long long answer = 0;
+    return sqrt(n) /1.00 != (int)sqrt(n) ? answer = -1 : answer = pow(sqrt(n)+1,2);
+}
+```
 ```C++
 /*
 정수 내림차순으로 배치하기
