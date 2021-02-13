@@ -47,6 +47,9 @@ string sub2 = a.substr(5,3)				<--- a[5]부터 3개 저장
 string sub3 = a.substr(a.size()-3 , 50)			<--- 두번째 인자가 사이즈보다크면 끝까지 저장
 int tolower('A');					<--- 문자를 대문자->소문자로 바꿔준다.
 int toupper('a');					<--- 문자를 소문자->대문자로 바꿔준다.
+
+s.erase(0,5);						<--- s[0]부터 5개 지운다.
+s.erase(find(s.begin(),s.end(),' '));			<--- 시작부터 끝 중에 ' '찾고자 하는 문자를 지운다.
 ```
 
 # algorithm
