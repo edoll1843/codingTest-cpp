@@ -110,6 +110,26 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/02/13
+직사각형 별찍기
+*/
+#include <iostream>
+using namespace std;
+int main(void) {
+    int a;
+    int b;
+    cin >> a >> b;
+    //cout << a + b << endl;
+    for(int i =0; i <b; i++)
+    {
+        for(int j =0; j<a; j++)
+            cout << "*";
+        cout << endl;
+    }
+    return 0;
+}
+```C++
+/*
+2021/02/13
 x만큼 간격이 있는 n개의 숫자
 정수 x와 자연수 n을 입력받아 x부터 시작해 x씩 증가하는 숫자를 n개 지니는
 배열을 반환한다.
