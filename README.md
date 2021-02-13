@@ -107,6 +107,25 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+```C++
+/*
+2021/02/13
+x만큼 간격이 있는 n개의 숫자
+정수 x와 자연수 n을 입력받아 x부터 시작해 x씩 증가하는 숫자를 n개 지니는
+배열을 반환한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<long long> solution(int x, int n) {
+    vector<long long> answer;
+    for(int a=1; a<=n; a++)
+        answer.push_back(x*a);
+    return answer;
+}
+```
 
 ```C++
 /*
