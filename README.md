@@ -110,6 +110,37 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+
+```C++
+/*
+2021/02/14
+예산
+배열의 원소를 각 부서의 신청금액이라고 했을떄 
+정해진 금액이하의 예산에 맞춰 지원가능한 최대 부서의 숫자를 구하여라
+*/
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> d, int budget) {
+    int answer = 0;
+    int sum =0;
+    sort(d.begin(), d.end());
+    for(int a : d)
+    {
+        sum += a;
+        if(sum <= budget)
+            answer++;
+        else
+            break;
+    }
+    return answer;
+}
+```
+
 ```C++
 /*
 2021/02/13
