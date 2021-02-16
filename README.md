@@ -113,6 +113,94 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 ```C++
 /*
+2021/02/16
+카카오 인턴 키패드 누르기
+*/
+
+#include <string>
+#include <vector>
+#include <cmath>
+#include <iostream>
+using namespace std;
+struct point {
+	int x = 0;
+	int y = 0;
+	int num = 0;
+};
+point get(int nu, vector<point>p)
+{
+	for (auto a : p)
+	{
+		if (a.num == nu)
+			return a;
+	}
+}
+string solution(vector<int> numbers, string hand) {
+	string answer = "";
+	vector <point> p;
+	point left, right;
+	for (int a = 0; a < 4; a++)
+	{
+		for (int b = 0; b < 3; b++)
+		{
+			point t;
+			t.x = a;
+			t.y = b;
+			t.num = a * 3 + b + 1;
+			p.push_back(t);
+		}
+	}
+	p[10].num = 0;
+	left = p[9];
+	right = p[11]; 
+
+	for (int a = 0; a < numbers.size(); a++)
+	{
+		if (numbers[a] == 1 || numbers[a] == 4 || numbers[a] == 7)
+		{
+			answer += "L";
+			left = get(numbers[a], p);
+		}
+		else if (numbers[a] == 3 || numbers[a] == 6 || numbers[a] == 9)
+		{
+			answer += "R";
+			right = get(numbers[a], p);
+		}
+		else
+		{
+			point n = get(numbers[a], p);
+			int dis_l = abs(left.x - n.x) + abs(left.y - n.y);
+			int dis_r = abs(right.x - n.x) + abs(right.y - n.y);
+			if (dis_l > dis_r)
+			{
+				answer += "R";
+				right = get(numbers[a], p);
+			}
+			else if(dis_l < dis_r)
+			{
+				answer += "L";
+				left = get(numbers[a], p);
+			}
+			else
+			{
+				if (hand == "left")
+				{
+					answer += "L";
+					left = get(numbers[a], p);
+				}
+				else
+				{
+					answer += "R";
+					right = get(numbers[a], p);
+				}
+			}
+		}
+	}
+	return answer;
+}
+```
+```C++
+/*
 2021/02/14
 예산
 배열의 원소를 각 부서의 신청금액이라고 했을떄 
