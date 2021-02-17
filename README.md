@@ -81,6 +81,21 @@ auto max= max_element(v.begin(),v.end())-v.begin()	<--- 그냥 이렇게 쓰는�
 auto min= min_element(v.begin(),v.end())-v.begin()	<--- opteratot를 쓰기 떄문에 변수에 *를 붙이면 에러남 begin()을 뺴는게 맞다. 
 auto f = find(v.begin(),v.end())-v.begin()		<--- 찾으면 위치 인덱스 반환 못찾으면 벡터size()만큼index반환 위와 같은 이유로 뺴는게 맞음
 ```
+# queue
+```C++
+priority_queue<자료형> q;
+priority_queue<자료형,vector<자료형>,less<자료형>> q;	<--- 경우 int에 대한 MaxHeap, 나오는건 큰거부터
+priority_queue<자료형,vector<자료형>,greater<자료형>> q; <--- 경우 int에 대한 MinHeap, 나오는건 작은거부터
+q.push(value)
+top = q.top();					<--- 큐에 값을 넣는다.
+size = q.size();				<--- min heap은 가장 작은 값, max heap은 가장 큰 값 리턴한다.
+empty = q.empty();				<--- 큐에 1개라도 들어있으면 true, 없으면 false리턴
+q.pop(); 					<--- min heap은 가장 작은값, max heap은 가장 큰 값을 제거한다.
+```
+# stack
+```C++
+
+```
 # set
 ```C++
 #include <set>
