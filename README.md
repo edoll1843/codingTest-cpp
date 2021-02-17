@@ -122,13 +122,13 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 #include <cmath>
 #include <iostream>
 using namespace std;
-struct point {
+struct point { //각 배열의 구조체를 선언하여 좌표와 숫자를 대입한다.
 	int x = 0;
 	int y = 0;
 	int num = 0;
 };
 point get(int nu, vector<point>p)
-{
+{//노드의 위치를 키패드의 숫자 기반으로 비교하여 구조체를 반환한다.
 	for (auto a : p)
 	{
 		if (a.num == nu)
@@ -137,10 +137,10 @@ point get(int nu, vector<point>p)
 }
 string solution(vector<int> numbers, string hand) {
 	string answer = "";
-	vector <point> p;
-	point left, right;
+	vector <point> p;//구조체형태의 백터 선언
+	point left, right; //현재 왼손과 오른손의 위치
 	for (int a = 0; a < 4; a++)
-	{
+	{//키패드 1~9까지의 숫자와 좌표를 벡터에 넣어 키패드 완성
 		for (int b = 0; b < 3; b++)
 		{
 			point t;
@@ -150,46 +150,46 @@ string solution(vector<int> numbers, string hand) {
 			p.push_back(t);
 		}
 	}
-	p[10].num = 0;
-	left = p[9];
-	right = p[11]; 
+	p[10].num = 0;// 숫자 0은 따로 예외로 처리해준다.
+	left = p[9]; //* 
+	right = p[11]; //#
 
 	for (int a = 0; a < numbers.size(); a++)
-	{
+	{// numbers배열에 들어온 숫자를 돌면서 해당하는 손의 위치를 반환하는 반복문
 		if (numbers[a] == 1 || numbers[a] == 4 || numbers[a] == 7)
-		{
+		{//1,4,7일 경우 무조건 왼손이다
 			answer += "L";
-			left = get(numbers[a], p);
+			left = get(numbers[a], p); //현재 왼손의 위치를 대입한다.
 		}
 		else if (numbers[a] == 3 || numbers[a] == 6 || numbers[a] == 9)
-		{
+		{//3,6,9일 경우 무조건 오른손이다.
 			answer += "R";
-			right = get(numbers[a], p);
+			right = get(numbers[a], p); //현재 오른손의 위치를 대입한다.
 		}
 		else
 		{
-			point n = get(numbers[a], p);
-			int dis_l = abs(left.x - n.x) + abs(left.y - n.y);
-			int dis_r = abs(right.x - n.x) + abs(right.y - n.y);
+			point n = get(numbers[a], p);// 2,5,8,0일경우 노드를 만든다.
+			int dis_l = abs(left.x - n.x) + abs(left.y - n.y); // 왼손으로 부터 n까지의 거리를 구한다. x끼리, y끼리의 차이를 더한다.
+			int dis_r = abs(right.x - n.x) + abs(right.y - n.y); // 위와 마찬기지로 오른손의 거리를 구한다.
 			if (dis_l > dis_r)
-			{
+			{ // 왼손의 거리가 더 멀면 오른손을 움직인다.
 				answer += "R";
 				right = get(numbers[a], p);
 			}
 			else if(dis_l < dis_r)
-			{
+			{ // 오른손의 거리가 더 멀면 왼손을 움직힌다.
 				answer += "L";
 				left = get(numbers[a], p);
 			}
 			else
-			{
+			{ // 왼손과 오른손의 거리가 같으면
 				if (hand == "left")
-				{
+				{ //왼손잡이면 왼손을 움직이고
 					answer += "L";
 					left = get(numbers[a], p);
 				}
 				else
-				{
+				{ //오른손잡이면 오른손을 움직인다.
 					answer += "R";
 					right = get(numbers[a], p);
 				}
@@ -199,6 +199,7 @@ string solution(vector<int> numbers, string hand) {
 	return answer;
 }
 ```
+
 ```C++
 /*
 2021/02/14
