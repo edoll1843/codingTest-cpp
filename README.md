@@ -83,6 +83,7 @@ auto f = find(v.begin(),v.end())-v.begin()		<--- 찾으면 위치 인덱스 반�
 ```
 # queue
 ```C++
+#include <queue>
 priority_queue<자료형> q;
 priority_queue<자료형,vector<자료형>,less<자료형>> q;	<--- 경우 int에 대한 MaxHeap, 나오는건 큰거부터
 priority_queue<자료형,vector<자료형>,greater<자료형>> q; <--- 경우 int에 대한 MinHeap, 나오는건 작은거부터
