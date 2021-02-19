@@ -132,6 +132,42 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/02/19
+카펫
+중앙이 노란색, 테두리 1줄은 갈색으로 칠해져있는 카펫이있을때
+노란색 타일, 갈색 타일의 개수를 주었을때
+가로와 세로의 길이를 반환한다.
+단 가로 >= 세로이다.
+이 문제는 갈색 + 노란색 == 세로*가로
+즉 넓이를 이용하여 공약수를 이용하여 풀었다.
+약수를 구하면서 세로와 가로의 길이를 임이로 정하여
+가로 *2는 위 아래 갈색 타일의 개수
+(세로-2)*2는 양옆 갈색 타일의 개수
+이 둘을 더했을때 갈색 타일의 개수가 된다면 반환한다.
+*/
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(int brown, int yellow) {
+    int num = brown + yellow;
+    for (int a = 1; a < num; a++)
+    {
+        if (num % a == 0)
+        {
+            int col = num / a;
+            int row = num / col;
+            if (col * 2 + (row - 2) * 2 == brown)
+                return vector<int>{col, row};
+        }
+    }
+}
+```
+
+```C++
+/*
+2021/02/19
 H-index
 과학자의 H-index의 값을 반환하는 문제이다.
 논문 n편중 h번 이상 인용된 논문이 h편 이상이고 나머지 논문이 h번 이하 인용됐다면
