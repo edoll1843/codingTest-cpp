@@ -129,7 +129,33 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 # 프로그래머스
 
-```c++
+```C++
+/*
+2021/02/19
+H-index
+과학자의 H-index의 값을 반환하는 문제이다.
+논문 n편중 h번 이상 인용된 논문이 h편 이상이고 나머지 논문이 h번 이하 인용됐다면
+h의 최대값이 과학자의 h-index이다. 부연설명을 하자면
+인용논문 숫자가 논문 숫자와 같아지거나 인용논문 수가 논문수보다 작아지기 시작하는 숫자이다.
+인용논문 <= 논문숫자 이시점을 캐치하여 반환하는게 핵심이다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> citations) {
+    sort(citations.begin(), citations.end());
+    for (int a = 0; a < citations.size(); a++)
+    {
+        if(citations[a] >= citations.size() - a)
+            return citations.size()-a;
+    }
+    return 0;
+}
+```
+
+```C++
 /*
 2021/02/19
 더 맵게
@@ -184,6 +210,7 @@ int solution(vector<int> scoville, int K) {
     return answer;
 }
 ```
+
 ```C++
 /*
 2021/02/16
