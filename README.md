@@ -1,9 +1,17 @@
 # vector
-```C+=
+```C++
+vector<int> v(3);					<---크기가 3인 벡터 0으로 초기화
+vector<int> v(3,-1);					<---크기가 3인 벡터 -1로 초기화
+vector<int> v = {1,2,3};				<---벡터의 초기화
+
+vector<vector<int>> v(3,vector<int>(3,-1));		<--- 2차원벡터 행3,세로3을 -1로 초기화
+vector<vector<int>> v(행크기,vector<int>(열크기));	 <--- 2차원벡터의 공간할당하는법 0으로 초기화
+vector<vector<int>> v = {{1,2,3},{4,5,6}};	 	<--- 2차원벡터의 초기화
+
 v.erase(v.begin())					<--- 맨앞을 지운다.
 v.erase(v.begin()+a) 					<--- 특정 원소(인덱스)를 지운다.
 v.erase(v.begin()+a, v.begin()+b) 			<--- 특정 원소들 a~b까지 지운다.
-vector<vector<int>> v(행크기,vector<int>(열크기));	 <--- 2차원벡터의 공간할당하는법
+
 ```
 # cmath
 ```C++
