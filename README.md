@@ -91,7 +91,7 @@ pair<int,int> b1 = minmax({10,9,1,2,5,4,7,5,8})		<--- <1,10>이 반환된다.
 auto b2 = minmax({10,9,1,2,5,4,7,5,8})			<--- 똑같이 반환된다.
 auto max= max_element(v.begin(),v.end())-v.begin()	<--- 그냥 이렇게 쓰는게 나을거같다.
 auto min= min_element(v.begin(),v.end())-v.begin()	<--- opteratot를 쓰기 떄문에 변수에 *를 붙이면 에러남 begin()을 뺴는게 맞다. 
-auto f = find(v.begin(),v.end())-v.begin()		<--- 찾으면 위치 인덱스 반환 못찾으면 벡터size()만큼index반환 위와 같은 이유로 뺴는게 맞음
+auto f = find(v.begin(),v.end(),찾고자하는거)-v.begin()		<--- 찾으면 위치 인덱스 반환 못찾으면 벡터size()만큼index반환 위와 같은 이유로 뺴는게 맞음
 ```
 # queue
 ```C++
