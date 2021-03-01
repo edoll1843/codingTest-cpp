@@ -165,6 +165,8 @@ int solution(vector<int> A, vector<int> B)
         answer += A[i] * B[j];
     return answer;
 }
+```
+
 ```C++
 /*
 2021/03/01
