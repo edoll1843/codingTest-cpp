@@ -147,6 +147,34 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 프로그래머스
 ```C++
 /*
+2021/03/02
+행렬의 곱셈
+2차원 행렬 arr1과 arr2를 받아 arr1에 arr2를 곱한 결과를 반환한다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2) {
+    vector<vector<int>> answer;
+    for(int i = 0; i < arr1.size(); i++)
+    {
+        vector<int> tmp;
+        for(int j =0; j< arr2[0].size(); j++)
+        {
+            int sum =0;
+            for(int x= 0; x< arr1[i].size(); x++)
+                sum += arr1[i][x]*arr2[x][j];
+            tmp.push_back(sum);
+        }
+        answer.push_back(tmp); 
+    }
+    return answer;
+}
+```
+```C++
+/*
 2021/03/01
 피보나치 수
 이 문제는 n번째의 피보나치 수를 구하는 문제이다.
