@@ -143,6 +143,34 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/03/01
+올바른 괄호
+'('문자로 열었으면 ')'로 닫아야한다.
+만약 닫혔으면 true, 아니면 false를 반환하는 문제이다.
+수월하게 풀었다.
+*/
+#include<string>
+#include <iostream>
+
+using namespace std;
+
+bool solution(string s)
+{
+    int cnt = 0;
+    for(int i = 0; i< s.size(); i++)
+    {
+        if(s[i]== '(')
+            cnt++;
+        else
+            cnt--;
+        if(cnt <0)
+            return false;
+    }
+    return cnt ==0 ? true : false;
+}
+```
+```C++
+/*
+2021/03/01
 땅따먹기
 이 문제는 땅이 총 N행, 4열로 이루어져있고
 1행부터 땅을 밟으며 한 행씩 내려올때 각 행의 4칸 중 한 칸만 밟으면서 와야한다.
