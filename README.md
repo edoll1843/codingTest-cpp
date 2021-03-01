@@ -148,6 +148,44 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/03/02
+JadenCase문자열 만들기
+JadenCase는 모든 단어의 첫 문자가 대문자이고 그 외의 알파벳을 소문자이다.
+주어진 문자열을 JadenCase로 만들어 반환하여라
+
+처음에는 sstream을 사용하여 풀었다.
+테스트 케이스는 맞았지만 streamstring은 이용하면 공백 혹은 탭을 기준으로
+문자열을 자르기 때문에 중간에 연속된 문자열을 넣어줄 수가 없어서 히든케이스에서 실패했다.
+
+결국 flag를 이용하여 단어 하나하나 접근하여 문제를 해결했다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string s) {
+    int flag =1;
+    for(int i =0; i < s.size(); i++)
+    {
+        if(s[i] == ' ')
+        {
+            flag = 1;
+            continue;
+        }
+        if(flag == 1) 
+        {
+            s[i] = toupper(s[i]);
+            flag = 0;
+            continue;
+        }
+        s[i] = tolower(s[i]);
+    }
+    return s;
+}
+```
+```C++
+/*
+2021/03/02
 행렬의 곱셈
 2차원 행렬 arr1과 arr2를 받아 arr1에 arr2를 곱한 결과를 반환한다.
 i는 arr1의 세로 반복문
