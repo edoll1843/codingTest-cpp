@@ -148,6 +148,39 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/03/02
+N개의 최소공배수
+N개의 숫자가 담긴 배열을 주었을 때
+N개의 최소 공배수를 반환하는 문제이다.
+sort를 사용하여 맨 뒤에 제일 큰 값을 넣고 곱하면서
+앞에서부터 나누었을 때 나머지가 전부 0이면 반환하는 것으로 구현하였다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> arr) {
+    sort(arr.begin(), arr.end());
+    int max = arr[arr.size() - 1];
+    while (1)
+    {
+        int cnt = 0;
+        for (int i = 0; i < arr.size() - 1; i++)
+        {
+            if (arr[arr.size() - 1] % arr[i] != 0)
+                break;
+            cnt++;
+        }
+        if (cnt == arr.size() - 1)
+            return arr[arr.size() - 1];
+        arr[arr.size() - 1] += max;
+
+    }
+}
+```
+```C++
+/*
+2021/03/02
 JadenCase문자열 만들기
 JadenCase는 모든 단어의 첫 문자가 대문자이고 그 외의 알파벳을 소문자이다.
 주어진 문자열을 JadenCase로 만들어 반환하여라
