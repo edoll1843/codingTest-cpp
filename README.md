@@ -140,7 +140,70 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 
 # 프로그래머스
+```C++
+/*
+2021/03/01
+땅따먹기
+이 문제는 땅이 총 N행, 4열로 이루어져있고
+1행부터 땅을 밟으며 한 행씩 내려올때 각 행의 4칸 중 한 칸만 밟으면서 와야한다.
+단 같은 열을 연속해서 밟을 수 없다.
+1 2 3 5
+5 6 7 8
+4 3 2 1
+이 있다면
+1행4칸(5)
+2행3칸(7)
+3행1칸(4)
+를 밟아 16점이 최고점이 된다.
+이 최고점을 반환하는 문제이다.
 
+처음엔 우선순위 큐로 풀어보려고 했다. 페어를 선언하여
+값과 인덱스를 데리고 다니면서 큐에 저장하는 방식으로 풀려고했다.
+하지만 행을 내려갈때마다 큐를 비우거나 새로 만들어야하는데 이러면 메모리적인 측면에서 안좋다고
+생각하여 정렬을 이용하여 풀어보려고했다.
+매 행을 정렬하여 인덱스를 따로 포함하여 행마다 체크를 해주면서 풀려고했지만
+다른 방법이 있을 것 같아서 좀 더 고민했다.
+이전에는 land[i]와 land[i+1]를 비교하여 land[i]에 값을 바꾸면서 내려가려고 했지만
+그렇게 되면 land[i+2]번째 행에서는 값을 비교하기 어려워진다.
+그래서 반대로 두번째 행에서부터 위의 값을 받아 가기로 하여 max를 이용하여 풀었다.
+max를 사용할 때 max(a,b) 처럼 두개를 비교할땐 그냥 쓰면 되지만
+인자가 3개 이상일 땐 max({a,b,c})처럼 묶어줘야하는 걸 배웠다.
+총 정리를 해보자면
+
+우선순위 큐 -> 공간복잡도 높음
+정렬 -> 코드의 가독성 낮음
+dp(max) -> 최종 풀이
+max() -> 인자가 3개 이상일때 {}로 감싸야한다.
+
+*/
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+using namespace std;
+
+int solution(vector<vector<int> > land)
+{
+	int answer = 0;
+    for (int i = 0; i < land.size()-1; i++)
+    {
+        land[i + 1][0] += max({ land[i][1],land[i][2], land[i][3] });
+        land[i + 1][1] += max({ land[i][0],land[i][2], land[i][3] });
+        land[i + 1][2] += max({ land[i][0],land[i][1], land[i][3] });
+        land[i + 1][3] += max({ land[i][0],land[i][1], land[i][2] });
+    }
+    answer = max({ land[land.size()-1][0],land[land.size()-1][1],land[land.size()-1][2],land[land.size()-1][3] });
+	return answer;
+}
+int main()
+{
+    vector <vector<int>> a = { {1,2,3,5},{5,6,7,8 },{ 4,3,2,1 } };
+    int v = solution(a);
+    cout << v;
+	return 0;
+}
+
+```
 ```C++
 /*
 2021/02/24
