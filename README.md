@@ -80,7 +80,7 @@ arr.erase(unique(arr.begin(),arr.end()),arr.end()) 	<--- 뒤에 남기 떄문에
 reverse(arr.begin(). arr.end())				<--- 벡터를 거꾸로 한다.
 
 next_permutation()					<--- 순열을 구하는 함수. 최소값부터 나온다 정렬 도됨
-do{
+do{							<--- !!!!꼭 sort를 하고 사용할 것 그렇지 않으면 중간 부터 값이 나옴
 	for(int i =0; i < v.size(); i++)
 		cout << v[i];
 }while(next_permutation(v.begin(),v.end()));		<--- string 및 char, int 의 순열도 구할 수 있다.
