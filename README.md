@@ -143,6 +143,33 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/03/01
+최댓값과 최솟값
+문자열 s에 공백으로 구분된 숫자들이 저장되어있다.
+이중 최소값 최대값을 찾아 반환한다.
+*/
+#include <string>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+using namespace std;
+
+string solution(string s) {
+    string answer = "";
+    stringstream str(s);
+    string str_cut;
+    vector <int> a;
+    while (str >> str_cut)
+        a.push_back(stoi(str_cut));
+    answer += to_string(a[min_element(a.begin(), a.end()) - a.begin()]);
+    answer += " ";
+    answer += to_string(a[max_element(a.begin(), a.end()) - a.begin()]);
+    return answer;
+}
+```
+
+```C++
+/*
+2021/03/01
 올바른 괄호
 '('문자로 열었으면 ')'로 닫아야한다.
 만약 닫혔으면 true, 아니면 false를 반환하는 문제이다.
