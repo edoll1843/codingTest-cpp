@@ -83,8 +83,8 @@ next_permutation()					<--- 순열을 구하는 함수. 최소값부터 나온�
 do{
 }while(next_permutation(v.begin(),v.end()));
 
-auto min_num = min(a,b,c);				<-- a,b,c중에 min값을 찾아 min_num에 대입
-auto max_num = max(a,b,c);				<-- a,b,c중에 max값을 찾아 max_num에 대입
+auto min_num = min({a,b,c});				<-- a,b,c중에 min값을 찾아 min_num에 대입(3개 이상일 경우 {}로 감싸야한다.)
+auto max_num = max({a,b,c});				<-- a,b,c중에 max값을 찾아 max_num에 대입(3개 이상일 경우 {}로 감싸야한다.)
 pair<int,int> a1 = minmax(10,200);			<--- 최소값 first, 최대값 second로 들어간다
 auto a2 = minmax(10,200);				<--- auto로해도 pair형식으로 들어간다.
 pair<int,int> b1 = minmax({10,9,1,2,5,4,7,5,8})		<--- <1,10>이 반환된다.
