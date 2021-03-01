@@ -150,6 +150,9 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 2021/03/02
 행렬의 곱셈
 2차원 행렬 arr1과 arr2를 받아 arr1에 arr2를 곱한 결과를 반환한다.
+i는 arr1의 세로 반복문
+j는 arr2의 세로 반복문
+x는 arr1의 가로와 arr2의 세로 반복문
 */
 #include <string>
 #include <vector>
