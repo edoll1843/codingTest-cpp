@@ -143,6 +143,46 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/03/01
+숫자의 표현
+자연수 n을 연속한 자연수들로 표현하는 방법의 개수를 반환하는 문제이다.
+예를들어 n이 15면
+- 1+2+3+4+5 = 15
+- 4+5+6 = 15
+- 7+8 = 15
+- 15 = 15
+이렇게 4가지다.
+*/
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int n) {
+    vector <int> tmp;
+    int answer = 0;
+    for (int i = 1; i <= n; i++)
+        tmp.push_back(i);
+    for (int i = 0; i < tmp.size(); i++)
+    {
+        int sum = tmp[i];
+        for (int j = i + 1; j < tmp.size(); j++)
+        {
+            if (sum == n)
+            {
+                answer++;
+                break;
+            }
+            if (sum > n)
+                break;
+            sum += tmp[j];
+        }
+    }
+    return answer+1;
+}
+```
+```C++
+/*
+2021/03/01
 최댓값과 최솟값
 문자열 s에 공백으로 구분된 숫자들이 저장되어있다.
 이중 최소값 최대값을 찾아 반환한다.
