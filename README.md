@@ -81,7 +81,9 @@ reverse(arr.begin(). arr.end())				<--- 벡터를 거꾸로 한다.
 
 next_permutation()					<--- 순열을 구하는 함수. 최소값부터 나온다 정렬 도됨
 do{
-}while(next_permutation(v.begin(),v.end()));
+	for(int i =0; i < v.size(); i++)
+		cout << v[i];
+}while(next_permutation(v.begin(),v.end()));		<--- string 및 char, int 의 순열도 구할 수 있다.
 
 auto min_num = min({a,b,c});				<-- a,b,c중에 min값을 찾아 min_num에 대입(3개 이상일 경우 {}로 감싸야한다.)
 auto max_num = max({a,b,c});				<-- a,b,c중에 max값을 찾아 max_num에 대입(3개 이상일 경우 {}로 감싸야한다.)
