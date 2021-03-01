@@ -143,6 +143,31 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/03/01
+최솟값 만들기
+이 문제는 크기가 같은 배열 두개를
+배열의 사이즈 만큼 서로 곱하여 더했을 때 최솟값을 반환하는 문제이다.
+A = 1,4,2
+B = 5,4,4
+일때 29가 최솟값이다.
+sort를 사용하여 풀었다.
+*/
+#include <iostream>
+#include<vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> A, vector<int> B)
+{
+    int answer = 0;
+    sort(A.begin(), A.end());
+    sort(B.begin(), B.end());
+    for (int i = 0,j = A.size()-1; i < A.size(); i++,j--)
+        answer += A[i] * B[j];
+    return answer;
+}
+```C++
+/*
+2021/03/01
 숫자의 표현
 자연수 n을 연속한 자연수들로 표현하는 방법의 개수를 반환하는 문제이다.
 예를들어 n이 15면
