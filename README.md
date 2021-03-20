@@ -21,6 +21,14 @@ sqrt(n)				<--- 루트n 구하는 함수
 pow(숫자, 제곱할 횟수)		 <--- 제곱근 구하는 함수
 sqrt(n)/1.00 == (int)sqrt(n)    <--- 루트n이 정수인지 판별하는 함수, 이건 같다는 가정
 ```
+# cctype
+```C++
+isdigit			<--- 숫자인지 판별
+isspace			<--- 공백인지 판별
+isalpha			<--- 알파벳인지 판별
+isupper			<--- 대문자인지 판별
+islower			<--- 소문자인지 판별
+```
 # sstream
 ```C++
 #include<sstream>
