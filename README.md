@@ -23,11 +23,11 @@ sqrt(n)/1.00 == (int)sqrt(n)    <--- 루트n이 정수인지 판별하는 함수
 ```
 # cctype
 ```C++
-isdigit			<--- 숫자인지 판별
-isspace			<--- 공백인지 판별
-isalpha			<--- 알파벳인지 판별
-isupper			<--- 대문자인지 판별
-islower			<--- 소문자인지 판별
+isdigit			<--- 숫자인지 판별 (반환형은 int형, 틀리면 0 맞으면 1)
+isspace			<--- 공백인지 판별(반환형은 int형, 틀리면 0 맞으면 1)
+isalpha			<--- 알파벳인지 판별(반환형은 int형, 틀리면 0 맞으면 1)
+isupper			<--- 대문자인지 판별(반환형은 int형, 틀리면 0 맞으면 1)
+islower			<--- 소문자인지 판별(반환형은 int형, 틀리면 0 맞으면 1)
 ```
 # sstream
 ```C++
