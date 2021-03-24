@@ -79,8 +79,10 @@ pair<자료형1, 자료형2> 변수				<--- pair의 선언
 
 sort(a.begin, a.end())					<--- 벡터 처음부터 끝까지 오름차순으로 정렬
 sort(a.begin,a.end(),greater<>())			<--- 내림차순으로 정렬
+sort(a.rbegin(),a.rend())				<--- 내림차순으로 정렬
 sort(a.begin, a.end(),cmp)				<--- cmp를 이용하여 정렬. cmp()괄호는 뺴야한다.
 sort(a.begin,a.end(),greater<>())
+
 
 unique(arr.begin(),arr.end())				<--- 배열의 연속된 값을 제거한다. 전체 중복 숫자 지우는거 아님. 
 arr.erase(unique(arr.begin(),arr.end()),arr.end()) 	<--- 뒤에 남기 떄문에 지워줘야한다.전체 중복을 지우고 싶으면 sort하고 이 코드 실행
