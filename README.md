@@ -159,6 +159,32 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 프로그래머스
 ```C++
 /*
+2021/03/24
+단속카메라(탐욕법)
+고속도로를 이동하는 모든 차량이 카메라에 한번은 만나게 하려고한다.
+최소 몇대의 카메라를 설치해야하는지 return하는 문제이다.
+*/
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<vector<int>> routes) {
+    sort(routes.rbegin(), routes.rend());
+    int answer = 0, flag = 30002;
+
+    for(size_t i = 0; i < routes.size(); i++){
+        if(flag > routes[i][1]){
+            flag = routes[i][0];
+            answer++;
+        }
+    }
+    return answer;
+}
+```
+```C++
+/*
 2021/03/06
 네트워크(dfs/bfs)
 네트워크는 컴퓨터 상호간에 정보를 교환할 수 있또록 연결된 형태이다.
