@@ -159,6 +159,42 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 프로그래머스
 ```C++
 /*
+2021/03/28
+2 x n 타일링(피보나치)
+가로 2, 세로 1인 직사각형을 이용하여
+가로 n, 세로 2인 직사각형을 채우는 방법의 개수를 return하는 문제이다.
+n을 1부터 4까지 했을 때 규칙성을 찾을 수 있었고
+피보나치 수열인 것을 알았다.
+앞전에 배운 모듈러의 속성을 이용하여 문제를 풀었다.
+*/
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int solution(int n) {
+	int answer = 0;
+    int num = 1000000007;
+    int a = 1, b = 2;
+    if (n == 1)
+        return a;
+    else if (n == 2)
+        return b;
+	else
+	{
+		for (int i = 1; i <= n - 2; i++)
+		{
+            answer = (a + b) % num ;
+            a = b % num;
+            b = answer % num;
+		}
+	}
+	return answer;
+}
+```
+```C++
+/*
 2021/03/24
 단속카메라(탐욕법)
 고속도로를 이동하는 모든 차량이 카메라에 한번은 만나게 하려고한다.
