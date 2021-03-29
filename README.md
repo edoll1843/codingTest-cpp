@@ -160,8 +160,71 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 ```C++
 /*
 2021/03/29
+단어 변환
+두개의 단어 begin, target과 단어의 집합 words가 있을때
+다음과 같은 규칙을 이용하여 begin->target으로 변환하는 가장
+짧은 변환 과정을 찾는 문제이다.
+1. 한번에 한개의 알파벳만 변환할 수 있다.
+2. words에 있는 단어로만 변환할 수 있다.
 
+ex) "hit" -> "cog"로 변환 하려면
+hot, dot, dog, lot, log, cog 가 words에 있을때
+hit -> hot -> dot -> dog -> cog와 같이 4단계를 거친다.
+
+이 문제는dfs로 풀었다.
+먼저 solution함수에서 words안에 begin과 한개의 알파벳이 다른 단어들을 시작으로
+반목문 한번을 돌린다. 여기서 단어 비교를 하는 함수는 따로 빼주었다.
+dfs에선 단어를 변환 하면 "0"으로 바꿔서 visit을 체크해주었다.
+그리고 target과 같은 경우 answer벡터에 증가한 count+1만큼 push한다.
+다른 dfs에서 반복문을 통해 "0"이 아니고, 알파벳이 1개가 차이나는 알파벳으로 dfs에 값을
+넣어 호출한다.
+dfs를 나오면 변환하는 방법들의 개수가 answer에 들어가있고, 그 중 가장 작은 숫자를
+반환하는 식으로 문제를 풀었다.
 */
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+vector<int> answer;
+int compare_num(string str, string st)
+{
+    if (st == "0")
+        return 0;
+	int c = 0;
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] != st[i])
+			c++;
+	}
+	return c;
+}
+void dfs(string cw, string target,vector<string> word,int index,int count)
+{
+    cw = word[index];//변환한 단어로 대입
+    if (cw == target)
+    {//만약 taget과 현재 단어가 같다면 값을 넣고 return한다.
+        answer.push_back(count+1);
+        return;
+    }
+    word[index] = "0"; //visited
+    for (int i = 0; i < word.size(); i++)
+    {//"0"이 아니고 알파벳의 차이가 1개가 나는 단어일 경우 dfs를 호출한다.
+        if (compare_num(cw, word[i]) == 1)
+            dfs(cw, target, word, i, count + 1);
+    }
+}
+int solution(string begin, string target, vector<string> words) {
+ 
+    for (int i = 0; i < words.size(); i++)
+    {//words에서 알파벳 차이가 1개가 나는 단어를 시작점으로 dfs에 넣기 위한 반복문
+        if (compare_num(begin, words[i])==1)
+            dfs(words[i],target,words,i,0);
+    }
+    if(answer.size() == 0)
+        return 0;//찾지 못할 경우 예외처리
+    sort(answer.begin(), answer.end()); //가장 작은 숫자를 반환
+    return answer[0];
+}
 ```
 ```C++
 /*
