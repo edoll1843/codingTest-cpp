@@ -159,6 +159,80 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 프로그래머스
 ```C++
 /*
+2021/04/01
+여행경로
+항공권을 모두 이용하여 여행 경로를 짜ㅕ고한다.
+항상 "ICN"공항에서 출발한다.
+항공권 정보가 담긴 2차원배열 tickets가 변수로 주어질때,
+방문하는 공항 경로를 배열에 담아 return한다.
+1. 모든 공항은 알파벳 대문자 3글자로 이루어진다.
+2. 주어진 공항수는 3개개 이상 10000개이하이다.
+3. tickets의 각 행[a,b]는 a공항에서 b공항으로 가는 항공권이 있다는 의미이다.
+4. 주어진 항공권은 모두 사용한다.
+5. 만일 가능한 경로가 2개 이상일 경우 알파벳 순서가 앞서는 경로로 return한다.
+6. 모든 도시를 방문 할 수 없는 경우는 주어지지 않는다.
+
+모든 경로를 ans벡터에 담은 과정을 구현했지만
+알파벳 순서대로 하는 방법은 미구현
+또한, 여행경로가 끊어지게 되고 항공권이 남아있어도 모두 써야하는 부분도 고려해야한다.
+*/
+#include <string>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+vector<vector<string>> ans;
+void dfs(vector<vector<string>> tickets, vector<string> tmp,string start, string end, int count,int index)
+{
+	tmp.push_back(start);
+	start = tickets[index][0];
+	end = tickets[index][1];
+	if (count == tickets.size())
+	{
+		tmp.push_back(end);
+		ans.push_back(tmp);
+		return;
+	}
+
+	tickets[index][0] = "0";
+	tickets[index][1] = "0";
+	for (int i = 0; i < tickets.size(); i++)
+	{
+		//tickets[i][0] != "0" &&
+		if (end == tickets[i][0])
+		{
+			dfs(tickets, tmp, tickets[i][0], tickets[i][1], count + 1,i);
+		}
+	}
+
+}
+vector<string> solution(vector<vector<string>> tickets) {
+
+	for (int i = 0; i < tickets.size(); i++)
+	{
+		vector<string>tmp;
+		if (tickets[i][0] == "ICN")
+		{
+			dfs(tickets, tmp, tickets[i][0], tickets[i][1], 1, i);
+		}
+	}
+
+	vector<string> s(ans.size());
+	for (int i = 0; i < ans[0].size(); i++)
+	{
+		for (int j = 0; j < ans.size(); j++)
+		{
+            
+
+		}
+	}
+	vector<string> answer = ans[answer_index];
+	return answer;
+}
+```
+```C++
+/*
 2021/03/29
 단어 변환
 두개의 단어 begin, target과 단어의 집합 words가 있을때
