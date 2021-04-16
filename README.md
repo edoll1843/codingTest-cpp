@@ -155,6 +155,7 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 ```
 # 백준
+
 ```C++
 2667번
 단지 번호 붙이기
@@ -170,9 +171,64 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 0은 집이 없고 1은 집이 있다고 가정할 때
 1이 이어진 군단을 찾아
 군단의 개수와 각 군단의 집의 개수를 출력한다. 단 오름차순으로 정렬한다.
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int n;
+int arr[25][25];
+bool visit[25][25];
+vector<int> answer;
+int cnt;
+int dx[4] = { 1,-1,0,0 };// 위 아래
+int dy[4] = { 0,0,1,-1 };  // 좌우
+void dfs(int x, int y)
+{
+    cnt++;
+    visit[x][y] = true;
+    for (int i = 0; i < 4; i++)
+    {
+        int nx = x + dx[i]; // 각 x의 위아래
+        int ny = y + dy[i]; // 각 y의 좌우
+        if (nx >= n || nx < 0 || ny >= n || ny < 0) // 만약 위아래 좌우 한곳이라도 범위를 벗어난 경우는 고려하지않는다.
+            continue;
+        if (!visit[nx][ny]&& arr[nx][ny]) // 그리고 1일 경우와 방문하지 않을 경우만 dfs로 탐색한다.
+            dfs(nx, ny);
+    }
+}
+int main()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        string temp;
+        cin >> temp;
+        for (int j=0; j < n; j++)
+        {
+            arr[i][j] = temp[j] - '0';
+        }
+    }
 
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (arr[i][j] && !visit[i][j])
+            {
+                cnt = 0;
+                dfs(i, j);
+                answer.push_back(cnt);
+            }
+        }
+    }
+    sort(answer.begin(), answer.end());
+    cout << answer.size() << endl;
+    for (auto i : answer)
+        cout << i << endl;  
+}
 
-
+```
 
 ///////////크레인인형뽑기게임////////////////////////////////////////////////////////
 
