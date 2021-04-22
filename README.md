@@ -161,7 +161,100 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 ```C++
 2021/04/22
-1012번
+2178번 bfs
+미로 탐색 실버1
+
+n X m 크기의 배열로 표현되는 미로가 있다.
+
+101111
+101010
+101011
+111011
+
+1은 이동할 수 있는 칸이고 0은 이동할 수 없는 칸이다.
+이때 0,0에서 출발하여 n-1,m-1의 위치로 이동할 때 지나는 최소의 칸 수를 구하는 문제이다.
+
+처음엔 dfs로 풀어보려고 했지만, visit을 계속 초기화해줘야하는 문제와
+깊이로 탐색하기 때문에 모든 경우의 수를 구하느라 시간 복잡도에서 걸리는 문제가 있었다.
+queue를 이용하여 넓이 우선 탐색으로 문제를 해결했다.
+
+dfs는 한방향으로 쭉 탐색한다면, bfs는 한곳부터 여러방향으로 탐색하여 값을 찾는다.
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <queue>
+using namespace std;
+int map[100][100];
+bool visit[100][100];
+vector<int> answer;
+
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int n, m;
+
+void bfs(int x, int y, int cnt)
+{
+    queue<pair<pair<int, int>, int>> que;
+    que.push(make_pair(make_pair(x, y),cnt)); //큐를 만들어준다.(x,y),cnt)형태의 큐이다.
+
+    while (!que.empty())
+    { // 큐에 데이터가 존재하지 않을때까지 돈다.
+        x = que.front().first.first; 
+        y = que.front().first.second;
+        cnt = que.front().second;
+        que.pop();//값을 가져오면 맨 처음에 들어온 값을 pop으로 날려준다.
+
+        if (x == n - 1 && y == m - 1)
+        {//break조건이다. 큐에 값이 남아있더라도 정답을 찾으면 반환한다.
+            answer.push_back(cnt);
+            return;
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = dx[i] + x;  // 4방향으로 탐색하여
+            int ny = dy[i] + y;
+
+            if (nx < 0 || nx >= n || ny < 0 || ny >= m) // 갈수없는 곳이면 패스
+                continue;
+            if (map[nx][ny] && !visit[nx][ny])
+            {//map의 값이 1이고 , 방문하지 않은 곳이라면
+                visit[nx][ny] = true; // 방문했다고 체크하고
+                que.push(make_pair(make_pair(nx, ny), cnt + 1)); // 방문하지 않은 곳을 큐에 넣어준다.
+            }
+        }
+    }
+}
+
+int main()
+{
+
+    cin >> n >> m;
+    for (int i = 0; i < n; i++)
+    {
+        string tmp;
+        cin >> tmp;
+        for (int j = 0; j < m; j++)
+        {
+            map[i][j] = tmp[j] - '0';
+        }
+    }
+    visit[0][0] = true; // 0,0은 방문했다고 한다.
+    bfs(0,0,1); //시작점 0,0과 카운트 1
+    if (answer.size() == 0)// 이건 dfs에서 사용할떄 모든 경우의 수를 구해 가장 짧은 경우를 구할때 쓰는것인데 bfs는 가장 짧은 경로를 만나자마자 반환하기 때문에 사실 필요없다. 
+        cout << 0;
+    else
+    {
+        sort(answer.begin(), answer.end());
+        cout << answer[0];
+    }
+}
+```
+
+```C++
+2021/04/22
+1012번 dfs
 유기농 배추 실버2
 맵에서 상하좌우가 1로 인접할때 마다 벌레를 구입한다고 할때
 구입해야하는 벌레 수를 구하는 문제이다.
@@ -235,7 +328,7 @@ int main()
 
 ```C++
 2021/04/22
-2606번
+2606번 dfs
 바이러스 실버3
 
 컴퓨터가 연결되어있다는 배열을 주었을 때
@@ -288,7 +381,7 @@ int main()
 ```
 
 ```C++
-2667번
+2667번 dfs
 단지 번호 붙이기
 7
 0110100
