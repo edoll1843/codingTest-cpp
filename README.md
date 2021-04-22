@@ -157,6 +157,89 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 백준
 
 ```C++
+2021/04/22
+1012번
+유기농 배추 실버2
+맵에서 상하좌우가 1로 인접할때 마다 벌레를 구입한다고 할때
+구입해야하는 벌레 수를 구하는 문제이다.
+
+얼마 전에 풀었던 1,-1,0,0 / 0,0,1,-1을 이용하여 수월하게 풀었다.
+메인 함수에서 숫자를 받아오는게 조금 번거로웠던 문제였다.
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int bug_cnt;
+int arr[50][50];
+bool visit[50][50];
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+vector <int> answer;
+void dfs(int x, int y, int row, int col)
+{
+    visit[x][y] = true;
+    for (int i = 0; i < 4; i++)
+    {
+        int nx = dx[i] + x;
+        int ny = dy[i] + y;
+        if (nx < 0 || nx >= row || ny < 0 || ny >= col)
+            continue;
+        if (arr[nx][ny] && !visit[nx][ny])
+            dfs(nx, ny, row, col);
+    }
+}
+int main()
+{
+    int test_case;
+    cin >> test_case;
+    for (int i = 0; i < test_case; i++)
+    {
+        bug_cnt = 0;
+        int row, col, one_cnt;
+        cin >> row >> col >> one_cnt;
+        for (int x = 0; x < 50; x++)
+        {
+            for (int y = 0; y < 50; y++)
+                arr[x][y] = 0;
+        }
+        for (int j = 0; j < 50; j++)
+        {
+            for (int z = 0; z < 50; z++)
+                visit[j][z] = false;
+        }
+        for (int j = 0; j < one_cnt; j++)
+        {
+            int x, y;
+            cin >> x >> y;
+            arr[x][y] = 1;
+        }
+        
+        for (int j = 0; j < row; j++)
+        {
+            for (int z = 0; z < col; z++)
+            {
+                if (arr[j][z] == 1 && !visit[j][z])
+                {// 만약 arr에 배추가 심어져있고, 방문하지 않았다면
+                    bug_cnt++;
+                    dfs(j, z,row,col);
+                    
+                }
+            }
+        }
+        answer.push_back(bug_cnt);
+    }
+    for (int i : answer)
+        cout << i << endl;
+}
+
+
+```
+
+```C++
+2021/04/22
 2606번
 바이러스 실버3
 
