@@ -157,6 +157,59 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 백준
 
 ```C++
+2606번
+바이러스 실버3
+
+컴퓨터가 연결되어있다는 배열을 주었을 때
+1번컴퓨터가 바이러스에 걸렸을 떄 연달아 걸리게 된 컴퓨터의 개수를 구하는 문제이다.
+
+첫 줄에는 컴퓨터의 수, 컴퓨터의 수는 100이하이다. 각 컴퓨터에는 1번 부터 번호가 있다.
+둘째 줄에는 네트워크 상에서 직접 연결되어있는 컴퓨터 쌍의 수가 주어진다.
+이어서 한 줄에 한 쌍씩 네트워크 상에서 직접 연결되어있는 컴퓨터의 번호 쌍이 주어진다.
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int n;
+int virus_cnt;
+vector<int> arr[101];
+bool visit[100];
+int cnt;
+void dfs(int N)
+{
+    visit[N] = true; //방문
+    for (int i = 0; i <arr[N].size() ; i++)
+    {//각 컴퓨터와 연결된 컴퓨터 전부 다 돈다.
+        int y = arr[N][i]; 
+        if (!visit[y]) // 만약 연결된 컴퓨터가 방문을 하지 않았으면
+        {
+            dfs(y); //dfs를 돈다.
+            cnt++;
+        }
+      
+    }
+}
+int main()
+{
+
+    cin >> n;
+    cin >> virus_cnt;
+    for (int i = 0; i < virus_cnt; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        arr[x].push_back(y);//데이터를 삽입 할 때 쌍으로 하는 것이 아니고 x번 컴퓨터와 연결된 컴퓨터를 넣는다.
+        arr[y].push_back(x);//반대로 y번 컴퓨터와 연결되 컴퓨터를 넣어서 dfs를 돌린다.
+    }
+    dfs(1); //1번 돌아갈 때
+    cout << cnt;
+}
+```
+
+```C++.
 2667번
 단지 번호 붙이기
 7
