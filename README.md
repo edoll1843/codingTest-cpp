@@ -200,16 +200,8 @@ int main()
         bug_cnt = 0;
         int row, col, one_cnt;
         cin >> row >> col >> one_cnt;
-        for (int x = 0; x < 50; x++)
-        {
-            for (int y = 0; y < 50; y++)
-                arr[x][y] = 0;
-        }
-        for (int j = 0; j < 50; j++)
-        {
-            for (int z = 0; z < 50; z++)
-                visit[j][z] = false;
-        }
+        memset(arr, 0, sizeof(arr));  //arr배열을 0으로 초기화한다. #include <string.h>가 필요하다.
+        memset(visit, false, sizeof(visit)); //visit배열을 false으로 초기화한다. #include <string.h>가 필요하다.
         for (int j = 0; j < one_cnt; j++)
         {
             int x, y;
