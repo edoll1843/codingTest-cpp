@@ -285,7 +285,7 @@ int main()
         int x, y;
         cin >> x >> y;
         arr[x].push_back(y);//데이터를 삽입 할 때 쌍으로 하는 것이 아니고 x번 컴퓨터와 연결된 컴퓨터를 넣는다.
-        arr[y].push_back(x);//반대로 y번 컴퓨터와 연결되 컴퓨터를 넣어서 dfs를 돌린다.
+        arr[y].push_back(x);//반대로 y번 컴퓨터와 연결된 컴퓨터를 넣어서 dfs를 돌린다.
     }
     dfs(1); //1번 돌아갈 때
     cout << cnt;
