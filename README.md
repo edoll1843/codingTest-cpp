@@ -1,3 +1,6 @@
+# string.h
+memset(셋팅하고자하는 메모리주소, 셋팅할 값, 메모리 주소의 사이즈); // 컴파일러 환경에 따라 for문보다 빠를 수가 있다.
+
 # vector
 ```C++
 #include <vector>
