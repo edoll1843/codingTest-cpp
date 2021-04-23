@@ -160,6 +160,88 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 백준
 
 ```C++
+2021/04/23
+1260번 dfs/bfs
+DFS와 BFS 실버2
+
+그래프를 DFS와 BFS로 방문하여 방문 순서대로 출력하는 프로그램이다.
+처음에 그래프로 안하고 노드로 직접 연결시켜서 했지만
+방문하는 순서는 여러가지이기 때문에 순서가 달라 틀렸다.
+결국 bfs같은 건 sort로 오름차순하여 돌리면 되지만
+애초에 그래프로 푸는게 맞는것 같다.
+코드 다 엎고 그래프로 다시 풀었다.
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <string.h>
+#include <queue>
+using namespace std;
+int arr[1001][1001];
+bool visit[1001];
+int N, M, V;
+
+void dfs(int n)
+{
+	
+    cout << n << " ";
+	for (int j = 1; j <= N; j++)
+	{
+        if (!visit[j] && arr[n][j])
+        {
+            visit[j] = true;
+            dfs(j);
+        }
+	}
+}
+void bfs(int n)
+{
+
+	queue<int> q;
+	q.push(n);
+	visit[n] = true;
+
+	while (!q.empty())
+	{
+		n = q.front();
+		q.pop();
+        
+        cout << n << " ";
+		for (int i = 1; i <=N; i++)
+		{
+			if (!visit[i] && arr[n][i])
+			{
+				visit[i] = true;
+				q.push(i);
+                
+			}
+		}
+	}
+}
+int main()
+{
+
+	// N은 정점의 개수
+	// M은 간선의 개수
+	// V은 탬색 시작 번호
+	cin >> N >> M >> V;
+	for (int i = 0; i < M; i++)
+	{
+		int x, y;
+		cin >> x >> y;
+        arr[x][y] = 1;
+        arr[y][x] = 1;
+	}
+    visit[V] = 1;
+	dfs(V);
+    cout << endl;
+
+	memset(visit, false, sizeof(visit));
+	bfs(V);
+    cout << endl;
+}
+```C++
 2021/04/22
 2178번 bfs
 미로 탐색 실버1
