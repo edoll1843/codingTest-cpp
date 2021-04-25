@@ -161,6 +161,71 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 백준
 
 ```C++
+2021/04/25
+2178번 bfs
+미로 탐색 실버1
+
+NxM 크기의 배열에 1이면 이동 가능 0 이면 이동 불가로 인식을 한다.
+이때 0,0에서 n-1,m-1로 갈수 있는 최단 경우의 수를 반환하는 문제이다.
+
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int map[101][101];
+bool visit[101][101];
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int N, M;
+
+int bfs(int x,int y, int cnt)
+{
+    queue<pair<pair<int,int>,int>>q;
+    q.push(make_pair(make_pair(x, y), cnt));
+    visit[x][y] = true;
+    while (!q.empty())
+    {
+        int x_tmp = q.front().first.first;
+        int y_tmp = q.front().first.second;
+        int cnt_tmp = q.front().second;
+        q.pop();
+        if (x_tmp == N - 1 && y_tmp == M - 1)
+            return cnt_tmp;
+        
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = dx[i] + x_tmp;
+            int ny = dy[i] + y_tmp;
+            if (nx < 0 || nx >= N || ny < 0 || ny >= M)
+                continue;
+            if (map[nx][ny] && !visit[nx][ny])
+            {
+                q.push(make_pair(make_pair(nx, ny), cnt_tmp + 1));
+                visit[nx][ny] = true;
+            }
+                
+        }
+    }
+}
+
+int main()
+{
+    cin >> N >> M;
+    for (int i = 0; i < N; i++)
+    {
+        string tmp;
+        cin >> tmp;
+        for (int j = 0; j < M; j++)
+        {
+            map[i][j] = tmp[j] - '0';
+        }
+    }
+    cout <<bfs(0,0,1);
+}
+```C++
 2021/04/23
 1260번 dfs/bfs
 DFS와 BFS 실버2
