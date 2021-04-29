@@ -162,6 +162,37 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 ```C++
 2021/04/29
+2577번 문자열
+숫자의 개수 브론즈2
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    int A, B, C;
+    cin >> A;
+    cin >> B;
+    cin >> C;
+    string num = to_string(A * B * C);
+    int arr[10] = { 0, };
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < num.size(); j++)
+        {
+            if (num[j] - '0' == i)
+                arr[i]++;
+        }
+    }
+    for (int i = 0; i < 10; i++)
+        cout << arr[i] << endl;
+}
+```
+
+```C++
+2021/04/29
 2438번 문자열
 별찍기 -1 브론즈3
 
@@ -180,6 +211,8 @@ int main()
         printf("\n");
     }
 }
+```
+
 ```C++
 2021/04/29
 1463번 dp
