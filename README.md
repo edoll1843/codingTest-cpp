@@ -159,6 +159,27 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 
 ```
 # 백준
+
+```C++
+2021/04/29
+2438번 문자열
+별찍기 -1 브론즈3
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j <= i; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
 ```C++
 2021/04/29
 1463번 dp
