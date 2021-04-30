@@ -161,7 +161,52 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 백준
 
 ```C++
-2021/-4/30
+2021/04/30
+9012번 문자열
+괄호 실버4
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+string check(string str)
+{
+    int cnt = 0;
+    for (int i = 0; i < str.size(); i++)
+    {
+        if (str[i] == '(')
+            cnt++;
+        else if (str[i] == ')')
+            cnt--;
+        if (cnt < 0)
+            return "NO";
+    }
+    return cnt == 0 ? "YES" : "NO";
+}
+int main()
+{
+    int n;
+    cin >> n;
+    vector<string> str;
+    
+    for (int i = 0; i < n; i++)
+    {
+        string tmp;
+        cin >> tmp;
+        str.push_back(tmp);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        str[i] = check(str[i]);
+    }
+    for (auto i : str)
+        cout << i << endl;
+}
+```
+
+```C++
+2021/04/30
 11720번 문자열
 숫자의 합 브론즈2
 
