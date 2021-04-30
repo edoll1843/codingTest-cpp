@@ -161,6 +161,29 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 백준
 
 ```C++
+2021/-4/30
+11720번 문자열
+숫자의 합 브론즈2
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    string str;
+    cin >> str;
+    int sum = 0;
+    for (int i = 0; i < str.size(); i++)
+        sum += str[i] - '0';
+    cout << sum;
+}
+```
+
+```C++
 2021/04/29
 2577번 문자열
 숫자의 개수 브론즈2
