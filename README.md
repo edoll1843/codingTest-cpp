@@ -161,6 +161,48 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 # 백준
 
 ```C++
+2021/05/02
+8958번 문자열
+OX퀴즈 브론즈2
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    vector<string> arr;
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        string tmp;
+        cin >> tmp;
+        arr.push_back(tmp);
+    }
+    vector<int> answer(arr.size());
+    for (int i = 0; i < arr.size(); i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < arr[i].size(); j++)
+        {
+            if (arr[i][j] == 'O')
+            {
+                sum++;
+                answer[i] += sum;
+            }
+            else
+                sum = 0;
+        }
+    }
+    for (auto i : answer)
+        cout << i << endl;
+}
+```
+
+```C++
 2021/04/30
 9012번 문자열
 괄호 실버4
