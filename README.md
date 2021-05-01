@@ -81,6 +81,8 @@ s.erase(find(s.begin(),s.end(),' '));			<--- 시작부터 끝 중에 ' '찾고�
 pair<자료형1, 자료형2> 변수				<--- pair의 선언
 변수 = make_pair(자료형1,자료형2)			<--- make_pair로 값을 넣어줘도 된다.
 
+int tmp[MAX];
+sort(tmp,tmp+n);					<-- 배열로 쓸땐 이렇게함, (시작,끝)
 sort(a.begin, a.end())					<--- 벡터 처음부터 끝까지 오름차순으로 정렬
 sort(a.begin,a.end(),greater<>())			<--- 내림차순으로 정렬
 sort(a.rbegin(),a.rend())				<--- 내림차순으로 정렬
@@ -157,8 +159,41 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 2. (a - b) % n == ((a % n) - (b % n)) % n 	<--- 이때 -연산을 이용할 떄 %를 쓰면 마지막에 +n으로 양수로 만들 수 있다.
 3. (a * b) % n == ((a % n) * (b % n)) % n
 
+3 1 4 5 2 를 공백포함하여 cin받고 싶으면 arr[MAX]선언후
+for(int i =0; i< MAX; i++)		
+	cin >> arr[i]; 이렇게 한다.
 ```
 # 백준
+
+```C++
+2021/05/02
+11399번 greedy
+ATM 실버3
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    int tmp[1001];
+    vector<int> arr;
+    for (int i = 0; i < n; i++)
+        cin >> tmp[i];//3 1 4 3 2 <--이런식으로 받을때 배열에 바로 넣어도됨
+    sort(tmp,tmp+n);//<-- 배열로 쓸땐 이렇게함, (시작,끝)
+    int answer = 0;
+    for(int i =0; i< n; i++)
+    {
+        for (int j = 0; j <= i; j++)
+            answer += tmp[j];      
+    }
+    cout << answer;
+}
+```
 
 ```C++
 2021/05/02
