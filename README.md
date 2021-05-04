@@ -47,7 +47,12 @@ while(str >> str_cut)					<--- 반복적으로 자를 수 있다 str_cut은 값�
 ```
 # string
 ```C++
+
 #include <string>
+
+string str;
+getline(cin,str);					<--- string을 공백포함해서 cin받는거
+
 int num = stoi(str)					<--- string형을 int로 바꾸는 함수
 stoi = string to int
 stof = string to float
@@ -164,6 +169,29 @@ for(int i =0; i< MAX; i++)
 	cin >> arr[i]; 이렇게 한다.
 ```
 # 백준
+
+```C++
+2021/05/04
+1152번 문자열
+단어의 개수 브론즈2
+
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+    string tmp;
+    getline(cin, tmp);
+    stringstream str(tmp);
+    string str_cut;
+    int count = 0;
+    while (str >> str_cut)
+        count++;
+    cout << count;
+}
+```
 
 ```C++
 2021/05/02
