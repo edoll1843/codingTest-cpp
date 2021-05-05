@@ -171,6 +171,39 @@ for(int i =0; i< MAX; i++)
 # 백준
 
 ```C++
+2021/05/05
+1157번 문자열
+단어 공부
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main()
+{
+    vector<pair<int, char>> v(26);
+    string a;
+    cin >> a;
+    sort(a.begin(), a.end());
+    for (int i = 0; i < a.size(); i++)
+        a[i] = tolower(a[i]);
+    for (int i = 0; i < a.size(); i++)
+    {
+        v[a[i] - 'a'].first++;
+        v[a[i] - 'a'].second = a[i];
+    }
+    
+    sort(v.begin(), v.end());
+    char tmp = toupper(v[v.size() - 1].second);
+    if (v[25].first == v[24].first)
+        cout << "?";
+    else
+        cout << tmp;
+}
+```
+
+```C++
 2021/05/04
 1152번 문자열
 단어의 개수 브론즈2
