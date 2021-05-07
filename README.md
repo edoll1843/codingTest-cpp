@@ -169,7 +169,29 @@ for(int i =0; i< MAX; i++)
 	cin >> arr[i]; 이렇게 한다.
 ```
 # 백준
+```C++
+2021/05/07
+11719번 문자열
+그대로출력하기2 브로즈2
 
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+int main()
+{
+    vector<string>tmp;
+    for (int i = 0; i < 100; i++)
+    {
+        string a;
+        getline(cin, a);
+        tmp.push_back(a);
+    }
+    for (auto i : tmp)
+        cout << i << endl;
+}
+```
 ```C++
 2021/05/05
 1157번 문자열
