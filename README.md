@@ -51,6 +51,11 @@ while(str >> str_cut)					<--- 반복적으로 자를 수 있다 str_cut은 값�
 #include <string>
 
 string str;
+auto i = str.find('a')					<--- a를 찾는다 있으면 인덱스 반환 없으면 (int)i 했을때 -1값 나옴
+auto i = str.find("is");				<--- 문자열도 찾을 수 있다.
+auto i = str.find("is",5);				<--- str의 5번째 문자부터 찾는다.
+
+string str;
 getline(cin,str);					<--- string을 공백포함해서 cin받는거
 
 int num = stoi(str)					<--- string형을 int로 바꾸는 함수
@@ -169,6 +174,64 @@ for(int i =0; i< MAX; i++)
 	cin >> arr[i]; 이렇게 한다.
 ```
 # 백준
+```C++
+2021/05/07
+1316번 문자열
+그룹 단어 체커 실버5
+
+문자열에 대해서 각 문자가 연속해서 나타나는 경우가 그룹단어라고 지칭한다.
+ccazzzzbb는 모두 연속해서 나타내기때문에 그룹이지만
+aabbca는 a가 떨어져 나타나서 그룹단어가 아니다.
+그룹단어의 개수를 출력하는 프로그램을 작성한다.
+
+먼저 단어의 개수와 단어를 벡터에 넣었다.
+반복문을 돌며 check에 find를 사용하여 중복체크를 하고 없으면 넣어준다.
+연속된 문자를 탐지하기 위해 char변수로 그전의 문자를 받아온다.
+현재 문자가 check에 문자가 있지만 char변수와 같으면 연속된 문자기때문에 check에 넣어준다.
+아닌경우는 그룹단어가 아니기에 n에서 -1를하고 break;로 단어 탐색을 즉시 종료해준다.
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{ 
+    int n;
+    cin >> n;
+    vector<string>arr;
+    for (int i = 0; i < n; i++)
+    {
+        string tmp;
+        cin >> tmp;
+        arr.push_back(tmp);
+    }
+    for (int i = 0; i < arr.size(); i++)
+    {
+        string check; //검사가 완료된 문자
+        char cha = arr[i][0];  //바로전의 문자를 담는다. 연속된 문자 체크
+        for (int j = 0; j < arr[i].size(); j++)
+        {
+            auto it = check.find(arr[i][j]); //검사된 문자중에 중복여부를 찾는다.
+            if ((int)it == -1)
+            { // 없으면 
+                check += arr[i][j]; // check에 넣어준다.
+                cha = arr[i][j]; // 이전의 문자로 바꿔준다.
+            }
+            else if (cha == arr[i][j]) //check에 문자가 있지만 이전의 문자와 같으면
+                check += arr[i][j]; //연속돈 문자로 치부하고 넣어준다.
+            else
+            { //check에 문자가 있고 이전의 문자와 같지 않으면 떨어진 중복 문자기때문에 그룹문자가아니다.
+                n -= 1; // 그룹문자에서 차감하고
+                break; // 탈출한다.
+            }
+        }
+    }
+    cout << n;
+}
+```
+
 ```C++
 2021/05/07
 11719번 문자열
