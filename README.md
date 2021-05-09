@@ -178,6 +178,10 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 3 1 4 5 2 를 공백포함하여 cin받고 싶으면 arr[MAX]선언후
 for(int i =0; i< MAX; i++)		
 	cin >> arr[i]; 이렇게 한다.
+	
+cout << fixed;
+cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출력된다.
+
 ```
 # 백준
 ```C++
