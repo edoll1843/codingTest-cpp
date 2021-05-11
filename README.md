@@ -187,6 +187,43 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```C++
 2021/05/11
+1065번
+한수 실버4
+
+#define _CRT_SECURE_NO_WARNINSG
+#include <iostream>
+#include <string.h>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    if (n < 100)
+    {
+        cout << n;
+        return 0;
+    }
+    else
+    {   //n>=100
+        int cnt = 99;
+        for (int i = 100; i <= n ; i++)
+        {     
+            string tmp = to_string(i);
+            int cha1to2 = (tmp[1]-'0')-(tmp[0]-'0');
+           // int cha2to3 = (tmp[1] - '0') - (tmp[2] - '0');
+            if (cha1to2 + (tmp[1]-'0') == (tmp[2]-'0'))
+                cnt++;
+        }
+        cout << cnt;
+    }
+}
+```
+```C++
+2021/05/11
 4673번
 셀프 넘버 실버5
 
