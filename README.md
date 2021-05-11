@@ -184,6 +184,41 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```
 # 백준
+
+```C++
+2021/05/11
+4673번
+셀프 넘버 실버5
+
+#define _CRT_SECURE_NO_WARNINSG
+#include <iostream>
+#include <string.h>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+#define MAX 10000
+int arr[MAX];
+int main()
+{
+    for (int i = 0; i < MAX; i++)
+    {
+        string tmp = to_string(i);
+        int sum = i;
+        for (int j = 0; j < tmp.size(); j++)
+        {
+            sum += tmp[j] - '0';
+        }
+        arr[sum] = 1;
+    }
+    for (int i = 0; i < MAX; i++)
+    {
+        if (arr[i] == 0)
+            printf("%d\n", i);
+    }
+}
+```
+
 ```C++
 2021/05/07
 1316번 문자열
