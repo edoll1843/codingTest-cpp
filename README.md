@@ -191,6 +191,39 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```C++
 2021/05/12
+11047번 그리디/greedy
+동전 0 실버2
+
+#define _CRT_SECURE_NO_WARNINSG
+
+#include <iostream>
+#include <string.h>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int arr[10];
+    int n, k, cnt = 0;;
+    cin >> n >> k;
+    for (int i = 0; i < 10; i++)
+        cin >> arr[i];
+    for (int j = n - 1; j >= 0; j--)
+    {
+        if (k / arr[j] >= 1)
+        {
+            cnt += k / arr[j];
+            k -= ((k / arr[j]) * arr[j]);
+        }
+    }
+    cout << cnt;
+}
+```
+
+```C++
+2021/05/12
 2447번 재귀
 별찍기 실버1
 
