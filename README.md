@@ -190,6 +190,45 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 # 백준
 
 ```C++
+2021/05/12
+2447번 재귀
+별찍기 실버1
+
+#define _CRT_SECURE_NO_WARNINSG
+
+#include <iostream>
+#include <string.h>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+void star(int i, int j, int num)
+{
+    if ((i / num) % 3 == 1 && (j / num) % 3 == 1) {
+        cout << ' ';
+    }
+    else
+    {
+        if (num / 3 == 0)
+            cout << '*';
+        else
+            star(i, j, num / 3);
+    }
+}
+int main() {
+    int num;
+    cin >> num;
+    for (int i = 0; i < num; i++)
+    {
+        for (int j = 0; j < num; j++)
+            star(i, j, num);
+        cout << '\n';
+    }
+}
+```
+
+```C++
 2021/05/11
 2941번
 크로아티아 알파벳 실버5
