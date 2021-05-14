@@ -107,8 +107,21 @@ sort(a.begin, a.end())					<--- 벡터 처음부터 끝까지 오름차순으로
 sort(a.begin,a.end(),greater<>())			<--- 내림차순으로 정렬
 sort(a.rbegin(),a.rend())				<--- 내림차순으로 정렬
 sort(a.begin, a.end(),cmp)				<--- cmp를 이용하여 정렬. cmp()괄호는 뺴야한다.
-sort(a.begin,a.end(),greater<>())
 
+bool cmp(pair<int,int>a, pair<int,int>b)		<--- pair형태일때 정렬하기 위한 cmp이다. 
+{							<--- a는 현재원소, b는 다음 원소인데 cmp리턴값이 false면 swap한다. 왼쪽 함수는 first기준 오름차순이다.
+	if(a.first == b.first)
+		return a.second < b.second;
+	else
+		return a.first < b.first;
+}
+bool cmp(pair<int,int>a, pair<int,int>b)		<--- second 기준 오름차순의 cmp함수이다.
+{				
+	if(a.second == b.second)
+		return a.first < b.fisrt;
+	else
+		return a.second < b.second;
+}
 
 unique(arr.begin(),arr.end())				<--- 배열의 연속된 값을 제거한다. 전체 중복 숫자 지우는거 아님. 
 arr.erase(unique(arr.begin(),arr.end()),arr.end()) 	<--- 뒤에 남기 떄문에 지워줘야한다.전체 중복을 지우고 싶으면 sort하고 이 코드 실행
