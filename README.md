@@ -204,6 +204,44 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```C++
 2021/05/14
+11399번 그리디/greedy
+ATM 실버3
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int>arr;
+    for (int i = 0; i < n; i++)
+    {
+        int t;
+        cin >> t;
+        arr.push_back(t);
+    }
+    sort(arr.begin(), arr.end());
+    int cnt_sum = 0;
+    for (int i =0; i< n; i++)
+    {
+        int sum = 0;
+        for (int j = i; j >= 0; j--)
+        {
+            sum += arr[j];
+        }
+        cnt_sum += sum;
+    }
+    cout << cnt_sum;
+    
+}
+```
+
+```C++
+2021/05/14
 1931번 그리디/greedy
 회의실 배정 실버 2
 
