@@ -203,6 +203,58 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 # 백준
 
 ```C++
+2021/05/14
+1931번 그리디/greedy
+회의실 배정 실버 2
+
+회의실 한개가 있을 때 사용하고자하는 N개의 회의에 대하여 사용표를 만들려고할때,
+각 회의에 대해 시작,끝시간이 주어지고 겹치지 않고 회의하여 최대 몇개의 회의를 할 수 있는지
+찾는 문제이다.
+
+처음엔 dfs로 풀어보려 했지만 시간초과 및 메모리초과가 일어났다. 결국 끝나는 시간을 기준으로 오름차순으로 정렬하여 제일 일찍 끝나는 회의를 현재로 잡고 시작하는 시간이 가장 가까운 회의를 다음으로 하는 방식으로 문제를 풀었다.
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+bool compare(pair<int, int> a, pair<int, int> b)
+{
+    if (a.second == b.second)
+        return a.first < b.first;
+    else
+        return a.second < b.second;
+}
+int main()
+{
+    vector<pair<int, int>> v;
+    int n;
+    cin >> n;
+   
+    for (int i = 0; i < n; i++)
+    {
+        int a, b;
+        cin >> a >> b;
+        v.push_back(make_pair(a, b));
+    }
+    sort(v.begin(), v.end(),compare);
+    int cnt = 1;
+    int now = v[0].second;
+    for (int i = 1; i < n; i++)
+    {
+        if (now <= v[i].first)
+        {
+            cnt++;
+            now = v[i].second;
+        }
+    }
+    cout << cnt;
+}
+```
+
+```C++
 2021/05/12
 11047번 그리디/greedy
 동전 0 실버2
