@@ -203,6 +203,38 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 # 백준
 
 ```C++
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+    string str;
+    cin >> str;
+    int result = 0;
+    string tmp;
+    for (int i = 0; i < str.size(); i++)
+    {
+        if (str[i] == '-')
+        {
+            result += stoi(tmp);
+            tmp = "";
+        }
+        else if (str[i] == '+')
+        {
+            result -= stoi(tmp);
+            tmp = "";
+        }
+        else
+        {
+            tmp += str[i];
+        }
+    }
+}
+```
+```C++
 2021/05/14
 11399번 그리디/greedy
 ATM 실버3
