@@ -202,37 +202,47 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 ```
 # 백준
 
+
 ```C++
+2021/05/16
+1541번 그리디/greedy
+잃어버린 괄호 실버2
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 using namespace std;
-
-int main()
+string str;
+int minResult(void)
 {
-    string str;
-    cin >> str;
     int result = 0;
-    string tmp;
-    for (int i = 0; i < str.size(); i++)
+    string temp = "";
+    bool minus = false;
+    for (int i = 0; i <= str.size(); i++)
     {
-        if (str[i] == '-')
+        //연산자일 경우
+        if (str[i] == '+' || str[i] == '-' || str[i] == '\0')
         {
-            result += stoi(tmp);
-            tmp = "";
+            if (minus)
+                result -= stoi(temp);
+            else
+                result += stoi(temp);
+            temp = ""; //초기화
+            //괄호를 뺄셈 이후에 치면 최소
+            if (str[i] == '-')
+                minus = true;
+            continue;
         }
-        else if (str[i] == '+')
-        {
-            result -= stoi(tmp);
-            tmp = "";
-        }
-        else
-        {
-            tmp += str[i];
-        }
+        //피연산자일 경우
+        temp += str[i];
     }
+    return result;
 }
+int main(void)
+{
+    cin >> str;
+    cout << minResult() << endl;
+    return 0;
+}
+
 ```
 ```C++
 2021/05/14
