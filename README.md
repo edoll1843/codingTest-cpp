@@ -202,6 +202,59 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 ```
 # 백준
 
+```C++
+2021/05/18
+13305번 그리디/greedy
+주유소 실버4
+
+이 문제는 자동차가 각 도시를 이동할 떄마다 더 적은 값의 기름을
+채워 최소비용을 계산하는 문제이다.
+맨처음엔 차에 기름이 없다는 가정이라 무조건 기름을 채워 출발해야한다.
+만약 그 다음 도시의 기름값이 이전보다 더 비싸면 이전도시에서 거리만큼 기름을 채워간다.
+input이 10억까지 들어갈 수 있기에 long long 데이터 타입을 사용헀다.
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector<long long> dis;
+    vector<long long> pay;
+    for (int i = 0; i < n-1; i++)
+    {
+        long long tmp;
+        cin >> tmp;
+        dis.push_back(tmp);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        long long tmp;
+        cin >> tmp;
+        pay.push_back(tmp);
+    }
+    long long now_pay = pay[0];
+    long long sum = pay[0] * dis[0];
+    for (int i = 1; i < pay.size()-1; i++)
+    {
+        if (pay[i] > now_pay)
+        {
+            sum += now_pay * dis[i];
+        }
+        else
+        {
+            sum += pay[i] * dis[i];
+            now_pay = pay[i];
+        }
+    }
+    cout << sum;
+}
+
+```
 
 ```C++
 2021/05/16
