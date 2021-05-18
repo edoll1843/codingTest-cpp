@@ -204,6 +204,77 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```C++
 2021/05/18
+10828번 스택 실버4
+
+stack의 기능을 구현한다.
+getline(cin,str)을 사용하여 입력 받았다.
+
+#include <iostream>
+#include <stack>
+#include <vector>
+#include <string>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+    vector<int>v;
+    int n;
+    cin >> n;
+    for (int i = 0; i <= n; i++)
+    {
+        string str;
+        getline(cin, str);
+        cin.clear();
+        string string_tmp;
+        string num_tmp;
+        for (int j = 0; j < str.size(); j++)
+        {
+            if (isalpha(str[j]))
+                string_tmp += str[j];
+            else if (isdigit(str[j]))
+                num_tmp += str[j];
+        }
+        int num = 0;
+        if(num_tmp.size() != 0)
+            num = stoi(num_tmp);
+        if (string_tmp == "push")
+        {
+            v.push_back(num);
+        }
+        else if (string_tmp == "pop")
+        {
+            if (!v.size())
+                cout << -1 << endl;
+            else
+            {
+                cout << v.back() << endl;
+                v.pop_back();
+            }
+        }
+        else if (string_tmp == "size")
+        {
+            cout << v.size() << endl;
+        }
+        else if (string_tmp == "empty")
+        {
+            if (v.empty())
+                cout << 1 << endl;
+            else
+                cout << 0 << endl;
+        }
+        else if (string_tmp == "top")
+        {
+            if (v.size()==0)
+                cout << -1 << endl;
+            else
+                cout << v.back() << endl;
+        }
+    }
+}
+```
+```C++
+2021/05/18
 13305번 그리디/greedy
 주유소 실버4
 
