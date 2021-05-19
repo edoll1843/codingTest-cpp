@@ -204,6 +204,54 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```C++
 2021/05/19
+4949번 스택
+균형잡힌 세상 실버4
+괄호의 균형을 찾는 기본적인 문제이다. 하지만 이중if문을 사용했을 땐 틀리고
+&&논리연산자를 사용했을 땐 정답이라고 나온다. 이부분이 이해가 안돼서 질문 올렸다.
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+#include <iostream>
+
+using namespace std;
+int main()
+{
+	while (1){
+		string tmp;
+		getline(cin, tmp);
+        if (tmp == ".")
+			break;
+        stack<char>s;
+        for (int j = 0; j < tmp.size(); j++) {
+            if (tmp[j] == '(' || tmp[j] == '[')
+                s.push(tmp[j]);
+            else if (tmp[j] == ')') {
+                if (s.size() && s.top() == '(') {
+                        s.pop();
+                }
+                else
+                    s.push(')');
+            }
+            else if (tmp[j] == ']') {
+                if (s.size() && s.top() == '[') {
+                        s.pop();
+                }
+                else
+                    s.push(']');
+            }
+        }
+        if (!s.empty())
+            cout << "no" << endl;
+        else
+            cout << "yes" << endl;
+		cin.clear();
+	}
+}
+```
+
+```C++
+2021/05/19
 10773번 스택
 제로 실버4
 
