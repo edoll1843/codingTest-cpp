@@ -203,6 +203,46 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 # 백준
 
 ```C++
+2021/05/19
+10773번 스택
+제로 실버4
+
+#include <stack>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    stack<int>s;
+    int n;
+    cin >> n;
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int a;
+        cin >> a;
+        if (a == 0)
+        {
+            s.pop();
+        }
+        else
+        {
+            s.push(a);
+        }
+    }
+    while (!s.empty())
+    {
+        sum += s.top();
+        s.pop();
+    }
+    cout << sum << endl;
+}
+
+```
+
+```C++
 2021/05/18
 10828번 스택 실버4
 
