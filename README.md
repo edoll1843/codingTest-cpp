@@ -1,3 +1,4 @@
+
 # string.h
 ```C++
 memset(셋팅하고자하는 메모리주소, 셋팅할 값, 메모리 주소의 사이즈); // 컴파일러 환경에 따라 for문보다 빠를 수가 있다.
@@ -201,6 +202,79 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```
 # 백준
+
+
+```C++
+2021/05/25
+1874번 스택
+스택 수열 실버3
+
+첫 줄에 n이 주어지고 아래부턴 수열이 주어진다.
+1 부터 n까지 1씩 증가할때 스택을 이용하여 주어진 수열을 만드는 문제다.
+과정에서 스택의 push는 +로, pop은 -로 표현한다.
+만약 주어진 수열로 만들 수 없다면 NO를 출력한다.
+
+이문제는 시간초과에서 걸렸다.
+n이 100,000까지 주어지기 때문에 cout과 cin을 사용한것이 원인이였다.
+scanf와 printf로 바꿔주니 원활하게 돌아갔다.
+앞으로 scanf와 printf를 사용해야겠다.
+
+#include <string>
+#include <iostream>
+#include <stack>
+#include <vector>
+#include <queue>
+using namespace std;
+int main()
+{
+    queue<int>q;
+    stack<int>s;
+    vector<char> p;
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
+    {
+        int a;
+        scanf("%d", &a);
+        q.push(a);
+    } 
+    int num = 1;
+    bool flag = false;
+    while (!q.empty())
+    {
+        if (s.size() == 0)
+        {
+            s.push(num);
+            p.push_back('+');
+            num++;
+        }
+        if (s.top() > q.front())
+        {
+            flag = true;
+            break;
+        }
+        else if (s.top() == q.front())
+        {
+            s.pop();
+            q.pop();
+            p.push_back('-');
+        }
+        else
+        {
+            s.push(num);
+            p.push_back('+');
+            num++;
+        }
+    }
+    if (flag)
+        cout << "NO";
+    else
+    {
+        for (auto i : p)
+            printf("%c\n", i);
+    }
+}
+```
 
 ```C++
 2021/05/19
