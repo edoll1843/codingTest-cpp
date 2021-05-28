@@ -205,6 +205,50 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 
 ```C++
+2021/05/28
+17298번 스택
+오큰수 골드4
+
+스택을 사용하여 풀어야하는건 알았지만 어떻게 해야하는지 오래 고민했다.
+그러다가 스택은 이용하지 않고 벡터에 pair형식으로 index와 값을 저장하여 값을 기준으로
+오름차순 정렬하고 0번째 index부터 first와 second가 둘다 클때 그값을 입히는 방법으로 문제를
+풀었다. 할 수있는 예외처리는 하였고 반례를 찾아보려 해도 없기에 맞을 줄 알았더니 틀렸다고 나왔다.
+결국 답을 보고 풀었다. 스택을 이용하여 스택에 인덱스를 넣어 하나씩 값을 찾는 방법이였다.
+
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
+#pragma warning(disable : 4996)
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    vector<int>v;
+    vector<int>answer(n,-1);
+    stack<int>s;
+    for (int i = 0; i < n; i++)
+    {
+        int a;
+        scanf("%d", &a);
+        v.push_back(a);
+    }
+    for (int i = 0; i < v.size(); i++)
+    {
+        while (!s.empty() && v[s.top()] < v[i])
+        {
+            answer[s.top()] = v[i];
+            s.pop();
+        }
+        s.push(i);
+    }
+    for (auto i : answer)
+        printf("%d ", i);
+}
+
+```
+
+```C++
 2021/05/25
 1874번 스택
 스택 수열 실버3
