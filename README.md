@@ -241,6 +241,7 @@ vector<vector<int>> v; ---> vector<int>v[1001];
 
 using namespace std;
 vector<int>v[1001];
+//vector<vector<int>>v(1001);   둘다 됨
 bool visit[1001];
 int cnt= 0;
 void dfs(int x)
