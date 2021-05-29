@@ -203,6 +203,67 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 ```
 # 백준
 
+```C++
+2021/05/29
+11724번 dfs
+연결 요소의 개수 실버2
+
+무방향 그래프가 주어졌을떄
+연결 요소의 개수를 구하는 문제이다
+dfs의 가장 기본적인 유형이다.
+방향성이면 v[x].push_back(y); 한쪽만 해도 되지만
+무방향이면 
+v[x].push_back(y);
+v[y].push_back(x);
+양쪽다 연결해주어야한다.
+
+문제를 처음 제출했을 땐 메모리 초과가 떴다.
+2차원 벡터를 1차원 배열 백터로 바꿔주었더니 맞았다.
+vector<vector<int>> v; ---> vector<int>v[1001];
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+vector<int>v[1001];
+bool visit[1001];
+int cnt= 0;
+void dfs(int x)
+{
+    visit[x] = true;
+    for (int i = 0; i < v[x].size(); i++)
+    {
+        if (visit[v[x][i]] == true)
+            continue;
+        else
+            dfs(v[x][i]);
+    }
+}
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+    for (int i = 0; i < m; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        v[x].push_back(y);
+        v[y].push_back(x);
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        if (visit[i] == true)
+            continue;
+        else
+        {
+            dfs(i);
+            cnt++;
+        }
+    }
+    cout << cnt;
+}
+```
 
 ```C++
 2021/05/28
