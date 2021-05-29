@@ -201,6 +201,20 @@ cout << fixed;
 cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출력된다.
 
 ```
+# 코테
+```C++
+
+그래프에서 방향성이면 v[x].push_back(y); 한쪽만 해도 되지만
+무방향이면 
+v[x].push_back(y);
+v[y].push_back(x);
+
+cout 대신 printf를
+cin 대신 scanf를 습관화하자
+
+
+```
+
 # 백준
 
 ```C++
