@@ -218,6 +218,91 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/06/01
+4963번 dfs
+섬의 개수 실버2
+정사각형으로 이루어져 있는 섬과 바다가 지도에 주어지고 섬의 개수를 세는 프로그램을 작성한다.
+섬은 좌우양옆 대각선을 이동할 수 있다.
+
+상하좌우는
+int dx[4] = { 0,0,1,-1};
+int dy[4] = { 1,-1,0,0};
+이렇게 했지만
+대각선까지 고려해야함으로
+int dx[8] = { 0,0,1,-1,1,-1,-1,1 };
+int dy[8] = { 1,-1,0,0,1,-1,1,-1 };
+방향을 더 추가하였다.
+
+#include <iostream>
+#include <vector>
+#include <string.h>
+
+using namespace std;
+int v[50][50];
+bool visit[50][50];
+vector<int>answer;
+int dx[8] = { 0,0,1,-1,1,-1,-1,1 };
+int dy[8] = { 1,-1,0,0,1,-1,1,-1 };
+int cnt = 0;
+void dfs(int n, int m ,int x, int y)
+{
+    visit[x][y] = true;
+    for (int i = 0; i < 8; i++)
+    {
+        int nx = dx[i] + x;
+        int ny = dy[i] + y;
+        if (nx < 0 || ny < 0 || nx >= n || ny >= m)
+            continue;
+        else
+        {
+            if(v[nx][ny] && visit[nx][ny]== false)
+                dfs(n, m, nx, ny);
+        }
+    }
+}
+int main()
+{
+    while (1)
+    {
+        int n, m;
+        cin >> n >> m;
+        if (n == 0 && m == 0)
+            break;
+        else
+        {
+            memset(v, 0, sizeof(v));
+            memset(visit, false, sizeof(visit));
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    int a;
+                    cin >> a;
+                    v[i][j] = a;
+                }
+            }
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (visit[i][j] == false && v[i][j])
+                    {
+                        dfs(m,n,i, j);
+                        cnt++;
+                       
+                    }
+                }
+            }
+            answer.push_back(cnt);
+            cnt = 0;
+        }
+    }
+    for (auto i : answer)
+        cout << i << endl;
+}
+```
+
+```C++
 2021/05/29
 11724번 dfs
 연결 요소의 개수 실버2
