@@ -202,18 +202,30 @@ cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출
 
 ```
 # 코테
-```C++
 
+## 알고리즘
+
+### DFS/BFS
 그래프에서 방향성이면 v[x].push_back(y); 한쪽만 해도 되지만
 무방향이면 
 v[x].push_back(y);
 v[y].push_back(x);
 
+### DP
+
+### GREEDY
+
+### 최단 경로
+
+### 문자열
+
+### 완전탐색
+
+
+
 cout 대신 printf를
 cin 대신 scanf를 습관화하자
 
-
-```
 
 # 백준
 
