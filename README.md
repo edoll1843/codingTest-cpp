@@ -215,7 +215,27 @@ v[y].push_back(x);
 ```C++
 ```
 ### 최단 경로
-#### Dijkstra
+최단 경로는 크게 두개
+1. 양의 경로를 갖는 그래프
+  1-1. 가중치가 1또는 0인 그래프에서 최단 경로
+  	dfs나 bfs로 알 수 있다.
+  1-2. 다른 가중치도 가지는 그래프에서 최단 경로
+ 
+	- 단일 출발(single source)단일 노드에서 출발하여 -> 모든 노드 도착
+	Dijkstra
+	- 단일 도착(single detination)모든 노드들에서 출발-> 단일 노드 도착
+	Dijkstra
+	- 단일 쌍(single-pair)특정한 노드 u와v에 대해 u에서 v로 가는 최단 경로
+	Dijkstra
+	- 전체 쌍(all-pair) 모든 노드 쌍에 대한 최단 경로
+	FLOYD(사이클이 없다면 음의 가중치가 있어도 해결 가능)
+	
+2. 음의 경로를 갖는 그래프
+	Bellman-Ford
+	음의 가중치를 가진 경로에도 최단 거리를 구할 수 있다. 경로 추적 가능
+
+#### SPFA(shortest path faster algorithm)
+STL없이 간단하게 구현 가능하다. 평균적으로 빠른 속도를 가짐
 ```C++
 ```
 ### 문자열
