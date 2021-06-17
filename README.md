@@ -297,6 +297,72 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/06/17
+18352번 최단거리
+특정 거리의 도시 찾기 실버2
+1번 부터 N번까지 도시와 M개의 엣지가 있다. 모든 도로의 거리는 1이다.
+이때 X로부터 출발하여 최단 거리가 정확히 K인 모든 도시들의 번호를 출력한다.
+도시개수N, 도로개수M, 거리 정보K, 출발도시X
+
+dfs로 풀려고 했다. 1부터 갈 수 있는 모든 노드를 돌면서
+그 값을 dis배열에 넣고 값을 비교하여 최단거리를 최신화하는 알고리즘으로 풀었다.
+테스트 케이스는 다 맞았지만 메모리에서 초과됐다.
+아마 인접행렬을 사용해서 그럴것 같다.
+30만개의 N이 있다면
+메모리는 N^2으로 -> 9GB가 된다.
+다른 사람들은 다 BFS로 풀었다. 메모리 초과로 인해 아직 풀지 못했다.
+리스트로 바꾸는 방법을 써봐야겠다.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int N, M, K, X;
+vector<int>m[300001];
+int dis[300001];
+void dfs(int x,int cnt)
+{
+    for (int i = 0; i < m[x].size(); i++)
+    {
+        dfs(m[x][i],cnt+1);
+    }
+    if (dis[x] > cnt)
+    {
+        dis[x] = cnt;
+    }
+}
+int main()
+{
+// 도시개수N, 도로개수M, 거리 정보K, 출발도시X
+    
+    cin >> N >> M >> K >> X;
+    for (int i = 0; i < M; i++)
+    {
+        int x, y;
+        scanf("%d %d", &x, &y);
+        m[x].push_back(y);
+    }
+    fill_n(dis, 300001, 999);
+    dfs(X,0);
+    int flag = 0;
+    for (int i = 0; i < sizeof(dis) / 4; i++)
+    {
+        if (i > N)
+            break;
+        if (dis[i] == K)
+        {
+            printf("%d\n", i);
+            flag++;
+        }
+    }
+    if (!flag)
+        cout << -1;
+}
+```
+
+```C++
 2021/06/01
 4963번 dfs
 섬의 개수 실버2
