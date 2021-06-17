@@ -224,12 +224,16 @@ v[y].push_back(x);
  
 	- 단일 출발(single source)단일 노드에서 출발하여 -> 모든 노드 도착
 	Dijkstra
-	- 단일 도착(single detination)모든 노드들에서 출발-> 단일 노드 도착
+	
+	- 단일 도착(single detination)모든 노드들에서 출발-> 단일 노드 도착(모든 Edge를 뒤집으면 단일 출발과 동일)
 	Dijkstra
+	
 	- 단일 쌍(single-pair)특정한 노드 u와v에 대해 u에서 v로 가는 최단 경로
+	 시간 복잡도에서 1번보다 비효율적
 	Dijkstra
+	
 	- 전체 쌍(all-pair) 모든 노드 쌍에 대한 최단 경로
-	FLOYD(사이클이 없다면 음의 가중치가 있어도 해결 가능)
+	FLOYD-Warshall(사이클이 없다면 음의 가중치가 있어도 해결 가능)
 	
 2. 음의 경로를 갖는 그래프
 	Bellman-Ford
