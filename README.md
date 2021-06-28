@@ -336,6 +336,75 @@ dfs로 풀려고 했다. 1부터 갈 수 있는 모든 노드를 돌면서
 다른 사람들은 다 BFS로 풀었다. 메모리 초과로 인해 아직 풀지 못했다.
 리스트로 바꾸는 방법을 써봐야겠다.
 
+2021/06/28
+정말 많은 오류가 있었다. 메모리 초과, 시간초과, 컴파일에러 등 내 ide에선 잘 돌아가는데
+백준 컴파일러는 정이없다.
+결국  우선순위 큐와 다익스트라를 사용하여 풀었다.
+알고리즘은 이전과 비슷하지만 부가적인 사항에서 차이가 났나보다
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <limits> // 정수 상수에 대한 제한
+#define INF INT_MAX // 정수 상수에 대한 제한 int형식 변수의 최대값
+
+using namespace std;
+
+using pii = pair<int, int>;
+int n, m, k, x;
+//도시,도로,가중치,시작노드
+vector <pii> road[300001];
+int dist[300001];
+
+void dijkstra(int start)
+{
+    priority_queue<pii, vector<pii>, greater<pii>>pq;
+    pq.push({ 0,start });
+    dist[start] = 0;
+
+    while (!pq.empty())
+    {
+        int cur = pq.top().second;
+        int cost = pq.top().first;
+        pq.pop();
+        if (cost > dist[cur])
+            continue;
+        for (int i = 0; i < road[cur].size(); i++)
+        {
+            int next = road[cur][i].second;
+            int nextcost = road[cur][i].first;
+            if (cost + nextcost < dist[next])
+            {
+                dist[next] = cost + nextcost;
+                pq.push({ dist[next],next });
+            }
+        }
+    }
+}
+int main()
+{
+    cin >> n >> m >> k >> x;
+    for (int i = 1; i <= n; i++)dist[i] = INF;
+    for (int i = 0; i < m; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        road[u].push_back({1,v});//make_pair를 이런식으로도 쓰네
+    }
+    dijkstra(x);
+    int flag = 0;
+    for (int i = 1; i <= n; i++){
+        if (dist[i] == k){
+            printf("%d\n",i);
+            flag = 1;
+        }
+    }
+    if (!flag)
+        cout << -1 << '\n';
+}
+
+//////////2021/06/17코드///////
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
