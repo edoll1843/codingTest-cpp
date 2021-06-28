@@ -212,6 +212,16 @@ using 선언문
 헤더 밑에 using namespace std; 와 같이
 using 변수명 = pair<int,int> 형식처럼 포장할 수 있다.
 
+namespace
+모든 식별자(변수,함수,형식 등의 이름)가 고유하도록 보장하는 코드 영역을 정의
+기본적으로 전역변수와 일반 함수는 전역 namespace에서 정의됨
+
+예를 들어 main에서 A함수를 호출했을 떄 foo.h와 goo.h헤더 파일에서 각각 A함수가
+전역 namespace에 정의되어있으므로 충돌이 발생한다.
+
+두개 이상의 독립된 코드가 함께 사용될 때 서로 이름이 충돌하는 문제를 방지하기 위해
+C++에서는 namespace를 사용하여 자체 namespace를 선언한다. 
+
 ```
 # 코테
 
