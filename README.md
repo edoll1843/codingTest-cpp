@@ -1,4 +1,12 @@
 
+# limits / limits.h
+```C++
+using 함수 위에 
+#define 변수명 INT_MAX   <--- 정수 상수에 대한 제한 int형식 변수의 최대값
+#define 변수명 INT_MIN   <--- int 형식 변수의 최솟값
+다른 변수형식도 사용이 가능하다.
+```
+
 # string.h
 ```C++
 memset(셋팅하고자하는 메모리주소, 셋팅할 값, 메모리 주소의 사이즈); // 컴파일러 환경에 따라 for문보다 빠를 수가 있다.
@@ -199,6 +207,10 @@ for(int i =0; i< MAX; i++)
 	
 cout << fixed;
 cout.precision(소수점개수);		<-- 123.4567이 123.458로 반올림되어 출력된다.
+
+using 선언문
+헤더 밑에 using namespace std; 와 같이
+using 변수명 = pair<int,int> 형식처럼 포장할 수 있다.
 
 ```
 # 코테
