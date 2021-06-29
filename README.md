@@ -319,6 +319,86 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+
+``C++
+2021/06/29
+1753번 dijkstra
+최단경로 골드5
+
+방향그래프가 주어졌을 떄 시작점에서 다른 모든 정점으로 최단경로를 구하는 문제다.
+v는 정점의 개수 e는 간선의 개수
+
+전형적인 다익스트라 방식으로 풀었다.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+
+#define INF INT_MAX
+
+using namespace std;
+using pii = pair<int, int>;
+int v, e;
+vector<pii>road[300001];
+int dist[20002];
+
+void dijkstra(int start)
+{
+    priority_queue < pii, vector<pii>, greater<pii>> pq; // pair(가중치, 노드)의 우선순위큐
+    pq.push({0,start}); // 시작점은 0이므로 0,시작점에서 시작
+    dist[start] = 0;
+
+    while (!pq.empty())
+    {
+        int node_to = pq.top().second; //node
+        int node_w = pq.top().first;  // cost
+
+        pq.pop();
+
+        if (node_w > dist[node_to]) // node의 가중치가 여태 노드의 가중치보다 많으면 건더뛴다.
+            continue;
+        for (int i = 0; i < road[node_to].size(); i++)
+        { //방향성 그래프임으로 node에 연결된 모든 노드들을 돈다. 
+            int next = road[node_to][i].second; //node에 연결된 다음 노드
+            int next_w = road[node_to][i].first; //다음 노드의 가중치
+
+            if (next_w + node_w < dist[next])
+            { //현재 노드의 가중치와 다음노드의 가중치를 더했을 때 다음 노드의 가중치보다 적으면
+                dist[next] = next_w + node_w; //최단거리로 초기화한다.
+                pq.push({ dist[next],next }); // 다음 노드의 가중치, 다음노드 형식으로 우선순위 큐에 푸쉬
+            }
+        }
+    }
+
+}
+int main()
+{
+    int start;
+    cin >> v >> e;
+    cin >> start;
+    for (int i = 0; i < e; i++)
+    {
+        int from, to, w;
+        scanf("%d %d %d", &from, &to, &w);
+        road[from].push_back({w,to}); // 우선순위 큐에 가중치를 기준으로 들어가기때문에 
+        //가중치를 앞으로 넣는다.
+    }
+    for (int i = 1; i < 20002; i++) dist[i] = INF; //거리 초기화
+
+    dijkstra(start);
+
+    for (int i = 1; i <= v; i++)
+    {
+        if (dist[i] == INF)
+            cout << "INF" << endl;
+        else
+            printf("%d\n", dist[i]);
+    }
+}
+```
+
 ```C++
 2021/06/17
 18352번 최단거리
