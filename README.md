@@ -319,6 +319,76 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+```C++
+2021/07/01
+1916번 dijkstra
+최소비용 구하기 골드5
+
+이전 문제가 시작점에서 전체 노드까지의 최단거리를 구했다면
+이 문제는 one to one의 최단거리를 구하는 문제다.
+역시 dijkstra를 이용했고 도착점의 해당하는 비용만 출력하는 것으로 문제를 풀었다.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+#define  INF INT_MAX
+using namespace std;
+
+using pii = pair<int, int>;
+int n, m; //도시의 개수
+vector<pii>road[100001];
+int cost[1002];
+
+void dijkstra(int start)
+{
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({ 0,start });
+    cost[start] = 0;
+
+    while (!pq.empty())
+    {
+        int node = pq.top().second;
+        int node_cost = pq.top().first;
+
+        pq.pop();
+
+        if (node_cost > cost[node])
+            continue;
+        for (int i = 0; i < road[node].size(); i++)
+        {
+            int next = road[node][i].second;
+            int next_cost = road[node][i].first;
+
+            if (next_cost + node_cost < cost[next])
+            {
+                cost[next] = next_cost + node_cost;
+                pq.push({ cost[next],next });
+            }
+        }
+    }
+}
+int main()
+{
+    cin >> n;
+    cin >> m;
+    for (int i = 0; i < m; i++)
+    {
+        int from, to, weight;
+        scanf("%d %d %d", &from, &to, &weight);
+        road[from].push_back({ weight,to });
+    }
+    for (int i = 1; i <= 1001; i++) cost[i] = INF;
+
+    int start, to;
+    cin >> start >> to;
+    dijkstra(start);
+
+    cout << cost[to];
+
+}
+```
 
 ```C++
 2021/06/29
