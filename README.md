@@ -320,6 +320,89 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/07/02
+1261번 dijkstra
+알고스팟 골드4
+
+0과1로 이뤄진 2차원 배열이 있을 때
+0,0에서 입력으로 주어진 n,m까지 갈때
+0은 빈벽, 1은 벽이 있다고 가정한다.
+n,m으로 갈 때 벽을 뚫고가야하는 최소한의 벽의 수를 구하라.
+
+다익스트라는 노드 간선 문제에서한 사용한다고 생각했었다. 이런 map형식의 문제에서도
+적용되는 것을 깨달았다.
+
+수 차례 시도에도 무엇이 문제인지 인식하지 못했다.
+디버깅을 통해 n,m이 x,y가 아닌 y,x으로 주어진 것을 알고 문제를 해결했다.
+문제를 잘 읽자!!
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+#include <limits.h>
+#define INF INT_MAX
+using namespace std;
+using pii = pair<int,pair<int,int>>;
+
+int dx[4] = { 1,-1,0,0 };//아래,위,우,좌
+int dy[4] = { 0,0,1,-1 };
+int road[102][102];
+int dist[102][102];
+int n, m;
+void bfs()
+{
+    priority_queue<pii, vector<pii>, greater<pii>> q;
+    q.push({ 0,{ 0,0 } });
+    dist[0][0] = 0;
+    while (!q.empty())
+    {   
+        int x = q.top().second.first;
+        int y = q.top().second.second;
+        int d = q.top().first;
+          
+        q.pop();
+        if (x == n - 1 && y == m - 1) break;
+        if (d > dist[x][y])continue;
+        
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m)
+                continue;
+
+            if (dist[nx][ny] > dist[x][y] + road[nx][ny])
+            {
+                dist[nx][ny] = dist[x][y] + road[nx][ny];
+                q.push({ dist[nx][ny],{ nx, ny } });
+            }
+        }
+    }
+    printf("%d\n", dist[n - 1][m - 1]);
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> m >> n;
+    for (int i = 0; i < n; i++){
+        string temp;
+        cin >> temp;
+        for (int j = 0; j < m; j++) {
+            road[i][j] = temp[j] - '0';
+            dist[i][j] = INF;
+        }
+    }
+    bfs();
+    
+}
+
+```
+
+```C++
 2021/07/01
 1916번 dijkstra
 최소비용 구하기 골드5
