@@ -320,6 +320,108 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/07/07
+1502번 dijkstra
+특정한 최단 경로 골드4
+
+방향성이 없는 그래프가 주어질때, 1->N번 정점으로 최단거리를 이동한다.
+이때 두가지 조건을 만족하면서 이동한다.
+1. 임의로 주어진 두 정점은 반드시 통과한다.
+2. 한번 이동했던 정점은 물론, 한번 이동했던 간선도 다시 이동할 수 있다.
+
+이 문제는 인접그래프와 dijkstra를 이용하여 풀었다.
+처음엔 1->N을 갈 수있는 모든 방법을 탐색하여 두 정점을 지나는 경우에 작은 값을
+출력하는 방식으로 했지만, 시간 초과가 일어났다. 당연한 결과지만 푸는 것에 집중하느라
+고려하지 않았었다.
+
+두번째 시도로
+dijkstra를 여러번 나누어 시도했다. A와 B를 반드시 지나야할 노드라고 가정할 때,
+1. 1-> A-> B-> N
+2. 1-> B-> A-> B
+이 두가지 경우로 나누어 최단거리를 구한 후 작은 값을 반환하는 방법이다.
+1번,2번도 각 구간별로 나누어 dijkstra를 수행하여 최단거리를 저장하고 각 구간별로 거리의 합을 구해
+대소비교를 통해 최단거리를 알아냈다.
+
+마지막으로 노드끼리 연결되어있지 않아 탐색이 불가능한 경우 -1로 예외 처리를 해줘야한다.
+
+#define _CRT_SECURE_NO_WARNINGS // scanf에러 방지
+#include <iostream>
+#include <vector>
+#include <limits.h>
+#include <queue>
+
+#define INF INT_MAX // 최대값
+using namespace std;
+
+using pii = pair<int, int>;
+vector<pii> board[801]; // 인접그래프
+
+int n, e; // n 노드의 개수, e 간선의 개수
+int node1, node2; //반드시 지나야할 노드들
+int dijkstra(int start, int end)
+{
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    int dist_temp[801];
+    for (int i = 0; i <= n; i++) dist_temp[i] = INF;
+    dist_temp[start] = 0;
+
+    pq.push({ 0,start });
+
+    while (!pq.empty())
+    {
+        int node = pq.top().second;
+        int node_cost = pq.top().first;
+        if (node == end)// 만약 노드가 end까지 최단 거리를 구했으면 최단거리를 반환한다.
+            return dist_temp[node];
+        pq.pop();
+
+        for (int i = 0; i < board[node].size(); i++)
+        {
+            int next = board[node][i].second;
+            int next_cost = board[node][i].first;
+
+            if (dist_temp[next] > next_cost + node_cost)
+            {
+                dist_temp[next] = next_cost + node_cost;
+                pq.push({ dist_temp[next],next });
+            }
+        }
+
+    }
+    return INF;
+}
+int main()
+{
+    scanf("%d %d", &n, &e);
+    for (int i = 0; i <= e; i++) {
+        if (i == e)
+            scanf("%d %d", &node1, &node2);
+        else {
+            int from, to, cost;
+            scanf("%d %d %d", &from, &to, &cost);
+            board[from].push_back({ cost,to });
+            board[to].push_back({ cost,from });
+        }
+    }
+
+    int onetoA = dijkstra(1, node1);
+    int onetoB = dijkstra(1, node2);
+    int AtoB = dijkstra(node1, node2);
+    int BtoN = dijkstra(node2, n);
+    int AtoN = dijkstra(node1, n);
+    int error = -1;
+    if (onetoA == INF || onetoB == INF || AtoB == INF || BtoN == INF
+        || AtoN == INF) {
+        printf("%d", error);
+        return 0;
+    }
+    int sumA = onetoA + AtoB + BtoN;
+    int sumB = onetoB + AtoB + AtoN;
+    sumA > sumB ? printf("%d", sumB) : printf("%d", sumA);
+}
+```
+
+```C++
 2021/07/02
 1261번 dijkstra
 알고스팟 골드4
