@@ -320,6 +320,98 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/07/11
+13549번
+숨바꼭질3 골드5
+
+수빈이는 동생과 숨바꼭질을 할때 수빈이는 점 0<=수빈<=100000에 있고
+동생도 같은 범위 내에 있다. 수빈이는 걷거나 순간이동을 할 수 있는데
+만약 수빈이의 위치가 x일때 걷는다면 1초 후에 x-1 또는 x+1로 이동한다.
+순간이동을 하면 0초 후에 2*x의 위치로 이동한다.
+수빈이와 동생의 위치가 주어졌을 때, 수빈이가 동생을 찾을 수 있는 가장 빠른 시간이 몇 초 후인지 구하는
+프로그램을 작성하는 문제이다.
+
+dfs로 풀려고 했다. 하지만 시간초과, 런타임 에러를 거쳐 틀렸다고 나왔다.
+다익스트라로 풀어야하나 싶다.
+
+
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <algorithm>
+using namespace std;
+using pii = pair<int, int>;
+int n, k;
+bool visit[100002];
+int dx[3] = { 1,-1,2 };
+int answer;
+void bfs(int subin, int brother)
+{
+	priority_queue<pii, vector<pii>, greater<pii>> q;
+	q.push({ 0,subin });
+
+	while (!q.empty())
+	{
+		int x = q.top().second;
+		int count = q.top().first;
+		q.pop();
+		visit[x] = true;
+		// cout << x << ": 현재 위치" << endl;
+		 //cout << count << ": 걸린 시간" << endl << endl;
+
+		if (x == brother)
+		{
+			answer = count;
+			break;
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			int nx;
+			//int ncount;
+			if (i == 2)
+			{
+				nx = dx[i] * x;
+			}
+			else
+			{
+				nx = dx[i] + x;
+
+			}
+
+			if (nx < 0 || nx > 100001)
+				continue;
+			if (!visit[nx])
+			{
+				if (i == 2)
+				{
+					q.push({ count ,nx });
+				}
+
+				else
+				{
+					q.push({ count + 1, nx });
+				}
+
+			}
+		}
+	}
+}
+int main()
+{
+	cin >> n >> k;
+	if (k == n)
+		cout << 0;
+	else if (k < n)
+		cout << k - n;
+	else
+	{
+		bfs(n, k);
+
+		cout << answer;
+	}
+}
+```
+```C++
 2021/07/07
 1502번 dijkstra
 특정한 최단 경로 골드4
