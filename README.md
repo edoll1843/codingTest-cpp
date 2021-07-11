@@ -334,6 +334,13 @@ cin 대신 scanf를 습관화하자
 dfs로 풀려고 했다. 하지만 시간초과, 런타임 에러를 거쳐 틀렸다고 나왔다.
 다익스트라로 풀어야하나 싶다.
 
++추가)
+코드를 올리고 바로 메인 함수를 바꿔줬는데 바로 맞았다.
+만약 수빈이랑 동생이랑 같은 위치면 0을 출력하고
+수빈이가 동생보다 더 오른쪽에 있을 때 수빈 - 동생을 하고
+수빈이가 동생보다 왼쪽에있을때만 dfs를 돌았는데
+이 조건문들을 지우고 모든 경우에 dfs를 돌게 바꾸니 바로 됐다.
+
 
 #include <iostream>
 #include <queue>
@@ -396,7 +403,7 @@ void bfs(int subin, int brother)
 		}
 	}
 }
-int main()
+/*int main()
 {
 	cin >> n >> k;
 	if (k == n)
@@ -409,6 +416,12 @@ int main()
 
 		cout << answer;
 	}
+}*/
+int main()
+{//위가 아닌 이게 맞음, 정정 후 코드
+    cin >> n >> k;
+    bfs(n, k);
+    cout << answer;
 }
 ```
 ```C++
