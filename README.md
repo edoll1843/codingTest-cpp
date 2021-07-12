@@ -2578,6 +2578,112 @@ int main()
 
 
 # 프로그래머스
+
+```C++
+2021/07/12
+베스트엘범 lv3
+스트리밍 사이트에서 장르별로 가장 많이 재생된 노래를 두개씩 모아 엘범을 출시한다.
+노래는 index로 구분하고 기준은 다음과 같다.
+1. 한 장르에서 많이 재생된 장르를 먼저 수록
+2. 장르 내에 많이 재생된 노래를 먼저 수록
+3. 장르 내 재생 횟수가 같은 노래중 index가 낮은 노래 먼저 수록
+장르는 100개 미만이고 장르에 곡이 하나밖에 없으면 하나만 선택한다.
+모든 장르는 재생된 횟수가 다르다.
+
+사람들의 테스트케이스 그리고 직접 생각한 케이스 전부 돌렸지만 맞다고 나왔다.
+하지만 제출에는 40%만 맞았다고 나왔다.
+무엇이 문젠지 다시 파악 후 코드 정리하고 다시 제출해봐야겠다.
+
+#include <string>
+#include <vector>
+#include <set>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+using pii = pair <int, string>;
+
+vector<int> solution(vector<string> genres, vector<int> plays) {
+
+
+	vector<pii>v;
+	set<string>s;
+	vector<pii>temp;
+	for (int i = 0; i < genres.size(); i++)
+	{
+		v.push_back({ plays[i],genres[i] });
+		s.insert(genres[i]);
+	}
+	for (auto i : s)
+		temp.push_back({ 0 , i });
+	for (int i = 0; i < temp.size(); i++)
+	{
+		for (int j = 0; j < genres.size(); j++)
+		{
+			if (temp[i].second == genres[j])
+				temp[i].first += plays[j];
+		}
+	}
+	sort(temp.begin(), temp.end());
+	reverse(temp.begin(), temp.end());
+	/////////////////////////////////////////
+	vector<int>answer;
+	for (int i = 0; i < temp.size(); i++)
+	{
+		int song1 = -1, song2 = -1, i1 = -1, i2 = -1;
+
+		for (int j = 0; j < v.size(); j++)
+		{
+			if (temp[i].second == v[j].second)
+			{
+				if (v[j].first > song1)
+				{
+					int t = song1;
+					int ti = i1;
+
+					song1 = v[j].first;
+					i1 = j;
+
+					song2 = t;
+					i2 = ti;
+				}
+                else if (song2 == -1)
+                {
+                    song2 = v[j].first;
+                    i2 = j;
+                }
+                else if (v[j].first == song1)
+                {
+                    if (song1 > song2)
+                    {
+                        song2 = song1;
+                        i2 = j;
+                    }
+                    else
+                    {
+                        song2 = song1;
+                        if (i2 > j)
+                            i2 = j;
+                    }
+                   
+                }
+			}
+		}
+		answer.push_back(i1);
+		if (i2 != -1)
+			answer.push_back(i2);
+	}
+	return answer;
+}
+int main()
+{
+	
+    vector<int>s = solution({ "classic","classic","classic","classic","pop" }, { 500,150,800,800,2500
+});
+    for (auto i : s)
+        cout << i << endl;
+}
+```
+
 ```C++
 /*
 2021/04/01
