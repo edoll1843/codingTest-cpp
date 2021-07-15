@@ -321,6 +321,93 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 2021/07/15
+4485번
+녹색 옷 입은 애가 젤다지? 골드4
+
+이차원 맵에 각 숫자가 있는데 0,0에서 n-1,n-1까지 갈때 지나치는 숫자들은 다 더한다.
+이때 최단 비용을 구하라
+bfs와 다익을 합친 느낌이였다.
+수월하게 풀수있었다.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+#include <limits.h>
+using namespace std;
+using pii = pair<int, pair<int,int>>;
+
+#define INF INT_MAX
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int board[126][126];
+int cost[126][126];
+
+int dijkstra(int n)
+{
+    priority_queue<pii, vector<pii>, greater<pii>>pq;
+  
+    pq.push({ board[0][0],{0,0} });
+    cost[0][0] = board[0][0];
+    while (!pq.empty())
+    {
+        int x = pq.top().second.first;
+        int y = pq.top().second.second;
+        int cur_cost = pq.top().first;
+        if (x == n - 1 && y == n - 1) {
+            return  cur_cost;
+        }
+        pq.pop();
+
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            int ncost = cur_cost + board[nx][ny];
+            if (nx <0 || nx >=n || ny < 0 || ny >= n)
+                continue;
+            if (cost[nx][ny] > ncost)
+            {
+                cost[nx][ny] = ncost;
+                pq.push({ ncost,{nx,ny} });
+            }
+              
+            
+        }
+    }
+
+}
+int main()
+{
+    int count = 1;
+    while (1)
+    {
+        int n;
+        cin >> n;
+        if (n == 0)
+            break;
+        
+        
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+               
+                int c;
+                scanf("%d", &c);
+                board[i][j] = c;
+                cost[i][j] = INF;
+            }
+        }
+        cout << "Problem " << count << ": " << dijkstra(n) << endl;
+        count++;
+    }
+}
+```
+
+```C++
+2021/07/15
 1238번
 파티 골드3
 N개의 각 마을에 한명의 학생이 살고있다.
