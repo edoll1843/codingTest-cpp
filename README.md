@@ -320,6 +320,89 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/07/15
+1238번
+파티 골드3
+N개의 각 마을에 한명의 학생이 살고있다.
+이 학생들이 X번 마을에 모여서 파티를 할때
+각 학생들이 자기 마을에서 파티를 다녀올 때 왕복 시간이 가장 긴 학생의 최단소요시간을 출력한다.
+
+이 문제는 다익스트라로 쉽게 풀었다.
+다익스트라의 구조를 알고 있으면 간단한 문제이다.
+각 학생이 X번째 마을에 갈때 최단시간을 저장하고
+X번째 마을에서 각 학생의 마을까지 최단시간을 구해 더한다.
+이 값중 가장 큰 값을 출력하면 문제는 해결된다.
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+using namespace std;
+#define INF INT_MAX
+using pii = pair<int, int>;
+vector<pii> city[1001];
+
+int n, m, x;
+
+int dijkstra(int node, int x)
+{
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    int cost[1001];
+    for (int i = 1; i <= n; i++) cost[i] = INF;
+    pq.push({ 0,node });
+    cost[node] = 0;
+
+    while (!pq.empty())
+    {
+        int cur_node = pq.top().second;
+        int cur_cost = pq.top().first;
+        pq.pop();
+
+        if (cur_cost > cost[cur_node])
+            continue;
+        for (int i = 0; i < city[cur_node].size(); i++)
+        {
+            int next_node = city[cur_node][i].second;
+            int next_cost = city[cur_node][i].first;
+
+            if (next_cost + cur_cost < cost[next_node])
+            {
+                cost[next_node] = next_cost + cur_cost;
+                pq.push({ cost[next_node],next_node });
+            }
+        }
+    }
+    return cost[x];
+}
+int main()
+{
+    cin >> n >> m >> x;
+
+    for (int i = 0; i < m; i++)
+    {
+        int from, to, weight;
+        cin >> from >> to >> weight;
+        city[from].push_back({ weight, to });
+    }
+    vector<int>from_to((n+1));
+
+    for (int i = 1; i <= n; i++)
+    {
+        if (i == x)
+            continue;
+       from_to[i] = dijkstra(i, x);
+       from_to[i] += dijkstra(x, i);
+    }
+  
+    int answer = 0;
+    for (auto i: from_to){
+        if (answer < i)
+            answer = i;
+    }
+    cout << answer;
+}
+```
+```C++
 2021/07/11
 13549번
 숨바꼭질3 골드5
