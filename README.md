@@ -319,6 +319,81 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+
+```C++
+2021/07/17
+1939번 골드4
+중량제한
+
+N개의 섬으로 이뤄진 나라가 있다.
+이 섬끼리는 다리가 설치되어있는데 각 다리마다 제한된 중량이 다르다.
+공장1에서 공장2까지 물건을 운반할떄 최대 몇까지 실고 갈 수 있는지 찾는 문제이다.
+
+기존의 다익스트라와는 다른 문제다.
+공장1에서 공장2까지 어떠한 루트를 통해 갈때 최소의 값이 가장 큰 수를 구하는 문제이다.
+다익스트라를 좀 변형해서 해봤지만 실패했다.
+다른 방법을 찾아봐야겠다.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+
+#define INF INT_MAX;
+using namespace std;
+using pii = pair<int, int>;
+vector<pii> board[100001];
+int cost[100001];
+int n ,m;//a-b, b-a, limits c;
+int fac1, fac2;
+
+void dijkstra()
+{
+   // priority_queue<pii, vector<pii>, less<pii>>pq;
+    priority_queue<int, vector<int>, less<int>>pq;
+    pq.push(fac1);
+   
+    
+    cost[fac1] = 0;
+    while (!pq.empty())
+    {
+      //  int weight = pq.top().first;
+        int node = pq.top();
+        pq.pop();
+        for (int i = 0; i < board[node].size(); i++)
+        {
+            int next_w = board[node][i].first;
+            int next_n = board[node][i].second;
+            if (next_w < cost[next_n])
+            {
+                cost[next_n] = next_w;
+              //  pq.push({,});
+                pq.push(next_n);
+            }
+        }
+;    }
+}
+int main()
+{
+    scanf("%d %d",&n,&m);
+    for (int i = 0; i <= m; i++){
+        if (i == m) {
+            scanf("%d %d", &fac1, &fac2);
+        }
+        else{
+            int a, b, c;//1< a,b <= n; 1<=c <= 1000000000
+            scanf("%d %d %d", &a, &b, &c);
+            board[a].push_back({ c, b});
+            board[b].push_back({ c, a });
+        }
+    }
+    for (int i = 1; i <= n; i++) { cost[i] = INF; }
+    dijkstra();
+
+}
+```
+
 ```C++
 2021/07/15
 4485번
