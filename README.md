@@ -334,6 +334,89 @@ N개의 섬으로 이뤄진 나라가 있다.
 다익스트라를 좀 변형해서 해봤지만 실패했다.
 다른 방법을 찾아봐야겠다.
 
+07/19 추가+
+하나의 노드에서 다른 노드로 갈수있는 방법을 모두 벡터에 담아 가중치기준으로 정렬하고
+가장 높은 가중치를 우선순위 큐에 담으면서 목표 노드에 도달하면 가중치를 반환하는 방법을 
+구현했지만 메모리 초과가 떴다. 다른 방법을 생각해봐야겠다. 
+//////////////////////////////add 07/19/////////////////////////////////////////
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+#include <algorithm>
+#define INF LLONG_MAX
+using namespace std;
+using pii = pair<long long, int>;
+vector<pii>board[100001];
+bool visit[100001];
+int n, m;
+int fac1, fac2;
+vector<int>answer;
+int dijkstra(int from, int to)
+{
+	priority_queue<pii, vector<pii>, greater<pii>>q;
+
+	q.push({ 0,from });
+
+	while (!q.empty())
+	{
+		long long cur_cost = q.top().first;
+		int cur_node = q.top().second;
+		if (cur_node == to)
+		{
+			return cur_cost;
+		}
+		q.pop();
+		//visit[cur_node] = true;
+		vector<pii>tmp;
+		for (int i = 0; i < board[cur_node].size(); i++)
+		{
+			long long next_cost = board[cur_node][i].first;
+			int next_node = board[cur_node][i].second;
+			//if (!visit[next_node])
+				tmp.push_back({ next_cost ,next_node });
+		}
+		if (tmp.size() == 0)
+			continue;
+		sort(tmp.begin(), tmp.end(), greater<>());
+		q.push({ tmp[0].first, tmp[0].second });
+
+		for (int i = 0; i < tmp.size(); i++)
+		{
+			if (i == 0)
+				continue;
+			if (tmp[0].first == tmp[i].first)
+				q.push({ tmp[i].first, tmp[i].second });
+			else
+				break;
+		}
+	}
+    return 0;
+}
+int main()
+{
+	scanf("%d %d", &n, &m);
+	for (int i = 0; i <= m; i++)
+	{
+		if (i == m) {
+			scanf("%d %d", &fac1, &fac2);
+		}
+		else
+		{
+			int a, b;
+			long long c;
+			scanf("%d %d %lld", &a, &b, &c);
+			board[a].push_back({ c,b });
+			board[b].push_back({ c,a });
+		}
+	}
+	cout << dijkstra(fac1, fac2);
+
+}
+/////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////07/17///////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
