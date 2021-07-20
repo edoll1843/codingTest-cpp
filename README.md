@@ -319,6 +319,80 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+```C++
+2021/07/20
+2665번 미로만들기
+다익스트라 골드4
+
+nxn의 배열이 있다.
+지나갈 수 있는 방은 1, 없는 방은 0이라 할 때 길이 막혀있다면 방을 뚫어야한다.
+0,0에서 n-1,n-1까지 최소한의 방을 뚫어 개수를 반환한다.
+
+얼마 전에 풀었던 문제와 유사 한 것 같다.
+조심해야할 점은 다익스트라와는 다르게 bfs로 풀었기에
+bfs는 q.push()하고 바로 visit[] = true;를 해줘야한다.
+그렇지 않으면 하나의 노드에 대해 엄청난 양의 요소가 큐에 들어갈 것이고 메모리 초과로
+이어진다.
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+#define MAX 51
+using namespace std;
+using pii = pair<int, pair<int, int>>;
+
+int board[MAX][MAX];
+bool visit[MAX][MAX];
+int n;
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int answer;
+void dijkstra()
+{
+    priority_queue<pii, vector<pii>, greater<pii>>pq;
+    pq.push({ 0,{ 0,0 } });
+    visit[0][0] = true;
+    while (!pq.empty())
+    {
+        int x = pq.top().second.first;
+        int y = pq.top().second.second;
+        int num = pq.top().first;
+        pq.pop();
+       
+        if (x == n - 1 && y == n - 1)
+            answer = num;
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = dx[i] + x;
+            int ny = dy[i] + y;
+            int nnum = 0;
+            if (!board[nx][ny]) { nnum = 1; }
+            if (nx < 0 || nx >= n || ny < 0 || ny >= n)
+                continue;
+            if (!visit[nx][ny])
+            {
+                pq.push({ num + nnum,{ nx,ny } });
+                visit[nx][ny] = true;
+            }
+                
+        }
+    }
+}
+int main()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        string tmp;
+        cin >> tmp;
+        for (int j = 0; j < tmp.size(); j++) {
+            board[i][j] = tmp[j] - '0';
+        }
+    }
+    dijkstra();
+    cout << answer;
+}
+```
 
 ```C++
 2021/07/17
