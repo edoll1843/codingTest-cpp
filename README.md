@@ -335,11 +335,86 @@ N개의 섬으로 이뤄진 나라가 있다.
 다른 방법을 찾아봐야겠다.
 
 07/20 추가+
+첫 번째와 두 번째 방법을 합쳐서 문제를 풀수 있었다.
+첫 번째는 cost배열을 선언하여 모든 노드 중 가장 적은 가중치를 반환했고,
+두 번째는 from에서 to로 가는 방법중 가장 큰 가중치를 반환했다. 하지만 시간이 초과되고 메모리를 너무 많이 썼던 것이 문제였다.
+마지막 방법은 dijkstra로 풀되 노드마다 cost를 비교하여 가장 큰 가중치를 반환하였다.
+결국 알고리즘은 첫 날에 생각했지만, 문제를 너무 어렵게 생각 했던 것 같다.
 
 07/19 추가+
 하나의 노드에서 다른 노드로 갈수있는 방법을 모두 벡터에 담아 가중치기준으로 정렬하고
 가장 높은 가중치를 우선순위 큐에 담으면서 목표 노드에 도달하면 가중치를 반환하는 방법을 
-구현했지만 메모리 초과가 떴다. 다른 방법을 생각해봐야겠다. 
+구현했지만 메모리 초과가 떴다. 다른 방법을 생각해봐야겠다.
+////////////////////////////add 07/20(정답)////////////////////////////////////
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+#include <algorithm>
+#define INF LLONG_MAX
+using namespace std;
+using pii = pair<long long, int>;
+vector<pii>board[100001];
+bool visit[100001];
+int n, m;
+int fac1, fac2;
+long long answer;
+void dijkstra(int from, int to)
+{
+	priority_queue<pii, vector<pii>, less<pii>>pq;
+
+    pq.push({ INF,from });
+   
+    while (!pq.empty())
+    {
+        int cur_node = pq.top().second;
+        long long min_cost = pq.top().first;
+
+        pq.pop();
+        visit[cur_node] = true;
+        if (cur_node == to)
+        {
+            answer = min_cost;
+            break;
+        }
+        for (int i = 0; i < board[cur_node].size(); i++)
+        {
+            int next_node = board[cur_node][i].second;
+            long long next_cost = board[cur_node][i].first;
+            long long temp = min_cost;
+            if (!visit[next_node])
+            {
+                if (min_cost > next_cost)
+                    temp = next_cost;
+                pq.push({ temp,next_node });
+                
+            }
+        }
+    }
+}
+int main()
+{
+	scanf("%d %d", &n, &m);
+	for (int i = 0; i <= m; i++)
+	{
+		if (i == m) {
+			scanf("%d %d", &fac1, &fac2);
+		}
+		else
+		{
+			int a, b;
+			long long c;
+			scanf("%d %d %lld", &a, &b, &c);
+			board[a].push_back({ c,b });
+			board[b].push_back({ c,a });
+		}
+	}
+    dijkstra(fac1, fac2);
+    cout << answer;
+}
+///////////////////////////////////////////////////////////////////////////////
+
 //////////////////////////////add 07/19/////////////////////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
