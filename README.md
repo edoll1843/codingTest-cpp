@@ -321,6 +321,106 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 2021/07/20
+11779번 최소비용 구하기2
+다익스트라 골드3
+
+n개의 도시가있고, 한 도시에서 출발하여 다른 도시에 도착하는 m개의 버스가 있다.
+A도시->B도시로 갈때 버스비용을 최소화한다.
+최소비용, 경로, 경로에 포함된 도시 개수를 출력하는 문제다.
+
+이 문제는 일반 다익스트라 처럼 풀면 되지만
+거쳐간 도시들을 반환하는 것이 다른 문제와 차별점이다.
+처음엔 2차원인접행렬로 각 도시마다 체크를 해주었지만
+그럴 필요 없이 큐를 pair<int,vector<int>> 형으로 선언하여 경로를 가지고 다니는 것으로
+문제를 해결했다.
+처음에는 시작점을 넣어주고 적은 비용을 업데이트 할 때
+기존에 있던 벡터를 복사하여 다음 노드를 넣고 다시 큐에 넣는 방식으로 진행하였다.
+다익스트라 함수 자체를 반환하여 size와 요소를 차례대로 출력하였다.
+재미 있는 문제였다.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+#define INF INT_MAX
+using namespace std;
+using pii = pair<int,vector<int>>;
+
+vector<pii>bus[100001];
+int cost[1001];
+int n, m;
+int from, to;
+vector<int>answer;
+vector<int> dijkstra(int from, int to)
+{
+    priority_queue<pii, vector<pii>, greater<pii>>pq;
+  
+    pq.push({ 0,{from} });
+    cost[from] = 0;
+
+    while (!pq.empty())
+    {
+        int cur_node = pq.top().second[pq.top().second.size()-1];
+        int cur_cost = pq.top().first;
+        vector<int>cur_vector = pq.top().second;
+
+        if (cur_node == to)
+        {
+            answer.push_back(cur_cost);
+            return cur_vector;
+        }
+        pq.pop();
+        if (cur_cost > cost[cur_node])
+            continue;
+        for (int i = 0; i < bus[cur_node].size(); i++)
+        {
+            if (bus[cur_node][i].second.size() == 0)
+                continue;
+            int next_node = bus[cur_node][i].second[bus[cur_node][i].second.size()-1];
+            int next_cost = bus[cur_node][i].first;
+
+            if (next_cost + cur_cost < cost[next_node])
+            {
+                vector<int>tmp(cur_vector);
+                tmp.push_back(next_node);
+                cost[next_node] = next_cost + cur_cost;
+                pq.push({cost[next_node],tmp});
+
+            }
+        }
+    }
+}
+int main()
+{
+    scanf("%d",&n);
+    scanf("%d",&m);
+    for (int i = 0; i <= m; i++)
+    {
+        if (i == m)
+        {
+            
+            scanf("%d %d", &from,&to);
+            break;
+        }
+        int a, b, c;
+        scanf("%d %d %d",&a,&b,&c);
+        vector<int>tmp;
+        tmp.push_back(b);
+        bus[a].push_back({ c,tmp });
+    }
+    for (int i = 1; i <= n; i++) { cost[i] = INF; }
+   vector<int> road =  dijkstra(from,to);
+    cout << answer[0] << endl;
+    cout << road.size() << endl;
+    for (auto i : road)
+        cout << i << " ";
+}
+
+```
+
+```C++
+2021/07/20
 2665번 미로만들기
 다익스트라 골드4
 
