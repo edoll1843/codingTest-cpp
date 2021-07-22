@@ -320,6 +320,90 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/07/22
+7576번 bfs
+토마토 실버1
+
+2차원 배열의 토마토 박스가 있을 떄
+토마토가 없으면 -1, 안익었으면 0, 익었으면 1의 토마토 상태를 나타낸다.
+이때 익은 토마토 상하좌우에 익지 않은 토마토가 있으면 하루가 지나면 익게 된다.
+전체 토마토가 익으려면 며칠이 걸리는가.
+만약 다 익을 수 없는 상황이라면 -1을 출력하고, 이미 다 익었으면 0을 출력한다.
+
+//고찰// 
+bfs로 구현했지만
+상화좌우로 익을때마다 큐에 들어가게되어 날짜도 하루가 아닌 하루에 익은 토마토 만큼
+더 늘어났다.
+이 부분만 해결하면 될 것 같다.
+
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int box[1001][1001];
+using pii = pair<int, int>;
+bool visit[1001][1001];
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int n, m;// n은 세로, m은 가로
+int main()
+{
+    cin >> m >> n;
+    queue<pii>q;
+    int live = 0;
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++) {
+            int tomato;
+            cin >> tomato;
+            box[i][j] = tomato;
+            if (tomato == 1)
+            {
+                q.push({ i,j });
+                visit[i][j] = true;
+            }
+            else if (tomato == -1)
+                visit[i][j] = true;
+            else
+                live++;
+        }
+    }
+    if (live == 0){
+        cout << 0;
+        return 0;
+    }
+    int day = 0;
+    while (!q.empty())
+    {
+        int x = q.front().first;
+        int y = q.front().second;
+
+        q.pop();
+       
+        for (int i = 0; i < 4; i++) {
+            int nx = dx[i] + x;
+            int ny = dy[i] + y;
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m)
+                continue;
+            if (!visit[nx][ny] && !box[nx][ny]) {
+                q.push({ nx, ny });
+                box[nx][ny] = 1;
+                live--;
+                visit[nx][ny] = true;
+            }
+        }
+        if (q.size() == 0)
+            break;
+        day++;
+    }
+    if (live != 0)
+        cout << -1;
+    else
+        cout << day;
+}
+```
+```C++
 2021/07/20
 11779번 최소비용 구하기2
 다익스트라 골드3
