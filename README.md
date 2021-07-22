@@ -321,6 +321,86 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 2021/07/22
+10845번 큐
+큐 실버4
+
+큐를 구현하는 문제이다.
+
+*****주의*****
+공백까지 온전한 한줄을 받아오려겨
+string의 getline(cin,str)함수를 썼다.
+하지만 cin >> n을 하고 바로 getline함수를 쓰면
+n을 입력했던 버퍼에 엔터('\n')가 그대로 남아있어
+getline()에 들어가기 떄문에 getline은 엔터를 인식하고
+문자열을 입력 받지 않는다.
+
+이를 해결하기위해 cin.ignore()이라는 함수를 사용한다.
+이 함수는 입력 버퍼의 모든 내용을 제거해주어 getline이 정상적으로 동작 할 수있다.
+***************
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <string>
+using namespace std;
+
+int n;
+int main()
+{
+    cin >> n;
+    cin.ignore();
+    queue<int>q;
+    for (int i = 0; i < n; i++)
+    {
+        string str;
+       
+        getline(cin,str);
+        string com;
+        string num;
+        for (int j = 0; j < str.size(); j++)
+        {
+            if (isalpha(str[j]))
+                com += str[j];
+            else if (isdigit(str[j]))
+                num += str[j];
+        }
+        if (com == "push"){
+            q.push(stoi(num));
+        }
+        else if (com == "pop") {
+            if (q.size() == 0)
+                cout << -1 << endl;
+            else{
+                cout << q.front() << endl;
+                q.pop();
+            }
+        }
+        else if (com == "size") {
+            cout << q.size() << endl;
+        }
+        else if (com == "empty") {
+            if (q.empty())
+                cout << 1 << endl;
+            else
+                cout << 0 << endl;
+        }
+        else if (com == "front") {
+            if (q.size() == 0)
+                cout << -1 << endl;
+            else
+                cout << q.front() << endl;
+        }
+        else if (com == "back") {
+            if (q.size() == 0)
+                cout << -1 << endl;
+            else
+                cout << q.back() << endl;
+        }
+    }
+}
+```
+
+```C++
+2021/07/22
 7576번 bfs
 토마토 실버1
 
