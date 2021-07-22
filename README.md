@@ -336,6 +336,77 @@ bfs로 구현했지만
 더 늘어났다.
 이 부분만 해결하면 될 것 같다.
 
+////////////////////07/23 추가 add+//////////////////////////////////
+상하좌우로 토마토가 익은 숫자를 나누거나 뺴는 것으로 해결 하려 했으나
+큐에 계속 들고다니는 것으로 문제를 해결 했다.
+////////////////////////////////정답/////////////////////////////
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int box[1001][1001];
+using pii = pair<int,pair<int, int>>;
+bool visit[1001][1001];
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int n, m;// n은 세로, m은 가로
+int main()
+{
+    cin >> m >> n;
+    queue<pii>q;
+    int live = 0;
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++) {
+            int tomato;
+            cin >> tomato;
+            box[i][j] = tomato;
+            if (tomato == 1)
+            {
+                q.push({ 0,{ i,j } });
+                visit[i][j] = true;
+            }
+            else if (tomato == -1)
+                visit[i][j] = true;
+            else
+                live++;
+        }
+    }
+    if (live == 0){
+        cout << 0;
+        return 0;
+    }
+    int return_day = 0;
+    while (!q.empty())
+    {
+        int x = q.front().second.first;
+        int y = q.front().second.second;
+        int now_day = q.front().first;
+        return_day = now_day;
+        q.pop();
+        for (int i = 0; i < 4; i++) {
+            int nx = dx[i] + x;
+            int ny = dy[i] + y;
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m)
+                continue;
+            if (!visit[nx][ny] && !box[nx][ny]) {
+                q.push({ now_day + 1,{ nx, ny } });
+                box[nx][ny] = 1;
+                live--;
+    
+                visit[nx][ny] = true;
+            }
+        }
+        if (q.size() == 0)
+            break;
+    }
+    if (live != 0)
+        cout << -1;
+    else
+        cout << return_day;
+}
+////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <vector>
 #include <queue>
