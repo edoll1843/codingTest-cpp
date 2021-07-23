@@ -321,6 +321,106 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 2021/07/22
+14503번 구현
+로봇 청소기 골드5
+
+구현문제이다. 로봇 청소기의 움직임을 조건으로 받는다.
+조건에 만족하여 문제를 풀면 된다.
+문제 설명을 잘 봐야 이해가 될 것 같다.
+
+정답은 맞았지만 조금은 지저분하다는 생각이 들었다. 다른 사람 코드를 분석해봐야겠다.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int dx[4] = {-1,0,1,0};
+int dy[4] = {0,1,0,-1};
+int room[51][51];
+bool visit[51][51];
+
+int turn_left(int w)
+{
+    if (w == 0)
+        w = 3;
+    else
+        w -= 1;
+    return w;
+}
+int main()
+{
+    int answer = 0;
+    int n, m;
+    cin >> n >> m;
+    int robot_x, robot_y, way;
+    cin >> robot_x >> robot_y >> way;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            int a;
+            cin >> a;
+            room[i][j] = a;
+        }
+    }
+    int count = 0;
+
+number1:
+    if (!room[robot_x][robot_y] && !visit[robot_x][robot_y])
+    {
+        visit[robot_x][robot_y] = true;
+        answer++;
+    }
+        
+number2:
+        way = turn_left(way);
+        int nx = robot_x + dx[way];
+        int ny = robot_y + dy[way];
+        if (!room[nx][ny] && !visit[nx][ny])
+        {
+            robot_x = nx;
+            robot_y = ny;
+            count = 0;
+            goto number1;
+        }
+        else if (visit[nx][ny] || room[nx][ny])
+        {
+            count++;
+            if(count != 4)
+                goto number2;
+        }
+        if (count == 4)
+        {
+            int way_tmp = way;
+            if (way == 0)
+                way = 2;
+            else if (way == 1)
+                way = 3;
+            else if (way == 2)
+                way = 0;
+            else if (way == 3)
+                way = 1;
+            int tmp_x = robot_x + dx[way];
+            int tmp_y = robot_y + dy[way];
+            if (tmp_x < 0 || tmp_y < 0 || tmp_x >= n || tmp_y >= m || room[tmp_x][tmp_y])
+            {
+                cout << answer;
+                return 0;
+            }
+            else
+            {
+                way = way_tmp;
+                robot_x = tmp_x;
+                robot_y = tmp_y;
+                count = 0;
+                goto number2;
+            }  
+        }  
+}
+```
+
+```C++
+2021/07/22
 10845번 큐
 큐 실버4
 
