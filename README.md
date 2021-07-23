@@ -320,7 +320,54 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
-2021/07/22
+2021/07/23
+7568번 구현 
+덩치 실버5
+
+n명의 사람마다 키와 몸무게를 주어지고
+키와 몸무게 둘다 동시에 다른 사람보다 크면 덩치가 크다고 한다.
+만약 둘 중하나가 작고 크면 동급이라고 보고
+둘다 작으면 덩치가 작다고 표현한다
+각 사람의 등수를 출력하는 문제이다.
+
+이 문제는 몸무게와 키를 벡터에 담아
+CMP로 정렬을 하려 했으나
+이중 포문을 이용해 한 사람마다 모든 사람과 비교하고 랭킹을 정하는 것으로 풀었다.
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int n;
+using pii = pair<int, int>;
+vector<pii>v;
+
+int main()
+{
+    cin >> n;
+    int ranking = 1;
+    for (int i = 0; i < n; i++)
+    {
+        int w, h;
+        cin >> w >> h;
+        v.push_back({ w,h });
+    }
+    for (int i = 0; i < v.size(); i++)
+    {
+        for (int j = 0; j < v.size(); j++)
+        {
+            if (v[i].first < v[j].first && v[i].second < v[j].second)
+                ranking++;
+        }
+        cout << ranking << " ";
+        ranking = 1;
+    }
+}
+```
+
+```C++
+2021/07/23
 14503번 구현
 로봇 청소기 골드5
 
@@ -420,7 +467,7 @@ number2:
 ```
 
 ```C++
-2021/07/22
+2021/07/23
 10845번 큐
 큐 실버4
 
