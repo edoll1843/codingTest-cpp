@@ -320,6 +320,71 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/07/24
+1966번 구현
+프린터 큐 실버3
+
+<int,int>형 큐에 중요도를 따져 입력으로 받은 숫자는
+몇 번쨰로 pop이 되는지 구현하는 문제이다.
+
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+using pii = pair<int, int>;
+
+int main()
+{
+	int test_case;
+	cin >> test_case;
+
+	for (int i = 0; i < test_case; i++)
+	{
+		int n, m;
+		cin >> n >> m;
+		queue<pii>q;
+		vector<int>im;
+		int count = 1;
+		for (int j = 0; j < n; j++)
+		{
+			int num;
+			cin >> num;
+			im.push_back(num);
+			q.push({ num,j });
+		}
+		sort(im.begin(), im.end());
+
+	tryAgain:
+		int f = q.front().first;
+		int s = q.front().second;
+		int max = im[im.size() - 1];
+		if (f < max)
+		{
+			q.pop();
+			q.push({ f,s });
+			goto tryAgain;
+		}
+		else if (f == max)
+		{
+			if (s == m)
+			{
+				cout << count << endl;
+			}
+			else
+			{
+				q.pop();
+				im.pop_back();
+				count++;
+				goto tryAgain;
+			}
+		}
+	}
+}
+```
+
+```C++
 2021/07/23
 7568번 구현 
 덩치 실버5
