@@ -326,6 +326,49 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 2021/07/26
+1476번 구현
+날짜 계산 실버5
+어떤 나라는 수3개를 이용해서 연도를 나타낸다.
+e,s,m으로 나타내는데  (1 ≤ E ≤ 15, 1 ≤ S ≤ 28, 1 ≤ M ≤ 19)의 범위를 가진다.
+
+1년은 준규가 살고있는 나라에서는 1 1 1로 나타낼 수 있다. 1년이 지날 때마다, 세 수는 모두 1씩 증가한다.
+만약, 어떤 수가 범위를 넘어가는 경우에는 1이 된다.
+
+예를 들어, 15년은 15 15 15로 나타낼 수 있다. 하지만, 1년이 지나서 16년이 되면 16 16 16이 아니라
+1 16 16이 된다. 이유는 1 ≤ E ≤ 15 라서 범위를 넘어가기 때문이다.
+E, S, M이 주어질때 연도를 출력하는 문제이다.
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+#pragma warning(disable : 4996)
+using namespace std;
+
+#define div_E 15
+#define div_S 28
+#define div_M 19
+
+int E, S, M;
+int main() {
+    cin >> E >> S >> M;
+    int year = 1;
+    while (1) {
+        int sub_E = ((year - 1) % div_E) + 1;
+        int sub_S = ((year - 1) % div_S) + 1;
+        int sub_M = ((year - 1) % div_M) + 1;
+        if (sub_E == E && sub_S == S && sub_M == M) {
+            printf("%d", year);
+            return 0;
+        }
+        year++;
+    }
+
+    return 0;
+}
+```
+
+```C++
+2021/07/26
 1475번 구현
 방 번호 실버5
 
