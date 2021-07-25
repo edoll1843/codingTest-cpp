@@ -326,6 +326,39 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 2021/07/26
+1475번 구현
+방 번호 실버5
+
+0~9까지 이뤄진 숫자 스티커가 있을때 방번호를 주었을 때 필요한 스티커 세트의 최솟값을 구한다.
+6은 9로 9는 6으로도 사용할 수있다.
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+    string str;
+    cin >> str;
+    vector<int> arr(10);
+    for (int i = 0; i < str.size(); i++)
+         arr[str[i] - '0']++;   
+    int nine_six = arr[9]+ arr[6];
+    if (nine_six % 2 == 1)
+        arr[9] = (nine_six / 2) + 1;
+    else
+        arr[9] = nine_six / 2;
+    arr[6] = 0;
+
+    sort(arr.begin(), arr.end());
+    cout << arr[arr.size()-1];
+}
+```
+
+```C++
+2021/07/26
 1193번 구현
 분수찾기 브론즈2
 
