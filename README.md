@@ -325,6 +325,64 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/07/26
+1193번 구현
+분수찾기 브론즈2
+
+ 나열된 분수들을 1/1 -> 1/2 -> 2/1 -> 3/1 -> 2/2 -> … 과 같은 지그재그 순서로 차례대로 1번, 2번, 3번, 4번, 5번, … 분수라고 하자.
+x가 주어졌을때 x번째 분수를 구하는 문제다.
+
+#include <iostream>
+
+using namespace std;
+using pii = pair<int, int>;
+int main()
+{
+
+    int x;
+    cin >> x;
+    int count = 0;
+    int sum = 0;
+    while (1)
+    {
+        sum += count;
+        if (sum >= x)
+            break;
+        count++;
+    }
+    sum -= count;
+    if (count % 2)
+    {//홀수
+        int mo = count;
+        int ja = 1;
+        pii bunsu = {mo,ja};
+        sum++;
+        while (sum != x)
+        {
+            bunsu.first--;
+            bunsu.second++;
+            sum++;
+        }
+        cout << bunsu.first << "/" << bunsu.second << endl;
+    }
+    else
+    {//짝수
+        int mo = 1;
+        int ja = count;
+        pii bunsu = { mo,ja };
+        sum++;
+        while (sum != x)
+        {
+            bunsu.first++;
+            bunsu.second--;
+            sum++;
+        }
+        cout << bunsu.first << "/" << bunsu.second << endl;
+    }
+}
+```
+
+```C++
 2021/07/24
 1966번 구현
 프린터 큐 실버3
