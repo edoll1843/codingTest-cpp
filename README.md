@@ -326,6 +326,109 @@ cin 대신 scanf를 습관화하자
 
 
 ```C++
+2021/07/28
+15686번 구현
+치킨 배달 골드5
+
+NxN 도시가 있을 떄
+0은 빈칸, 1은 집, 2는 치킨집으로 나타낸다.
+이때 각 치킨집으로부터 최단거리의 집들을 구한다
+치킨집에서 집까지 가장 많은 최소거리를 가진 치킨집 상위 M개의
+집까지의 거리들을 모두 더하여 반환하는 문제이다.
+
+처음에 최단 거리를 보고 bfs로 풀어보려고했다.
+치킨집을 각 큐에 넣어 치킨집고유인덱스, 거리, x,y촤표를 구하여
+정렬 후 M개를 뽑으려고했지만 실패했다. 뭔가 하면서도 잘못된걸 느꼈는데
+디버깅 결과 집까지 거리를 계속 가지고 가기때문에 중복되는 거리가 존재하여
+값이 더 많이 나온다는 것이다.
+다익스트라 혹은 브루트포스로 풀어봐야겠다. 
+
+
+//////////////////////////////초기 코드//////////////////////
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+#include <algorithm>
+using namespace std;
+
+using pii = pair<int,pair<int, pair<int, pair<int, int>>>>;
+
+int n; // 정사각형
+int m; //상위 치킨 집 개수;
+int board[501][501];
+int visit[501][501];
+int house_c = 0;
+int chicken_c = 0;
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int bfs(queue<pii>pq)
+{
+    
+    while (!pq.empty()){
+        int dist = pq.front().first;
+        int c_c = pq.front().second.first;
+        int cost = pq.front().second.second.first;
+        int x = pq.front().second.second.second.first;
+        int y = pq.front().second.second.second.second;
+        pq.pop();
+
+        if (house_c == 0)
+            break;
+        for (int i = 0; i < 4; i++){
+            int nx = dx[i] + x;
+            int ny = dy[i] + y;
+            if (nx >= n || nx < 0 || ny >= n || ny < 0)
+                continue;
+            if (!visit[nx][ny] && board[nx][ny] != 2) {
+              
+                if (board[nx][ny] == 1) {
+                    pq.push({dist+1, {c_c, { cost + dist,{nx,ny} } } });
+                    house_c--;
+                }
+                else
+                    pq.push({dist+1, { c_c,{cost,{nx,ny} } } });
+                visit[nx][ny] = true;
+            }
+        }
+    }
+    
+    
+    vector<int> v(chicken_c);
+    while (!pq.empty())
+    {
+        int c_c = pq.front().second.first;
+        int cost = pq.front().second.second.first;
+        pq.pop();
+        v[c_c] += cost;
+    }
+    sort(v.begin(), v.end());
+    int answer = 0;
+    for (int i = 0; i < m; i++)
+        answer += v[i];
+    return answer;
+}
+int main()
+{
+    queue<pii>pq;
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> board[i][j];
+            if (board[i][j] == 1)
+                house_c++;
+            else if (board[i][j] == 2) {
+                pq.push({ 1,{chicken_c,{0,{i,j}}}});
+                chicken_c++;
+            }   
+        }
+    }
+    cout << bfs(pq) << endl;
+
+}
+```
+
+```C++
 2021/07/27
 14500번 구현
 테트로미노 골드5
