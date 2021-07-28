@@ -342,6 +342,290 @@ cin 대신 scanf를 습관화하자
 구조체로 테트로미노를 만들고 각 도형의 초기값을 설정하여 진행했다.
 하지만 예제는 다 맞지만 틀렸다고 나온다. 반례를 찾아가며 다시 봐야겠다.
 
+//////07/28 추가 add+/////////////////////
+도형을 90도씩 돌린 건 생각 했지만
+대칭일 경우를 고려 안한 것이 원인이였다.
+총 6개의 데이터를 추가하여 문제를 해결했다.
+다른 사람 코드와 비교해보니
+도형의 초기값을 설정하는 것 똑같았다.
+다만 dfs로 푼 사람들이 많았다.
+/////////////////////////추가 코드 add++////////////////////////
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+using namespace std;
+
+using pii = pair<int, int>;
+int answer = 0;
+int n, m;
+int board[501][501];
+struct tetro {
+	pii node1;
+	pii node2;
+	pii node3;
+	pii node4;
+};
+tetro right(tetro te) {
+	te.node1.second++;
+	te.node2.second++;
+	te.node3.second++;
+	te.node4.second++;
+	return te;
+}
+tetro down(tetro te) {
+	te.node1.first++;
+	te.node2.first++;
+	te.node3.first++;
+	te.node4.first++;
+	return te;
+}
+bool range_check(tetro te) {
+	int x1 = te.node1.first;
+	int x2 = te.node2.first;
+	int x3 = te.node3.first;
+	int x4 = te.node4.first;
+
+	int y1 = te.node1.second;
+	int y2 = te.node2.second;
+	int y3 = te.node3.second;
+	int y4 = te.node4.second;
+	if (x1 >= n || x1 < 0)
+		return false;
+	if (x2 >= n || x2 < 0)
+		return false;
+	if (x3 >= n || x2 < 0)
+		return false;
+	if (x4 >= n || x2 < 0)
+		return false;
+
+	if (y1 >= m || y1 < 0)
+		return false;
+	if (y2 >= m || y2 < 0)
+		return false;
+	if (y3 >= m || y3 < 0)
+		return false;
+	if (y4 >= m || y4 < 0)
+		return false;
+
+	return true;
+}
+int get_score(tetro te)
+{
+	int sum = 0;
+	int x1 = te.node1.first;
+	int x2 = te.node2.first;
+	int x3 = te.node3.first;
+	int x4 = te.node4.first;
+
+	int y1 = te.node1.second;
+	int y2 = te.node2.second;
+	int y3 = te.node3.second;
+	int y4 = te.node4.second;
+	sum += board[x1][y1];
+	sum += board[x2][y2];
+	sum += board[x3][y3];
+	sum += board[x4][y4];
+	return sum;
+}
+
+int main()
+{
+	cin >> n >> m;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cin >> board[i][j];
+		}
+	}
+	tetro answer_temp;
+	tetro te1; // ----
+	te1.node1 = { 0,0 };
+	te1.node2 = { 0,1 };
+	te1.node3 = { 0,2 };
+	te1.node4 = { 0,3 };
+	tetro te2; // I
+	te2.node1 = { 0,0 };
+	te2.node2 = { 1,0 };
+	te2.node3 = { 2,0 };
+	te2.node4 = { 3,0 };
+
+	tetro te3; //ㅁ
+	te3.node1 = { 0,0 };
+	te3.node2 = { 0,1 };
+	te3.node3 = { 1,0 };
+	te3.node4 = { 1,1 };
+
+	tetro te4; // ㄴ
+	te4.node1 = { 0,0 };
+	te4.node2 = { 1,0 };
+	te4.node3 = { 2,0 };
+	te4.node4 = { 2,1 };
+
+	tetro te5; // 
+	te5.node1 = { 0,0 };
+	te5.node2 = { 1,0 };
+	te5.node3 = { 0,1 };
+	te5.node4 = { 0,2 };
+
+	tetro te6;
+	te6.node1 = { 0,0 };
+	te6.node2 = { 0,1 };
+	te6.node3 = { 1,1 };
+	te6.node4 = { 2,1 };
+
+	tetro te7;
+	te7.node1 = { 1,0 };
+	te7.node2 = { 1,1 };
+	te7.node3 = { 1,2 };
+	te7.node4 = { 0,2 };
+
+	tetro te8;//ㄹ
+	te8.node1 = { 0,0 };
+	te8.node2 = { 1,0 };
+	te8.node3 = { 1,1 };
+	te8.node4 = { 2,1 };
+
+	tetro te9;
+	te9.node1 = { 1,0 };
+	te9.node2 = { 1,1 };
+	te9.node3 = { 0,1 };
+	te9.node4 = { 0,2 };
+
+	tetro te10;//ㅗ
+	te10.node1 = { 0,0 };
+	te10.node2 = { 0,1 };
+	te10.node3 = { 0,2 };
+	te10.node4 = { 1,1 };
+
+	tetro te11;
+	te11.node1 = { 0,0 };
+	te11.node2 = { 1,0 };
+	te11.node3 = { 2,0 };
+	te11.node4 = { 1,1 };
+
+	tetro te12;
+	te12.node1 = { 1,0 };
+	te12.node2 = { 0,1 };
+	te12.node3 = { 1,1 };
+	te12.node4 = { 2,1 };
+
+	tetro te13;
+	te13.node1 = { 0,1 };
+	te13.node2 = { 1,0 };
+	te13.node3 = { 1,1 };
+	te13.node4 = { 1,2 };
+
+	tetro te14;
+	te14.node1 = { 0,1 };
+	te14.node2 = { 0,0 };
+	te14.node3 = { 1,0 };
+	te14.node4 = { 2,0 };
+
+	tetro te15;
+	te15.node1 = { 0,0 };
+	te15.node2 = { 1,0 };
+	te15.node3 = { 1,1 };
+	te15.node4 = { 1,2 };
+
+	tetro te16;
+	te16.node1 = { 2,0 };
+	te16.node2 = { 2,1 };
+	te16.node3 = { 1,1 };
+	te16.node4 = { 0,1 };
+
+	tetro te17;
+	te17.node1 = { 0,0 };
+	te17.node2 = { 0,1 };
+	te17.node3 = { 0,2 };
+	te17.node4 = { 1,2 };
+	
+	tetro te18;
+	te18.node1 = { 0,1 };
+	te18.node2 = { 1,1 };
+	te18.node3 = { 1,0 };
+	te18.node4 = { 2,0 };
+
+	tetro te19;
+	te19.node1 = { 0,0 };
+	te19.node2 = { 0,1 };
+	te19.node3 = { 1,1 };
+	te19.node4 = { 1,2 };
+
+	queue<tetro>q;
+	q.push(te1);
+	q.push(te2);
+	q.push(te3);
+	q.push(te4);
+	q.push(te5);
+	q.push(te6);
+	q.push(te7);
+	q.push(te8);
+	q.push(te9);
+	q.push(te10);
+	q.push(te11);
+	q.push(te12);
+	q.push(te13);
+	q.push(te14);
+	q.push(te15);
+	q.push(te16);
+	q.push(te17);
+	q.push(te18);
+	q.push(te19);
+
+	while (!q.empty())
+	{
+		tetro temp = q.front();
+		q.pop();
+		int sum = get_score(temp);
+		if (answer < sum)
+		{
+			answer = sum;
+			answer_temp = temp;
+		}
+			
+		tetro temp_fisrt = temp;
+		while (1)
+		{
+			while (1)
+			{
+				temp = right(temp);
+				if (range_check(temp))
+				{
+					sum = get_score(temp);
+					if (answer < sum)
+					{
+						answer = sum;
+						answer_temp = temp;
+					}
+						
+				}
+				else
+					break;
+			}
+			temp = temp_fisrt;
+			temp = down(temp);
+			temp_fisrt = temp;
+			if (range_check(temp))
+			{
+				sum = get_score(temp);
+				if (answer < sum){
+					answer = sum;
+					answer_temp = temp;
+				}
+					
+			}
+			else
+				break;
+		}
+	}
+	cout << answer << endl;
+	//cout << "(" << answer_temp.node1.first << " , " << answer_temp.node1.second << ")" << endl;
+	//cout << "(" << answer_temp.node2.first << " , " << answer_temp.node2.second << ")" << endl;
+	//cout << "(" << answer_temp.node3.first << " , " << answer_temp.node3.second << ")" << endl;
+	//cout << "(" << answer_temp.node4.first << " , " << answer_temp.node4.second << ")" << endl;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
