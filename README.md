@@ -343,7 +343,68 @@ NxN 도시가 있을 떄
 값이 더 많이 나온다는 것이다.
 다익스트라 혹은 브루트포스로 풀어봐야겠다. 
 
+///////////////////////07/28 add++////////////////////////
+브루트포스로 구현했다.
+예외 처리 좀만 더 하면 될듯
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+#include <algorithm>
+#define INF INT_MAX;
+using namespace std;
 
+using pii = pair<int, int>;
+int n; // 정사각형
+int m; //상위 치킨 집 개수;
+int board[501][501];
+
+int get_dist(int x1, int y1, int x2, int y2){
+    return abs(x1 - x2) + abs(y1 - y2);
+}
+int main()
+{
+    vector<pii> c;
+    vector<pii> h;
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> board[i][j];
+            if (board[i][j] == 1)
+                h.push_back({ i,j });
+            else if (board[i][j] == 2)
+                c.push_back({ i,j });
+        }
+    }
+    vector<pii>answer(h.size());
+        for (int j = 0; j < h.size(); j++){
+            answer[j] = { 0,2147483647 };
+        }
+
+    vector<int>ch(c.size());
+    for (int i = 0; i < c.size(); i++) {
+        for (int j = 0; j < h.size(); j++) {
+           int dist =  get_dist(c[i].first, c[i].second, h[j].first, h[j].second);
+           
+           if (answer[j].second > dist) {
+               answer[j].first = i;
+               answer[j].second = dist;
+           }  
+        }
+    }
+    vector<int>real(c.size());
+    for (int i = 0; i < answer.size(); i++)
+    {
+        int f = answer[i].first;
+        int s = answer[i].second;
+        real[f] += s;
+    }
+    sort(real.begin(), real.end());
+    reverse(real.begin(), real.end());
+    vector<int>ve;
+   
+
+}
 //////////////////////////////초기 코드//////////////////////
 #include <iostream>
 #include <vector>
