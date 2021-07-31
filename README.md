@@ -343,6 +343,100 @@ NxN 도시가 있을 떄
 값이 더 많이 나온다는 것이다.
 다익스트라 혹은 브루트포스로 풀어봐야겠다. 
 
+
+///////////////////////07/31 add++ ///////////////////////
+이전의 코드는 최소거리를 가지는 m개의 치킨집의 인덱스를 구했었다.
+이 상태로 각 집까지 최소거리를 구하려고 했지만, 시간초과로 실패했다.
+
+ 알고리즘을 다시 설계했다.
+m개의 치킨집을 가질 수 있는 모든 치킨집을 조합하여 집으로부터 값이 최소가 되게끔 하였다.
+하지만 구현부분에서 애를 먹었고, 다른 사람의 코드를 참고하였다.
+DFS로 푼 코드이다.
+집0 - min(치킨집0,치킨집1)
+집1 - min(치킨집0,치킨집1)
+집2 - min(치킨집0,치킨집1)
+집3 - min(치킨집0,치킨집1)
+... 집.size()
+
+집0 - min(치킨집0,치킨집2)
+집1 - min(치킨집0,치킨집2)
+집2 - min(치킨집0,치킨집2)
+집3 - min(치킨집0,치킨집2)
+... 집.size()
+과 같은 형태로 값을 구하여 최솟 값을 반환한다.
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+const int MAX = 50;
+const int INF = 987654321;
+int N, M;
+int result;
+int graph[MAX][MAX];
+vector<pair<int, int>> house, chicken;
+bool visited[13];
+//맨해튼 거리
+int distance(pair<int, int> a, pair<int, int> b)
+{
+    return abs(a.first - b.first) + abs(a.second - b.second);
+}
+void DFS(int idx, int selected)
+{
+    //조건 만족
+    if (selected == M)
+    {
+      //  cout << "인덱스 : " << idx << endl;
+        int tempResult = 0;
+        for (int i = 0; i < house.size(); i++)
+        {
+            int dist = INF;
+            for (int j = 0; j < chicken.size(); j++)
+                if (visited[j]) {
+                    dist = min(dist, distance(house[i], chicken[j]));
+                  //  cout << "하우스" << i << " 치킨"<< j << " 거리는 : " << dist << endl;
+                }
+            tempResult += dist;
+        //    cout << "최소 거리 : " << tempResult << endl;
+         //   cout << endl;
+        }
+        result = min(result, tempResult);
+     //   cout << "최솟 값 :" << result << endl;
+        return;
+    }
+    //기저 사례
+    if (idx == chicken.size())
+        return;
+    //프랜차이즈 선정
+    visited[idx] = true;
+    DFS(idx + 1, selected + 1);
+    //프랜차이즈 선정 X
+    visited[idx] = false;
+    DFS(idx + 1, selected);
+}
+
+int main(void)
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> N >> M;
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+        {
+            cin >> graph[i][j];
+            if (graph[i][j] == 1)
+                house.push_back({ i, j });
+            else if (graph[i][j] == 2)
+                chicken.push_back({ i, j });
+        }
+    result = INF;
+    DFS(0, 0);
+    cout << result << "\n";
+    return 0;
+}
+
+//////////////////////////////////////////////////////////
+
 ///////////////////////07/28 add++////////////////////////
 브루트포스로 구현했다.
 예외 처리 좀만 더 하면 될듯
