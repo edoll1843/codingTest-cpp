@@ -324,6 +324,134 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+```C++
+2021/08/04
+3190번 구현(시뮬,디큐) 
+게임 snake를 구현하는 문제이다.
+뱀이 나와서 기어다니는데 사과를 먹으면 뱀 길이가 늘어난다.
+게임 종료 조건은 벽, 자기자신의 몸과 부딪히면 게임은 끝난다.
+
+게임은 NXN 보드에서 진행되고 사과가 있다.
+사과를 먹으면 몸 길이가 늘어난다.
+초기에 뱀은 0,0에 위치하고 뱀의 길이는 1이다.(꼬리-머리)가 1인줄 알았지만, 머리 하나만 있을때
+1이였다. 뱀은 처음에 오른쪽으로 움직인다.
+
+뱀은 매 초마다 움직이는데 다음 규칙이있다.
+- 머리를 기준을 다음칸에 위치한다.
+- 이동한 칸에 사과가 있다면 사과는 없어지고 꼬리는 그대로이며 몸길이는 1 증가한다.
+- 이동한 칸에 사과가 없다면 몸 길이를 줄여 꼬리가 위치한 칸을 비워준다. 몸길이는 그대로다.
+
+사과의 위치와 뱀의 이동 경로가 주어질 때 게임이 몇 초에 끝나는지 계산하는 문제이다.
+
+이 문제는 deque로 풀었다. 처음엔 Linked list로 풀려고 했지만 그럴 필요가 없을 것 같아서
+좀 더 생각 해본 결과 deque로 풀었다. 꼬리와 머리를 동시에 pop,push를 해줘야하는데
+vector와 queue는 이 조건을 충족하지 못한다.
+
+주석을 달아 놨지만 알고리즘은 다음과 같다.
+먼저 input을 받는다. 사과는 board에 1로 표현하며, 뱀은 2로 표현한다.
+방향이 전환하는 시점은 배열에 담아 index를 초, data를 방향으로 구분했다.
+deque를 뱀으로 놓고 초기 값인 0,0을 담아줬다.
+while문으로 턴은 진행된다.
+0. time++
+1. 좌표를 뱀의 방향으로 한칸 이동하여 게임 종료 조건을 확인한다.
+2. 사과가 있을 떄
+- board에서 사과를 지운다.
+- deque에서 현재 좌표를 push_front하여 머리를 늘려준다. 
+- 꼬리를 움직일 필요가 없다.
+3. 사과가 없을 때
+- 머리 부분을 board에서 2로 바꿔준다.
+- 길이는 그대로이기에 deque의 맨 끝의 x,y좌표를 board에서 지워준다.
+- deque에서 꼬리를 지우고(popback) 현재 좌표를 머리에 추가한다.(push_front)
+4. 뱀의 방향 전환
+- 뱀의 방향 전환을 위해 초기에 저장했던 방향전환 배열에 L이나D가 있는지 확인한다.
+만약 있다면 방향 전환을 해주고 없다면 지금 방향 그대로 1칸 전진해준다.
+
+#include <iostream>
+#include <vector>
+#include <deque>
+
+using namespace std;
+using pii = pair<int, int>;
+
+int board[101][101];
+int N, K, L;
+char move_arr[10001];
+int dx[4] = { 0,1,0,-1 };
+int dy[4] = { 1,0,-1,0 };
+
+int move(int d, char m)
+{
+    if (m == 'L')
+    {
+        if (d == 0)
+            return 3;
+        else
+            return d - 1;
+    }
+    else if (m == 'D')
+    {
+        if (d == 3)
+            return 0;
+        else
+            return d + 1;
+    }
+}
+void input()
+{
+    cin >> N;
+    cin >> K;
+    for (int i = 0; i < K; i++) {
+        int apple_x, apple_y;
+        cin >> apple_x >> apple_y;
+        board[apple_x-1][apple_y-1] = 1;
+        // 사과는 1로 표현
+    }
+    cin >> L;
+    for (int i = 0; i < L; i++) {
+        int seconds;
+        char direction;
+        cin >> seconds >> direction;
+        move_arr[seconds] = direction;
+        // 방향 전화 배열을 만들어 index를 초, data는 방향
+    }
+}
+int main()
+{
+    input();
+    deque<pii>q;// 뱀의 몸체
+    q.push_back({ 0,0 }); //뱀 초기값
+    board[0][0] = 2; //맵에서 뱀은 2로 표현
+    int x=0, y=0; //좌표
+    int d=0; // 방향
+    int time = 0; // 시간
+    while (1)
+    {
+        time++;
+        int nx = x + dx[d];
+        int ny = y + dy[d];
+        if (nx >= N || ny >= N || nx < 0 || ny < 0 || board[nx][ny] == 2)
+            break; // 뱀의 이동이 맵을 벗어나거나 몸통에 닿을 때
+        else if (!board[nx][ny])
+        {//사과가 없을 때 - 맵은 0
+            board[nx][ny] = 2;
+            board[q.back().first][q.back().second] = 0;
+            q.pop_back(); // 꼬리의 이동
+            q.push_front({ nx,ny }); //머리의 이동
+        }
+        else if (board[nx][ny])
+        {//사과를 먹을 떄 - 맵은 1
+            board[nx][ny] = 0;
+            q.push_front({ nx,ny });
+        }
+        if(move_arr[time] == 'L' || move_arr[time] == 'D') 
+            d = move(d, move_arr[time]);//뱀의 방향전환
+        x = nx;
+        y = ny;
+    }
+    cout << time;
+}
+
+```
 
 ```C++
 2021/07/28
