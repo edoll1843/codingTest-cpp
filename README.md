@@ -344,6 +344,25 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/08/12
+1427번 문자열
+숫자 N이 주어지면 각 자리수를 내림차순으로 정렬한다.
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    string str;
+    cin >> str;
+    sort(str.begin(), str.end(),less<>);
+    cout << str;
+}
+```
+
+```C++
 2021/08/04
 3190번 구현(시뮬,디큐) 
 게임 snake를 구현하는 문제이다.
