@@ -345,6 +345,49 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 2021/08/12
+1764번 문자열
+A의 명단과 B의 명단이 주어졌을 떄
+겹치는 이름을 사전순으로(오름차순) 출력한다.
+
+set을 사용했다. 오름차순과 중복된 부분을 찾는 것은 set이 효율적이라 생각했다.
+A를 입력받고 B를 입력 받을 떄 A에 find함수를 사용하여 중복여부를 체크하고다른 set에 넣어줌으로서
+정렬역시 할 필요없게 되었다. 
+#include <iostream>
+#include <set>
+#include <algorithm>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+    set<string>s;
+    set<string>answer;
+    for (int i = 0; i < n; i++)
+    {
+        string str;
+        cin >> str;
+        s.insert(str);
+    }
+    for (int i = 0; i < m; i++)
+    {
+        string str;
+        cin >> str;
+        if (s.find(str) != s.end())
+            answer.insert(str);
+    }
+    cout << answer.size() << '\n';
+    for (auto i : answer)
+        cout << i << '\n';
+}
+
+```
+
+```C++
+2021/08/12
 1427번 문자열
 숫자 N이 주어지면 각 자리수를 내림차순으로 정렬한다.
 
