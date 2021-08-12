@@ -63,6 +63,25 @@ while(str >> str_cut)					<--- 반복적으로 자를 수 있다 str_cut은 값�
 # string
 ```C++
 
+bool cmp(string a, string b)
+{// <는 오른쪽으로 갈수록 커진다. 즉 , 오름차순. >는 반대로 내림차순
+	return a <b;
+}
+bool cmp(pair<int,int>a,pair<int,int>b)
+{// a와 b가 둘다 첫번쨰가 같다면 뒤에 것을 기준으로 오름차순한다.
+	if(a.first == b. first)
+		return a.second<b.second;
+	else//첫번째가 같지 않다면 첫번쨰 기준으로 오름차순한다. 반대도 가능함
+		return a.first < b.first;
+}
+bool cmp(string a , string b)
+{// 특정 문자를 기준으로 정렬할 수도 있다. a[j]b[j]가 같다면 사전순으로 정렬(오름차순)
+	if(a[j] == b[j])
+		return a<b;
+	else// 같지 않으면 오름차순
+	return a[j] < b {j};
+}
+
 #include <string>
 
 string str;
