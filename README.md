@@ -344,6 +344,41 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/08/16
+2164번 큐
+
+#include <iostream>
+#include <deque>
+
+using namespace std;
+
+int main()
+{
+    deque <int>dq;
+
+    int n = 0;
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        dq.push_front(i);
+    }
+    while (!dq.empty())
+    {
+        if (dq.size() == 1)
+        {
+            cout << dq.front();
+            break;
+        }
+        dq.pop_back();
+        int top = dq.back();
+        dq.pop_back();
+        dq.push_front(top);
+    }
+}
+
+```
+
+```C++
 2021/08/12
 1764번 문자열
 A의 명단과 B의 명단이 주어졌을 떄
