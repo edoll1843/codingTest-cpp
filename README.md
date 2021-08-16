@@ -342,6 +342,67 @@ cin 대신 scanf를 습관화하자
 
 
 # 백준
+```C++
+2021/08/16
+2468번 dfs
+장마철에 대비해서 다음과 같은일을 게획하고 있다. 어떤 지역의 높이 정보를 파악한다. 
+각 높이에 따른 비가 왔을 떄 지역이 비높이 이하면 잠긴다고 하고 대각선일 경우를 
+제외하고 좌우양옆으로 잠기지 않으면 그 지역은 하나라고 볼떄
+모든 높이의 물이 찼을 떄 안전한 구역의 최대값을 구하는 문제이다. 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+using namespace std;
+
+
+int n;
+int board[101][101];
+bool visit[101][101];
+int dx[4] = { 0,0,1,-1 };
+int dy[4] = { 1,-1,0,0 };
+int max_count = 0;
+void dfs(int high, int x, int y) {
+   
+    visit[x][y] = true;
+    for (int i = 0; i < 4; i++){
+        int nx = dx[i] + x;
+        int ny = dy[i] + y;
+        if (nx < 0 || nx >= n || ny < 0 || ny >= n)
+            continue;
+        if (!visit[nx][ny] && board[nx][ny] > high)
+            dfs(high, nx, ny);
+    }
+}
+int main() {
+
+	cin >> n;
+	int max_high = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			int high;
+			cin >> high;
+			max_high = max(high, max_high);
+			board[i][j] = high;
+		}
+	}
+	int answer = 0;
+	for (int i = 0; i <= max_high; i++) {
+        for (int j = 0; j < n; j++){
+            for (int h = 0; h < n; h++){
+                if (!visit[j][h] && board[j][h] > i){
+                    dfs(i, j, h);
+                    max_count++;
+                }
+            }
+        }
+		answer = max(max_count, answer);
+        max_count = 0;
+        memset(visit, false, sizeof(visit));
+	}
+	cout << answer;
+}
+```
 
 ```C++
 2021/08/16
