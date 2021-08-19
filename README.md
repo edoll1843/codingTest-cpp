@@ -247,6 +247,7 @@ C++에서는 namespace를 사용하여 자체 namespace를 선언한다.
 
 ## 알고리즘
 ### DFS/BFS
+
 ```C++
 그래프에서 방향성이면 v[x].push_back(y); 한쪽만 해도 되지만
 무방향이면 
@@ -342,6 +343,110 @@ cin 대신 scanf를 습관화하자
 
 
 # 백준
+
+```C++
+2021/08/19
+5430번 AC
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <deque>
+using namespace std;
+
+int T;
+int main()
+{
+    cin >> T;
+    for (int i = 0; i < T; i++)
+    {
+        string com,arr;
+        int arr_size;
+        cin >> com;
+        cin >> arr_size;
+        cin >> arr;
+        deque<int>q;
+        string num;
+        bool error_flag = 0;
+        if (arr_size == 0)
+        {
+            cout << "error" << endl;
+            error_flag = true;
+        }
+        if (error_flag)
+            continue;
+        for (int j = 0; j < arr.size(); j++){
+            if (arr[j] == '[')
+                continue;
+            if (isdigit(arr[j]))
+            {
+                num += arr[j];
+            }
+            else
+            {
+                q.push_back(stoi(num));
+                num = "";
+            }     
+        }
+        int flag = 0;//-->, 1 == <--
+       
+        
+        for (int j = 0; j < com.size(); j++)
+        {
+            if (com[j] == 'R')
+                flag == 0 ? flag = 1 : flag = 0;
+            else
+            {//command == 'D'
+                if (!q.size())
+                {
+                    cout << "error" << endl;
+                    error_flag = true;
+                    break;
+                }
+                if (flag)
+                {// <--
+                    q.pop_back();
+                }
+                else
+                {// -->
+                    q.pop_front();
+                }
+            }
+        }
+        if (error_flag)
+            continue;
+        cout << '[';
+        if (flag)
+        {
+            int qsize = q.size();
+            for (int j = 0; j < qsize; j++)
+            {
+                if (j == qsize - 1)
+                    cout << q.back();
+                else
+                    cout << q.back() << ",";
+                q.pop_back();
+            }
+        }
+        else
+        {
+            int qsize = q.size();
+            for (int j = 0; j < qsize; j++)
+            {
+                if (j == qsize - 1)
+                    cout << q.front();
+                else
+                    cout << q.front() << ",";
+                q.pop_front();
+            }
+        }
+        cout << "]" << endl;
+
+    }
+}
+
+
+```
 ```C++
 2021/08/16
 2468번 dfs
