@@ -345,6 +345,99 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/08/22 +ADD
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <deque>
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+
+	int T;
+	cin >> T;
+	for (int i = 0; i < T; i++)
+	{
+		string com, arr;
+		int arr_size;
+		cin >> com >> arr_size >> arr;
+
+		deque<int>q;
+		string num;
+		for (int j = 0; j < arr.length(); j++) {
+			if (arr[j] == '[')
+				continue;
+			if (isdigit(arr[j]))
+				num += arr[j];
+			else
+			{
+				if (!num.empty())
+				{
+					q.push_back(stoi(num));
+					num = "";
+				}
+			}
+		}
+		bool flag = true;//-->, 1 == <--
+		bool error_flag = true;
+		for (int j = 0; j < com.length(); j++)
+		{
+			if (com[j] == 'R')
+				flag = !flag;
+			else
+			{//command == 'D'
+				if (q.empty())
+				{
+					error_flag = false;
+					cout << "error" << endl;
+					break;
+				}
+				else
+					flag ? q.pop_front() : q.pop_back();
+			}
+		}
+		if (error_flag)
+		{
+			if (flag)
+			{
+				cout << '[';
+				int qsize = q.size();
+				for (int j = 0; j < qsize; j++)
+				{
+					if (j == qsize - 1)
+						cout << q.front();
+					else
+						cout << q.front() << ",";
+					q.pop_front();
+				}
+			}
+			else
+			{
+				cout << '[';
+				int qsize = q.size();
+				for (int j = 0; j < qsize; j++)
+				{
+					if (j == qsize - 1)
+						cout << q.back();
+					else
+						cout << q.back() << ",";
+					q.pop_back();
+				}
+			}
+			cout << "]" << endl;
+		}
+	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
 2021/08/19
 5430번 AC
 #include <iostream>
