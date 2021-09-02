@@ -345,6 +345,62 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+2021/09/02
+1120번 문자열
+이 문제는 a와 b문자열의 차이를 최소화 하는 문제다.
+a문자열은 b문자열보다 길이가 같거나 작다
+이때 a문자열에 앞이나 뒤에 아무 문자를 추가할 떄 둘의 차이가 가장 적은 경우를 반환하는 문제다.
+처음엔 deque를 사용해서 풀까 생각했다. 하지만 머리속으로 그려보니
+결국 처음 a문자열과 b문자열의 차이가 가장 적은 구간을 찾는 것이 문제였다. 사실 pair까지 쓸 필요도 없고 int로 반환하여 출력하면 끝인 문제이다.
+#include <iostream>
+#include <string>
+#include <vector>
+#include <set>
+#include <utility>
+#define MAX 51
+using namespace std;
+//19:40 ~ 08:17
+
+pair<int, int> cmp(string a, string b)
+{
+	int answer = MAX;
+	int index = 0;
+	for (int i = 0; i < b.length(); i++)
+	{
+		int num = 0;
+        if (a.length() > b.length())
+            return { index,answer };
+		for (int j = i; j < a.length(); j++)
+		{
+			
+            if (a[j] == '!')
+                continue;
+			if (b[j] != a[j])
+				num++;
+		}
+		if (answer > num)
+		{
+			answer = num;
+			index = i;
+		}
+        a.insert(0, "!");
+	}
+	return { index,answer };
+}
+int main()
+{
+	string a, b;
+	cin >> a >> b;
+	pair<int, int> p;
+
+	p = cmp(a, b);
+	int index = p.first;
+	int count = p.second;
+    cout << count;
+}
+```
+
+```C++
 2021/08/22 +ADD
 
 #include <iostream>
