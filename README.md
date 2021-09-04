@@ -346,6 +346,60 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+    2021/09/04
+    5052번 전화번호 목록
+    골드4
+    이 문제는 주어진 여러개 전화번호 중에
+    서로 포함되는 전화번호가 있으면 NO를
+    없으면 YES를 출력하는 문제이다.
+    string find를 사용하여 문제를 해결하려 했지만 시간초과가 떴다.
+    반복문을 줄이는 방법을 생각해봐야겠다.
+*/
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+//16:10 ~
+
+int T;
+int main()
+{
+    cin >> T;
+    
+    for (int i = 0; i < T; i++)
+    {
+        int num_count;
+        cin >> num_count;
+        vector<string>s;
+        int flag = 0;
+        for (int j = 0; j < num_count; j++)
+        {
+            string str;
+            cin >> str;
+            s.push_back(str);
+        }
+        for (int j = 0; j < s.size(); j++)
+        {
+            for (int h = j + 1; h < s.size(); h++)
+            {
+                if(!s[h].find(s[j]))
+                    flag = 1;
+             //   if (find(s[h].begin(), s[h].end(), s[j]) == s[h].end())
+                    
+            }
+        }
+        if (flag == 1)
+            cout << "NO" << endl;
+        else
+            cout << "YES" << endl;
+    }
+}
+
+```
+
+```C++
+/*
 2021/09/04
 10610번 30
 이 문제는 간단한 문자열 문제다.
