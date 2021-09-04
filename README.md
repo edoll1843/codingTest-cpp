@@ -345,6 +345,54 @@ cin 대신 scanf를 습관화하자
 # 백준
 
 ```C++
+/*
+2021/09/04
+10610번 30
+이 문제는 간단한 문자열 문제다.
+주어진 문자열이 30의 배수가 되는지 확인하고
+30의 배수일경우 문자를 조합하여 가장 큰 수를 출력하는 문제다.
+각 자리수를 더했을 떄 3의 배수이면 그 수는 3의 배수 인 것을 이용하여 풀었다.
+하지만 3이 아닌 30의 배수를 만들어야하기에
+0이 포함이 안된다면 무조건 -1을 출력한다.
+*/
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+//15:29 ~15:39  = 10분
+using namespace std;
+
+bool cmp(char a, char b)
+{
+    if (a > b)
+        return true;
+    return false;
+}
+int main()
+{
+    string str;
+    cin >> str;
+    long long int check = 0;
+    int answer = 0;
+    bool zero = false;
+    string tmp;
+    for (int i = 0; i < str.size(); i++)
+    {
+        if (str[i] == '0')
+            zero = true;
+        check += (str[i] - '0');
+    }
+    if (check % 3 != 0 || zero == false)
+        cout << -1;
+    else
+    {
+        sort(str.begin(), str.end(), cmp);
+        cout << str;
+    }
+}
+
+```
+```C++
 2021/09/02
 1120번 문자열
 이 문제는 a와 b문자열의 차이를 최소화 하는 문제다.
