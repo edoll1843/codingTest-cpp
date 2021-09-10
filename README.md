@@ -347,6 +347,60 @@ cin 대신 scanf를 습관화하자
 ```C++
 /*
 2021/09/10
+17413번 문자열
+단어뒤집기2 실버3
+17:50 ~ 18:14 = 24분
+*/
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+string str;
+int main()
+{
+    getline(cin, str);
+    string tmp;
+    bool flag = false;
+    string answer;
+    for (int i = 0; i < str.length(); i++)
+    {
+        
+        if (str[i] == '<' || str[i] == ' ')
+        {
+            if(str[i] == '<')
+                flag = true;
+            reverse(tmp.begin(), tmp.end());
+            answer += tmp;
+            answer += str[i];
+            tmp = "";
+        }
+        else if (str[i] == '>')
+        {
+            flag = false;
+            answer += str[i];
+        }
+        else
+        {
+            if (flag) {
+                answer += str[i];
+                continue;
+            }
+            else
+            {
+                tmp += str[i];
+            }
+        }
+    }
+    reverse(tmp.begin(), tmp.end());
+    answer += tmp;
+    cout << answer;
+}
+```
+```C++
+/*
+2021/09/10
 11656번 문자열
 접미사 배열 실버4
 
