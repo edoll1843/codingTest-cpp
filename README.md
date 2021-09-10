@@ -346,6 +346,41 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/10
+11656번 문자열
+접미사 배열 실버4
+
+접미사 배열은 문자열 S의 모든 접미사를 사전순으로 정렬해 놓은 배열이다.
+문자열이 주어졌을 때 모든 접미사를 사전수으로 정렬한 다음 출력하라.
+*/
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+vector<string> v;
+string str;
+
+int main()
+{
+    cin >> str;
+    for (int i = 0; i < str.length(); i++)
+    {
+        string tmp;
+        for (int j = i; j < str.length(); j++)
+        {
+            tmp += str[j];
+        }
+        v.push_back(tmp);
+    }
+    sort(v.begin(), v.end());
+    for (auto i : v)
+        cout << i << endl;
+}
+```
+
+```C++
+/*
     2021/09/04
     5052번 전화번호 목록
     골드4
