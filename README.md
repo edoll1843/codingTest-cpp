@@ -1,3 +1,8 @@
+# alias쓸거면 namespace std;다음줄에 쓰자!!!!!!
+```C++
+using pii = pair<int,int>;
+typedef pii = pair<int,int>;
+```
 
 # limits / limits.h
 ```C++
