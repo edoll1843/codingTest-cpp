@@ -346,6 +346,75 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/12
+1197번 최소스패닝트리
+골드4 최소스패닝트리
+
+전체적인 구조는 bfs와 다익스트라와 비슷하다
+우선순위 큐로 최소한의 비용을 바로바로 알수있다.
+*/
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <queue>
+//1:35
+using namespace std;
+using pii = pair<long long int, int>; 
+
+int v, e;
+vector<pii>board[10001];
+bool visit[10001];
+long long int cost = 0;
+
+
+void prime()
+{
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({ 0,1 });
+   
+    while (!pq.empty())
+    {
+        long long int w = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        if (visit[node])
+            continue;
+        visit[node] = true;
+        cost += w;
+
+        for (int i = 0; i < board[node].size(); i++)
+        {
+            long long int nw = board[node][i].first;
+            int n_node = board[node][i].second;
+
+            if (!visit[n_node])
+                pq.push({ nw,n_node });
+        }
+    }
+}
+int main()
+{
+   // ios_base::sync_with_stdio(false); cin.tie(NULL);
+    cin >> v >> e;
+
+    for (int i = 0; i < e; i++)
+    {
+        int to, from;
+        long long int weight;
+        cin >> to >> from >> weight;
+        board[to].push_back({ weight,from });
+        board[from].push_back({ weight,to });
+    }
+    prime();
+    
+    cout << cost;
+}
+
+```
+```C++
+/*
 2021/09/10
 17413번 문자열
 단어뒤집기2 실버3
