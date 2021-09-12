@@ -355,6 +355,55 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/12
+1003번 dp
+피보나치 함수 실버3
+
+시간 제한이 0.25초이기 때문에
+dp로 풀어야한다고 생각했다.
+*/
+#include <iostream>
+using namespace std;
+int dp[50];
+int fibo(int n)
+{
+    if (n == 0)
+        return 0;
+    else if (n == 1)
+        return 1;
+
+    if (dp[n] == 0)
+        dp[n] = fibo(n - 1) + fibo(n - 2);
+    return dp[n];
+}
+int main()
+{
+    dp[0] = 0;
+    dp[1] = 1;
+    int t = 0;
+    cin >> t;
+    for (int i = 0; i < t; i++)
+    {
+      
+        int tmp;
+        cin >> tmp;
+        if (tmp == 0)
+            cout << 1 << " " << 0 << endl;
+        else if (tmp == 1)
+            cout << 0 << " " << 1 << endl;
+        else
+        { 
+            cout << fibo(tmp - 1) << " " << fibo(tmp) << endl;
+ 
+        }
+    }
+}
+
+
+
+```
+```C++
+/*
 2021/09/12 
 1922번 네트워크 연결
 골드4 MST
