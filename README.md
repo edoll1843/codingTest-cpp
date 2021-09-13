@@ -355,6 +355,86 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/14 프로그래머스
+가장 먼 노드 (그래프) 레벨3
+n개의 노드가 있는 그래프가 있다.
+각 노드는 1부터 n까지 번호가 있다.
+1번 노드에서 가장 멀리 떨어진 노드란 최단경로로
+이동 했을 떄 간선의 개수가 가장 많은 노드들을 의미한다.
+이때 1번 노드에서 가장 벌리 떨어진 노드의 개수를 반환한다.
+
+문제를 보자마자 다익스트라가 떠올랐다.
+노드간의 비용을 1로 통일하여
+가장 멀리 떨어진 노드를 구하고 
+cost배열에서 max값을 가진 index의 개수를 구해서 풀었다.
+*/
+#include <string>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits.h>
+using namespace std;
+using pii = pair<int, int>;
+#define INF INT_MAX 
+
+vector<pii>board[20001];
+int cost[20001];
+int answer = 0;
+int max_cost;
+int as;
+void dijkstra()
+{
+    priority_queue<pii, vector<pii>, greater<pii>>pq;
+    cost[1] = 0;
+    pq.push({ 0,1 });
+
+    while (!pq.empty())
+    {
+        int w = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+        if (max_cost < w)
+            max_cost = w;
+        for (int i = 0; i < board[node].size(); i++)
+        {
+            int nw = board[node][i].first;
+            int nnode = board[node][i].second;
+
+            if (nw + w < cost[nnode])
+            {
+                cost[nnode] = nw + w;
+                pq.push({ cost[nnode],nnode });
+            }
+        }
+    }
+}
+int solution(int n, vector<vector<int>> edge) {
+
+    as = n;
+    for (int i = 1; i <= n; i++)
+        cost[i] = INF;
+    for (int i = 0; i < edge.size(); i++)
+    {
+        board[edge[i][0]].push_back({ 1,edge[i][1] });
+        board[edge[i][1]].push_back({ 1,edge[i][0] });
+    }
+
+    dijkstra();
+    for (int i = 2; i <= n; i++)
+    {
+        if (max_cost == cost[i])
+            answer++;
+    }
+    return answer;
+}
+int main()
+{
+    int a = solution(6, { {3, 6} ,{4, 3},{3, 2},{1, 3},{1, 2},{2, 4},{5, 2} });
+    cout << a;
+}
+```
+```C++
+/*
 2021/09/13
 11726번 dp
 2xn타일링 실버3
