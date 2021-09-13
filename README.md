@@ -356,6 +356,60 @@ cin 대신 scanf를 습관화하자
 ```C++
 /*
 2021/09/13
+9095번 dp
+1,2,3 더하기 실버3
+
+dp문제로
+1로 시작하여 만들 수 있는 개수는 4
+2는 2개, 3은 1개로 놓고
+dp[1] = 4, dp[2] = 2, dp[3] = 1로 놓고 했을 땐 틀렸다.
+
+1을 만드는 경우의 수는 1가지,
+2는 2가지
+3은 4가지의 경우의 수를 갖는 것으로 시작하여  top-down으로풀었다
+즉, dp[1] = 1, dp[2] = 2, dp[3] = 4
+초기값을 잡는 것이 중요한 것 같다.
+*/
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int T;
+
+int dp[12];
+int dipr(int n)
+{
+    if (n == 1)
+        return 1;
+    else if (n == 2)
+        return 2;
+    else if (n == 3)
+        return 4;
+
+    if (dp[n] == 0)
+        dp[n] = dipr(n - 1) + dipr(n - 2) + dipr(n - 3);
+    
+    return dp[n];
+}
+int main()
+{
+    cin >> T;
+ 
+    for (int i = 0; i < T; i++)
+    {
+        int n;
+        cin >> n;
+        
+        cout << dipr(n) << endl;
+    }
+}
+```
+
+```C++
+/*
+2021/09/13
 1647번 MST
 도시 분할 계획 골드4
 
