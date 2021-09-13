@@ -356,6 +356,40 @@ cin 대신 scanf를 습관화하자
 ```C++
 /*
 2021/09/13
+11726번 dp
+2xn타일링 실버3
+dp를 이용하여 풀었다.
+다만 값이 너무 크기때문에  10007을 나눠서 정답을 제출했다.
+모듈러 연산의 속성을 이용하여 매번 계산을 할 떄마다
+10007을 나눴다.
+*/
+#include <iostream>
+using namespace std;
+long long dp[1001];
+int n;
+
+int func(int m)
+{
+    if (m == 1)
+        return 1;
+    if (m == 2)
+        return 2;
+    if (dp[m] == 0)
+        dp[m] = (func(m - 1) + func(m - 2))%10007;
+    return dp[m];
+}
+int main()
+{
+    cin >> n;
+    dp[1] = 1;
+    dp[2] = 2;
+
+    cout << func(n);
+}
+```
+```C++
+/*
+2021/09/13
 9095번 dp
 1,2,3 더하기 실버3
 
