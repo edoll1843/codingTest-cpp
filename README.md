@@ -355,6 +355,75 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/13
+1647번 MST
+도시 분할 계획 골드4
+
+프림알고리즘으로 구현했지만 한가지 조건이 붙은 문제였다.
+MST를 두개로 나누는 것인데 그 중 하나는 노드가 하나만 있어도
+된다. 직접 그려서 눈으로 비교하니 MST특성상 가장 큰 cost를
+가지는 엣지를 지우면 두개의 tree가 만들어 진다.
+max_cost를 선언하여 cost를 더할 때마다 가장 큰 수를 가지고 있다가
+마지막에 빼는 식으로 풀었다.
+*/
+
+//n개 노드 M개 엣지 무방향
+
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+using pii = pair<int, int>;
+vector<pii> board[100001];
+bool visit[100001];
+int n, m;
+int answer;
+int max_cost;
+void prime()
+{
+ 
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({ 0,1 });
+   
+    while (!pq.empty())
+    {
+        int cost = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+        if (visit[node])
+            continue;
+        answer += cost;
+        if (max_cost < cost)
+            max_cost = cost;
+        visit[node] = true;
+        for (int i = 0; i < board[node].size(); i++)
+        {
+            int n_cost = board[node][i].first;
+            int n_node = board[node][i].second;
+
+            if (!visit[n_node])
+                pq.push({ n_cost, n_node });
+        }
+    }
+}
+int main()
+{
+    cin >> n >> m;
+    for (int i = 0; i < m; i++)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        board[a].push_back({ c,b });
+        board[b].push_back({ c,a });
+    }
+    prime();
+    cout << answer- max_cost;
+}
+```
+
+```C++
+/*
 2021/09/12
 1003번 dp
 피보나치 함수 실버3
