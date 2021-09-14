@@ -355,6 +355,68 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/14
+2579번 dp
+계단 오르기 실버3
+
+dp문제로 계단 아래 시작점부터 꼭대기에 위치한 도착점까지 가는 게임이다.
+각 계단을 밟으면 해당 계단의 점수를 획득하고 최대값을 반환하는 문제다.
+이때 
+1. 게단은 한칸 혹은 두칸씩 오를 수 있다. 
+2. 이때 연속된3개의 계단을 모두 밟으면 안된다.
+3. 시작점은 계단에 포함되지 않는다.arr[0]은 미포함
+4. 마지막 계단(도착점)은 무조건 밟아야한다. 
+
+arr[] 배열은 계단의 값을 저장, dp_arr[]은 index층까지의 최대 값을 저장
+dp[1] = arr[1] // 1번 계단 까지의 최대값은 1번계단
+dp[2] = arr[1] + arr[2] // 2번 계단까지는 1번과 2번을 더했을 떄의 최대값
+dp[3] = max(arr[1] + arr[3], arr[2]+arr[3])
+3번 계단은 1번+3번 계단과 2번계단 + 3번계단 중 큰 값이 최대값이다.
+4번 계단의 최대값은
+1-2-4 혹은 1-3-4가 될수 있다.
+이때 1-2는 2번계단의 최대값과 같기 때문에 치환해준다.
+결국 dp[4] = max(dp[4-2] + arr[4] , dp[1] + arr[3] + arr[4])가 된다. 이를 N으로
+표현하면
+dp[N] = max(dp[N-2] + arr[N], dp[N-3] + arr[N-1],arr[N])가 되겠다.
+*/
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int dp_arr[301];
+int arr[301];
+int state_count;
+
+void dp()
+{
+    for (int i = 4; i <= state_count; i++)
+    {
+        dp_arr[i] = max(dp_arr[i - 2] + arr[i], dp_arr[i - 3] + arr[i - 1] + arr[i]);
+    }
+}
+int main( )
+{
+    cin >> state_count;
+    for (int i = 1; i <= state_count; i++)
+    {
+        int state;
+        cin >> state;
+        arr[i] = state;
+    }
+    dp_arr[1] = arr[1];
+    dp_arr[2] = arr[1] + arr[2];
+    dp_arr[3] = max(arr[1] + arr[3], arr[2] + arr[3]);
+    if (state_count < 4)
+        cout << dp_arr[state_count];
+    else
+    {
+        dp();
+        cout << dp_arr[state_count];
+    }   
+}
+```
+
+```C++
+/*
 2021/09/14 프로그래머스
 가장 먼 노드 (그래프) 레벨3
 n개의 노드가 있는 그래프가 있다.
