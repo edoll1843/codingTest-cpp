@@ -356,6 +356,49 @@ cin 대신 scanf를 습관화하자
 ```C++
 /*
 2021/09/14
+11053번 가장 긴 증가하는 부분 수열
+dp 실버2
+*/
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int N;
+int dp[1001];
+int arr[1001];
+int answer;
+void func()
+{
+    for (int i = 0; i < N; i++)
+    {
+        dp[i] = 1;
+        for (int j = 0; j < N; j++)
+        {
+            if (arr[i] > arr[j])
+            {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+        answer = max(answer, dp[i]);
+    }
+}
+int main()
+{
+    cin >> N;
+    for (int i = 0; i < N; i++)
+    {
+        int tmp;
+        cin >> tmp;
+        arr[i] = tmp;
+    }
+    func();
+    cout << answer;
+}
+```
+```C++
+/*
+2021/09/14
 2579번 dp
 계단 오르기 실버3
 
