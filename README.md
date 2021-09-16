@@ -208,13 +208,40 @@ multiset <자료형> 변수			  <--- 중복이 허용되며 오름차순으로 �
 # map
 ```C++
 #include <map>
-map <자료형, 자료형> 변수			<--- map은 중복이 안된다.자동 정렬된다 pair형식으로 저장한다. key,값 이런 구조에 유용하다.
+map <key, value> 변수			<--- map은 중복이 안된다.자동 정렬된다 pair형식으로 저장한다. key,값 이런 구조에 유용하다.
 multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 정렬된다.
 변수.insert(pair<자료형,자료형>(값,값))	      <--- map/multimap의 삽입.
 변수.begin()
 변수.end()
 변수.first
 변수.second
+
+ !!!!맵의 중복 체크와 데이터 삽입!!!!
+ map<int,int>m;				<-- 맵 선언
+ map<int, int>::iterator it;		<-- iterator 선언
+    for (int i = 0; i < v.size(); i++)	<-- 키값을 찾고 없으면 추가
+    {
+        it = m.find(v[i]);		<-- find로 키값의 유무 확인
+        if (it == m.end())		<-- key값이 없으면
+            m.insert({ v[i],1 });	<-- insert(pair<int,int>)로 추가
+        else
+            it->second++;		<-- 키값이 이미 들어갔다면 value를 늘린다.
+    }
+
+
+bool cmp(pair<int, int> a,  pair<int, int> b) {
+    if (a.second == b.second) 			<--- value가 같으면
+        return a.first < b.first;		<--- 키값을 기준으로 오름차순
+    return a.second > b.second;			<--- value가 다르면 value 오름차순
+}
+!!!!map의 value를 기준으로 정렬, 만약 value가 같으면 key값의 오름차순!!!!
+ vector<pair<int, int>> vec(m.begin(), m.end()); 
+ sort(vec.begin(), vec.end(), cmp);		<--- map의 정렬은 vector에 담아 정렬해야한다.
+
+ if(vec.size() == 1||vec[0].second != vec[1].second)
+     return  vec[0].first;
+ return vec[1].first;
+    
 ```
 # 기타
 ```C++
