@@ -356,6 +356,55 @@ cin 대신 scanf를 습관화하자
 ```C++
 /*
 2021/09/16
+11866번 구현
+오세푸스 문제0 실버4
+*/
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+using namespace std;
+
+int n, k;
+string answer;
+int main()
+{
+    //456712
+
+    cin >> n >> k;
+
+    queue<int>q;
+    answer = '<';
+    for (int i = 1; i <= n; i++)
+        q.push(i);
+    int count = 0;
+    while (!q.empty())
+    {
+        count++;
+        if (count == k)
+        {
+            
+            answer += to_string(q.front());
+            q.pop();
+            if (q.size())
+                answer += ", ";
+            count = 0;
+        }
+        else
+        {
+            int tmp = q.front();
+            q.push(tmp);
+            q.pop();
+        }
+        
+    }
+    answer += '>';
+    cout << answer;
+}
+```
+```C++
+/*
+2021/09/16
 10250번 구현
 ACM호텔 브론즈3
 */
