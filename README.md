@@ -216,6 +216,9 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
 변수.first
 변수.second
 
+
+
+
  !!!!맵의 중복 체크와 데이터 삽입!!!!
  map<int,int>m;				<-- 맵 선언
  map<int, int>::iterator it;		<-- iterator 선언
@@ -228,6 +231,8 @@ multimap<자료형,자료형> 변수			<--- multimap은 중복이 되며 자동 
             it->second++;		<-- 키값이 이미 들어갔다면 value를 늘린다.
     }
 
+!!!!map의 반복문 iterator를 사용!!!!
+for(it = m.begin(); it != m.end(); it++)
 
 bool cmp(pair<int, int> a,  pair<int, int> b) {
     if (a.second == b.second) 			<--- value가 같으면
