@@ -356,6 +356,89 @@ cin 대신 scanf를 습관화하자
 ```C++
 /*
 2021/09/16
+2108번 구현
+통계학 실버4
+
+정수의 배열을 주고 다음과 같은 연산을 통해 각 값을 도출하는 문제
+1. N개의 수들의 합을 N으로 나눈값, 다 더하고 N으로 나눴다.
+2. N개의 수들을 오름차순으로 정렬 후 그 중앙 인덱스에 해당하는 값 반환
+3. N개의 수들 중 가장 많이 나타나는 값, 3번이 가장 많은 시간이 걸렸다.
+포문으로 풀 수 도있지만 map을 활용했다.
+4. N개의 수들 중 최대값과 최솟값의 차이, max_element, min_element를 사용
+*/
+#include<iostream>
+#include <map>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <math.h>
+using namespace std;
+
+int N;
+
+int func1(vector<int>v)
+{
+    int sum = 0;
+    for (auto i : v)
+        sum += i;
+    return round(double(sum) / N);
+}
+int func2(vector<int>v)
+{
+    sort(v.begin(), v.end());
+    return v[v.size() / 2];
+}
+bool cmp(pair<int, int> a,  pair<int, int> b) {
+    if (a.second == b.second) 
+        return a.first < b.first;
+    return a.second > b.second;
+}
+int func3(vector<int>v)
+{
+    map<int,int>m;
+    map<int, int>::iterator it;
+    for (int i = 0; i < v.size(); i++)
+    {
+        it = m.find(v[i]);
+        if (it == m.end())
+            m.insert({ v[i],1 });
+        else
+            it->second++;
+    }
+    vector<pair<int, int>> vec(m.begin(), m.end());
+    sort(vec.begin(), vec.end(), cmp);
+
+    if(vec.size() == 1||vec[0].second != vec[1].second)
+        return  vec[0].first;
+    return vec[1].first;
+   
+}
+int func4(vector<int>v)
+{
+    auto m = max_element(v.begin(), v.end()) - v.begin();
+    auto s = min_element(v.begin(), v.end()) - v.begin();
+    return abs(v[m] - v[s]);
+}
+int main()
+{
+    cin >> N;
+    vector<int>v;
+    for (int i = 0; i < N; i++)
+    {
+        int num;
+        cin >> num;
+        v.push_back(num);
+    }
+ 
+    cout << func1(v) << '\n';
+    cout << func2(v) << '\n';
+    cout << func3(v) << '\n';
+    cout << func4(v) << '\n';
+}
+```
+```C++
+/*
+2021/09/16
 11866번 구현
 오세푸스 문제0 실버4
 */
