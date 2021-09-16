@@ -355,6 +355,50 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/16
+10250번 구현
+ACM호텔 브론즈3
+*/
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int t;
+int main()
+{
+    cin >> t;
+
+    for (int i = 0; i < t; i++)
+    {
+        int h, w, n;
+        string str;
+        cin >> h >> w >> n;
+        int count =0;
+        for (int j = 1; j <= w; j++)
+        {
+            for (int k = 1; k <= h; k++)
+            {
+                count++;
+                if (count == n)
+                {
+                    str += to_string(k);
+                    if (j < 10)
+                    {
+                        str += '0';
+                    }
+                    str += to_string(j);
+                    break;
+                }
+                
+            }
+        }
+        cout << str << '\n';
+    }
+}
+```
+```C++
+/*
 2021/09/14
 11053번 가장 긴 증가하는 부분 수열
 dp 실버2
