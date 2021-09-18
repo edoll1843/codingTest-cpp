@@ -387,6 +387,54 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/18
+1697번 구현
+숨바꼭질 실버1
+
+*/
+#include <iostream>
+#include <vector>
+#include <queue>
+#define MAX 100001
+using namespace std;
+using pii = pair<int, int>;
+bool visit[MAX];
+int board[MAX];
+int n, k;
+int bfs()
+{
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({ 0,n });
+    while (!pq.empty())
+    {
+        int cost = pq.top().first;
+        int subin = pq.top().second;
+
+        pq.pop();
+        visit[subin] = true;
+        if (subin == k)
+            return cost;
+
+        int subin_left = subin - 1;
+        int subin_right = subin + 1;
+        int subin_double = subin * 2;
+        if (subin_left >= 0 && subin_left < MAX && !visit[subin_left])
+            pq.push({ cost + 1,subin_left });
+        if (subin_right >= 0 && subin_right < MAX && !visit[subin_right])
+            pq.push({ cost + 1,subin_right });
+        if (subin_double >= 0 && subin_double < MAX && !visit[subin_double])
+            pq.push({ cost + 1, subin_double });
+
+    }
+}
+int main()
+{
+    cin >> n >> k;
+    cout << bfs();
+}
+```
+```C++
+/*
 2021/09/16
 2108번 구현
 통계학 실버4
@@ -469,6 +517,8 @@ int main()
 }
 ```
 ```C++
+
+
 /*
 2021/09/16
 11866번 구현
