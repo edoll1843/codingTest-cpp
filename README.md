@@ -387,6 +387,106 @@ cin 대신 scanf를 습관화하자
 
 ```C++
 /*
+2021/09/22
+14502번 연구소
+dfs/bfs 골드5
+생각 보다 시간제한이 혜자다.
+*/
+#include <iostream>
+#include <vector>
+#include <queue>
+#define MAX 9
+using namespace std;
+using pii = pair<int, int>;
+// 17:20~ 18:37 1차 시간 초과인줄 알았는데 맞았음
+int board[MAX][MAX];
+int board_cpy[MAX][MAX];
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+int n, m, answer;
+bool visit[MAX][MAX];
+vector<pii>virus;
+void bfs()
+{
+    queue<pii>q;
+    
+    for (int i = 0; i < virus.size(); i++){
+        int virus_x = virus[i].first;
+        int virus_y = virus[i].second;
+        q.push({virus_x,virus_y });
+    }
+    while (!q.empty()){
+        int x = q.front().first;
+        int y = q.front().second;
+
+        q.pop();
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx < 0 || nx >= n || ny < 0 || ny >= m)
+                continue;
+            if (!board_cpy[nx][ny])
+            {
+                board_cpy[nx][ny] = 3;
+                q.push({ nx,ny });
+            }
+        }
+    }
+    int safe_count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (!board_cpy[i][j])
+                safe_count++;
+        }
+    }
+    answer = max(answer, safe_count);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (board_cpy[i][j] == 3)
+                board_cpy[i][j] = 0;
+        }
+    }
+}
+void make_wall(int cnt)
+{
+    if (cnt == 3)
+        bfs();
+    else{
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if (!board_cpy[i][j]){
+                    board_cpy[i][j] = 1;
+                    make_wall(cnt + 1);
+                    board_cpy[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    cin >> n >> m;
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            int num;
+            cin >> num;
+            board[i][j] = num;
+            board_cpy[i][j] = num;
+            if (num == 2)
+                virus.push_back({i,j});
+        }
+    }
+    make_wall(0);
+    cout << answer;
+}
+```
+```C++
+/*
 2021/09/18
 1697번 구현
 숨바꼭질 실버1
