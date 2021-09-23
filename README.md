@@ -385,6 +385,83 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+
+```C++
+2021/09/23
+11723번 집합
+실버5 구현/ 비트 마스킹
+생각보다 시간과 메모리가 적게 주어진 것을 보니 요소를 직접 대입하는 것보다
+bool형 배열로 체크를 하는 방식이 더 맞을 것 같다.
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+int m; 
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie();
+
+    cin >> m;
+    vector<int>v;
+    vector<int> ::iterator iter;
+  
+    for (int i = 0; i < m; i++)
+    { 
+        string str;
+        int num;   
+        cin >> str;
+        if (str == "add")
+        {
+            cin >> num;
+            iter = find(v.begin(), v.end(), num);
+            if(iter == v.end())
+                v.push_back(num);
+        }
+        else if (str == "remove")
+        {
+            cin >> num;
+            iter = find(v.begin(), v.end(), num);
+            if (iter != v.end())
+                iter = v.erase(iter);
+        }
+        else if (str == "check")
+        {
+            cin >> num;
+            iter = find(v.begin(), v.end(), num);
+            if (iter != v.end()) {
+                //cout << iter - v.begin();
+               cout << 1 << '\n';
+              
+            }
+            else
+                cout << 0 << '\n';
+        }
+        else if (str == "toggle")
+        {
+            cin >> num;
+            iter = find(v.begin(), v.end(), num);
+            if (iter != v.end())
+                iter = v.erase(iter);
+            else
+                v.push_back(num);
+        }
+        else if (str == "all")
+        {
+            v.clear();
+            for (int i = 1; i <= 20; i++)
+                v.push_back(i);
+        }
+        else if (str == "empty")
+        {
+            v.clear();
+        }
+    }
+    
+}
+```
 ```C++
 /*
 2021/09/22
