@@ -390,6 +390,62 @@ cin 대신 scanf를 습관화하자
 2021/09/23
 11723번 집합
 실버5 구현/ 비트 마스킹
+
+2021/09/24 +add
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+cout.tie(NULL);과 bool형 배열을 선언하여 값을 체크하며 풀었다.
+이떄 cin.tie()이 아닌 cin.tie(NULL)으로 NULL값을 넣어줘야 적용된다.
+   
+#include <iostream>
+#include <string>
+#include <memory.h>
+using namespace std;
+int m; 
+bool board[21];
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> m;
+    for (int i = 0; i < m; i++)
+    { 
+        string str;
+        int num;   
+        cin >> str;
+        if (str == "add")
+        {
+            cin >> num;
+            board[num] = true;
+        }
+        else if (str == "remove")
+        {
+            cin >> num;
+            board[num] = false;
+        }
+        else if (str == "check")
+        {
+            cin >> num;
+            board[num] ? cout << 1 << '\n' : cout << 0 << '\n';
+        }
+        else if (str == "toggle")
+        {
+            cin >> num;
+            board[num] = !board[num];
+        }
+        else if (str == "all")
+        {
+            memset(board, true, sizeof(board));
+        }
+        else if (str == "empty")
+        {
+            memset(board, false, sizeof(board));       
+        }
+    }
+}
+
+
 생각보다 시간과 메모리가 적게 주어진 것을 보니 요소를 직접 대입하는 것보다
 bool형 배열로 체크를 하는 방식이 더 맞을 것 같다.
 #include <iostream>
