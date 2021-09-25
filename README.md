@@ -385,7 +385,48 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+```C++
+/*
+2021/09/25
+1543번 문서검색
+실버4
+*/
+#include <iostream>
+#include <string>
+using namespace std;
+string a;
+string b;
+int main()
+{
+    getline(cin, a);
+    getline(cin, b);
+    //b가 더 클경우 예외처리
+    if (a.size() < b.size())
+        cout << 0 << "\n";
+    else {
+        int sum = 0;
+        for (int i = 0; i < a.size() - b.size() + 1; ++i)
+        {
+            bool check = true;
 
+            for (int j = 0; j < b.size(); ++j)
+            {
+                check = true;
+                if (a[i + j] != b[j]) {
+                    check = false;
+                    break;
+                }
+            }
+            if (check) {
+                sum++;
+                i += b.size() - 1;
+            }
+        }
+        cout << sum << "\n";
+    }
+    return 0;
+}
+```
 ```C++
 2021/09/23
 11723번 집합
