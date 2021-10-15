@@ -385,6 +385,63 @@ cin 대신 scanf를 습관화하자
 
 # 백준
 
+
+```C++
+/*
+2021/10/15
+13023번 ABCDE
+골드5 dfs
+친구사이의 네트워크를 구하는 문제로 DFS로 푼다. 연결된 친구 네트워크끼리의 카운트를 세는 문제다.
+여기까진 다른 문제와 흡사하지만 한가지 어려운 부분이 있었다.
+양방향 그래프이기 때문에 자신과 연결된 모든 친구관계를 확인했다면 자신을 통해 다른 친구관계를 확인
+할 수 있도록 자신을 visit했던것을 해제해줘야 돌아간다. dfs함수 마지막에 visit[x] = false가 그 코드다.
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <memory.h>
+using namespace std;
+
+int n, m;
+int answer;
+vector<int>board[2001];
+bool visit[2001];
+
+int dfs(int x,int cnt)
+{
+    if (cnt == 5)
+        return 1;
+    if (visit[x])
+        return 0;
+    visit[x] = true;
+    int answer = 0;
+    for (int i = 0; i < board[x].size(); i++){
+        int nx = board[x][i];
+        int ncnt = cnt + 1;
+        if (!visit[nx])
+            answer = max(answer, dfs(nx, ncnt));
+    }
+    visit[x] = false;
+    return answer;
+}
+int main(){
+
+    cin >> n >> m;
+    for (int i = 0; i < m; i++){
+        int a, b;
+        cin >> a >> b;
+        board[a].push_back(b);
+        board[b].push_back(a);
+    }
+    for (int i = 0; i < n; i++){
+        memset(visit, false, sizeof(visit));
+        answer = max(answer,dfs(i,1));
+    }
+    cout << answer;
+}
+```
+
 ```C++
 /*
 2021/09/25
